@@ -1,0 +1,58 @@
+<!-- 一个元素的尺寸和位置经常受其包含块(containing block)的影响。
+大多数情况下，包含块就是这个元素最近的祖先块元素的内容区，但也不是总是这样。 -->
+
+
+<!-- 
+包含块的影响：
+元素的尺寸及位置，常常会受它的包含块所影响。
+对于一些属性，例如 width, height, padding, margin，绝对定位元素的偏移值 （比如 position 被设置为 absolute 或 fixed），当我们对其赋予百分比值时，这些值的计算值，就是通过元素的包含块计算得来。
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: beige;
+        }
+
+        section {
+            width: 400px;
+            height: 480px;
+            margin: 30px;
+            padding: 15px;
+            background: lightgray;
+        }
+
+        p {
+            position: fixed;
+            width: 50%;
+            /* == (50vw - (width of vertical scrollbar)) */
+            height: 50%;
+            /* == (50vh - (height of horizontal scrollbar)) */
+            margin: 5%;
+            /* == (5vw - (width of vertical scrollbar)) */
+            padding: 5%;
+            /* == (5vw - (width of vertical scrollbar)) */
+            background: cyan;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- section、是块级元素 -->
+    <section>
+        <p>This is a paragraph!</p>
+    </section>
+
+    <!-- 这个示例中，P 元素的 position 为 fixed，
+        所以它的包含块就是初始包含块（在屏幕上，也就是 viewport）。
+        这样的话，P 元素的尺寸大小，将会随着浏览器窗框大小的变化，而变化。 -->
+
+</body>
+
+</html>

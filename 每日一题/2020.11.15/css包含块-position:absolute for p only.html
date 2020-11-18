@@ -1,0 +1,66 @@
+<!-- 一个元素的尺寸和位置经常受其包含块(containing block)的影响。
+大多数情况下，包含块就是这个元素最近的祖先块元素的内容区，但也不是总是这样。 -->
+
+
+<!-- 
+包含块的影响：
+元素的尺寸及位置，常常会受它的包含块所影响。
+对于一些属性，例如 width, height, padding, margin，绝对定位元素的偏移值 （比如 position 被设置为 absolute 或 fixed），当我们对其赋予百分比值时，这些值的计算值，就是通过元素的包含块计算得来。
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: beige;
+        }
+
+        section {
+            transform: rotate(0deg);
+            width: 400px;
+            height: 160px;
+            background: lightgray;
+        }
+
+        p {
+            position: absolute;
+            left: 80px;
+            top: 30px;
+            width: 50%;
+            /* == 200px */
+            height: 25%;
+            /* == 40px */
+            margin: 5%;
+            /* == 20px */
+            padding: 5%;
+            /* == 20px */
+            background: cyan;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- section、是块级元素 -->
+    <section>
+        <p>This is a paragraph!</p>
+    </section>
+
+    <!-- 这个示例中，P 元素的 position 为 absolute，
+        所以它的包含块是 <section>，
+            也就是距离它最近的一个 transform 值不为 none 的父元素。 -->
+
+
+    <!-- 如果 position 属性是 absolute 或 fixed，包含块也可能是由满足以下条件的最近父级元素的内边距区的边缘组成的：
+            transform 或 perspective 的值不是 none
+            will-change 的值是 transform 或 perspective
+            filter 的值不是 none 或 will-change 的值是 filter(只在 Firefox 下生效).
+            contain 的值是 paint (例如: contain: paint;) -->
+
+</body>
+
+</html>

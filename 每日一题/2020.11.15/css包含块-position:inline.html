@@ -1,0 +1,49 @@
+<!-- 一个元素的尺寸和位置经常受其包含块(containing block)的影响。
+大多数情况下，包含块就是这个元素最近的祖先块元素的内容区，但也不是总是这样。 -->
+
+
+<!-- 
+包含块的影响：
+元素的尺寸及位置，常常会受它的包含块所影响。
+对于一些属性，例如 width, height, padding, margin，绝对定位元素的偏移值 （比如 position 被设置为 absolute 或 fixed），当我们对其赋予百分比值时，这些值的计算值，就是通过元素的包含块计算得来。
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: beige;
+        }
+
+        section {
+            display: inline;
+            background: lightgray;
+        }
+
+        p {
+            width: 50%;
+            /* == half the body's width */
+            height: 200px;
+            /* Note: a percentage would be 0 */
+            background: cyan;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- section、是块级元素 -->
+    <section>
+        <p>This is a paragraph!</p>
+    </section>
+
+    <!-- 在这个示例中，P 标签的包含块为 <body> 元素，
+        因为 <section> 不再是一个块容器，所以并没有形成一个格式上下文。 -->
+
+</body>
+
+</html>
