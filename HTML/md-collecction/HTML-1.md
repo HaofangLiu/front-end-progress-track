@@ -18,8 +18,11 @@ download:下载
 
 # img 标签的用法
 图片标签，发送get请求获取图片
+
 alt:图片说明
+
 src: 图片地址
+
 height/width
 
 可以用事件监听：onload/onerror
