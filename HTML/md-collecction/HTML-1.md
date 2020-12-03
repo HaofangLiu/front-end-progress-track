@@ -1,6 +1,6 @@
 # a 标签的用法
 
-1. 属性：
+属性：
 
 href： hyper reference也就是我们说的超链接。 能够跳转外部的页面
 也可以认为是锚点，#id就可以跳转对应的节点
@@ -49,10 +49,15 @@ th-table head
 form表单：发送get/post请求，然后刷新页面
 属性：
 action:要请求的url
+
 autocomplete： 自动提示，通过input name属性，则可以记录这个name的控件曾经输入过的value
+
 method: GET/POST
+
 target：类似于a标签的target
+
 可以监听onsubmit事件：注意区分input type='submit'和button type='submit'区别，button内部可以有其他的标签。
+
 
 对于属性为radio类型的input，假如有多个选项，（分组为目的）的情况下，name属性要相同才能取值。
 
