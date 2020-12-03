@@ -31,7 +31,7 @@ alt:图片说明
 
 src: 图片地址
 
-height/width
+height/width(图片img标签内不能同时有width和height，会使图片变形)
 
 可以用事件监听：onload/onerror
 
