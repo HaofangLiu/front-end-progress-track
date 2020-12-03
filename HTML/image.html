@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!--  -->
+    <img id="img1" src="./png/pic-1.png" alt="reminder" width="400" style="background-color: black;" />
+    <script>
+        img1.onload = () => {
+            console.log('success');
+        }
+        img1.onerror = () => {
+            console.log('fail load');
+        }
+    </script>
+</body>
+
+</html>
