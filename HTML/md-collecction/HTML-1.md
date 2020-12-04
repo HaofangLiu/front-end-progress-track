@@ -57,6 +57,10 @@ td-table data
 
 th-table head
 
+table-layout（auto看内容自动，fixed等宽，inherit，initial，unset）用于表格单元格，行列的算法
+border-collapse：collapse；单元格合并
+border-spacing：单元格之间的空隙，一般设为0.
+
 # 其他感想
 
 form表单：发送get/post请求，然后刷新页面
