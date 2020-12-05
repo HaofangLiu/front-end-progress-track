@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        ul>li {
+            float: left;
+            /* border: 1px solid red; */
+            padding: 4px 0.5em;
+            line-height: 32px;
+        }
+
+        ul {
+            /* border: 1px solid black; */
+            display: inline-block;
+        }
+
+        .logo {
+            /* border: 1px solid green; */
+            /* background: burlywood; */
+            display: block;
+            float: left;
+            /* margin-top: 1px; */
+        }
+
+        .logo>img {
+            height: 40px;
+            /* border: 1px solid red; */
+            vertical-align: top;
+            margin-left: 15px;
+        }
+
+        .nav {
+            float: right;
+            margin-right: 50px;
+            color: white;
+        }
+
+        header {
+            /* border: 1px solid blue; */
+            background: grey;
+        }
+
+        .content {
+            /* outline: 1px solid red; */
+            width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+        }
+
+        .content>aside {
+            /* border: 1px solid green; */
+            width: 200px;
+            float: left;
+            height: 300px;
+            background: burlywood;
+        }
+
+        .content>main {
+            /* border: 1px solid yellow; */
+            background: cadetblue;
+            width: 500px;
+            float: left;
+            height: 300px;
+        }
+
+        .content>.ad {
+            /* border: 1px solid blue; */
+            background: cyan;
+            width: 200px;
+            float: left;
+            height: 300px;
+        }
+
+        .imgList {
+            outline: 1px solid black;
+            width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+        }
+
+        .imgList>.xxx>.image {
+            width: 210px;
+            height: 210px;
+            background: rebeccapurple;
+            border: 1px solid red;
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 10px;
+        }
+
+        .imgList>.xxx {
+            margin-right: -20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="clearfix">
+        <div class="logo">
+            <img src="https://cdn.vox-cdn.com/thumbor/8tLchaDMIEDNzUD3mYQ7v1ZQL84=/0x0:2012x1341/920x613/filters:focal(0x0:2012x1341):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/47070706/google2.0.0.jpg"
+                alt="google">
+        </div>
+        <ul class="clearfix nav">
+            <li>Home</li>
+            <li>History</li>
+            <li>News</li>
+            <li>About</li>
+        </ul>
+    </header>
+    <div class="content clearfix">
+        <aside>
+            this is side navigation
+        </aside>
+        <main>
+            Main content balabala...
+        </main>
+        <div class="ad">
+            Advertisement
+        </div>
+    </div>
+    <div class="imgList clearfix">
+        <div class="xxx clearfix">
+            <div class="image"></div>
+            <div class="image"></div>
+            <div class="image"></div>
+            <div class="image"></div>
+            <div class="image"></div>
+            <div class="image"></div>
+            <div class="image"></div>
+            <div class="image"></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -27,3 +27,19 @@
 * position:absolute/fixed
 
 
+# 布局
+* 960 / 1000 / 1024
+
+## float 布局
+* 子元素float设置float:left/right,并且给width
+
+* 父元素.`clearfix{content: '';display:block;clear:both}`
+
+* 假如图片下面有多余的东西，可以用`vertical-align:top` 或者`vertical-align:middle` 去消除
+
+* border会影响时可以用outline
+
+* (如果是块级元素而且宽度固定)居中：margin：0 auto -> 最好替换为margin-left margin-right: auto
+
+* float的平均布局可以用负margin来解决换行问题
+
