@@ -43,3 +43,26 @@
 
 * float的平均布局可以用负margin来解决换行问题
 
+## flex布局
+`display:flex`
+
+### container
+flex-direction
+flex-wrap
+justify-content
+align-items
+
+
+### item
+*  order item排列顺序
+*  flex-grow: 将多余的空间分配给item（变胖）
+*  flex-shrink 控制如何变瘦，在空间不够时如何缩小。默认是1，可以给0来防止item变小
+*  flex-basis （理解为宽度）控制基准宽度，默认是auto
+*  align-self 自己这个item怎么对齐
+
+
+# 选择器
+
+`xxx:first-child`
+`xxx:nth-child(2)`
+`xxx:last-child`
