@@ -47,14 +47,15 @@
 `display:flex`
 
 ### container
-flex-direction
-flex-wrap
-justify-content
-align-items
+flex-direction row|row-reverse|column|column-reverse
+flex-wrap nowrap|wrap|wrap-reverse
+justify-content flex-start|flex-end|center|space-between|space-around|space-evenly
+align-items flex-start|flex-end|center|stretch|baseline
+align-content flex-start|flex-end|center|stretch|space-between|space-around
 
 
 ### item
-*  order item排列顺序
+*  order item排列顺序，默认是0，负数在前面，正数在后面
 *  flex-grow: 将多余的空间分配给item（变胖）
 *  flex-shrink 控制如何变瘦，在空间不够时如何缩小。默认是1，可以给0来防止item变小
 *  flex-basis （理解为宽度）控制基准宽度，默认是auto
