@@ -62,6 +62,32 @@ align-content flex-start|flex-end|center|stretch|space-between|space-around
 *  align-self 自己这个item怎么对齐
 
 
+## grid布局
+`display:grid`
+
+### container
+grid-template-columns: 10px auto 10px
+grid-template-rows:25% auto 100px
+
+也可以用fr去等分份数
+
+grid-template-areas: ” header header header“
+"aside main ad"
+"footer footer footer"
+
+用grid-area去指定所对应的区域
+
+row/column-gap 行/列间隔
+
+
+
+### item
+grid-column-start
+grid-column-end
+grid-row-start
+grid-row-end
+后面接收的都是第几根线
+
 # 选择器
 
 `xxx:first-child`
