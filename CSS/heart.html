@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .bottom {
+            /* border: 1px solid red; */
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            transform: rotate(45deg);
+        }
+
+        .left {
+            /* border: 1px solid red; */
+            height: 100px;
+            width: 100px;
+            background-color: red;
+            position: absolute;
+            border-radius: 50%;
+            transform: rotate(45deg) translateX(95px);
+            bottom: 100%;
+            right: 100%;
+        }
+
+        .right {
+            border: 1px solid red;
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            bottom: 100%;
+            left: 100%;
+            background-color: red;
+            position: absolute;
+            transform: rotate(-45deg) translateX(-95px);
+        }
+
+        .heart {
+            /* border: 1px solid black; */
+            position: relative;
+            display: inline-block;
+            margin: 150px;
+            transition: all 1s
+        }
+
+        .heart:hover {
+            transform: scale(1.5);
+        }
+
+
+        .heart1 {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            /* border: 1px solid red; */
+            margin: 150px;
+            background-color: #ff4949;
+            transform: rotate(45deg);
+            transition: all 1s
+        }
+
+        .heart1:before {
+            content: "";
+            width: 100px;
+            height: 100px;
+            /* border: 1px solid red; */
+            background-color: #ff4949;
+            border-radius: 50%;
+            position: absolute;
+            right: 50%;
+        }
+
+        .heart1:after {
+            content: '';
+            width: 100px;
+            height: 100px;
+            /* border: 1px solid red; */
+            background-color: #ff4949;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 50%;
+        }
+
+        .heart1:hover {
+            transform: scale(1.5) rotate(90deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="heart">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="bottom"></div>
+    </div>
+
+    <div class="heart1"></div>
+</body>
+
+</html>

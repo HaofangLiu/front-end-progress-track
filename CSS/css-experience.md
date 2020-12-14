@@ -71,6 +71,10 @@ grid-template-rows:25% auto 100px
 
 也可以用fr去等分份数
 
+grid-template是grid-template-rows和grid-template-columns的缩写形式。
+
+比如说，grid-template: 50% 50% / 200px;将创建一个具有两行的网格，每一行占据50%，以及一个200像素宽的列。
+
 grid-template-areas: ” header header header“
 "aside main ad"
 "footer footer footer"
@@ -84,12 +88,19 @@ row/column-gap 行/列间隔
 ### item
 grid-column-start
 grid-column-end
+(grid-column:可接受两个值，相当于上面两行，需要用/分开)
 grid-row-start
 grid-row-end
+(grid-row同理)
 后面接收的都是第几根线
+
+grid-area属性接受4个由'/'分开的值：grid-row-start, grid-column-start, grid-row-end, 最后是grid-column-end。
 
 # 选择器
 
 `xxx:first-child`
 `xxx:nth-child(2)`
 `xxx:last-child`
+
+
+white-space:nowrap文字不换行
