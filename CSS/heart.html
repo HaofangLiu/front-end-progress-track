@@ -65,7 +65,8 @@
             margin: 150px;
             background-color: #ff4949;
             transform: rotate(45deg);
-            transition: all 1s
+            /* transition: all 1s */
+            animation: jumpingHeart 1s linear infinite alternate
         }
 
         .heart1:before {
@@ -90,8 +91,18 @@
             bottom: 50%;
         }
 
-        .heart1:hover {
+        /* .heart1:hover {
             transform: scale(1.5) rotate(90deg);
+        } */
+
+        @keyframes jumpingHeart {
+            0% {
+                transform: scale(1.0) rotate(45deg);
+            }
+
+            100% {
+                transform: scale(1.5) rotate(45deg);
+            }
         }
     </style>
 </head>
