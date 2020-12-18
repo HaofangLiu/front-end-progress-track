@@ -104,3 +104,46 @@ grid-area属性接受4个由'/'分开的值：grid-row-start, grid-column-start,
 
 
 white-space:nowrap文字不换行
+
+
+# 浏览器渲染原理
+
+* 根据HTML创建HTML树（DOM树）
+* 根据CSS创建CSS树（CSSOM）
+* 将两个树合并为一个树（render tree）
+* Layout布局（文档流，盒模型，计算大小和面积）
+* Pain绘制（绘制边框颜色，文字颜色，绘画阴影等）
+* Compose合成（根据层叠关系展示页面）
+
+* 小技巧：可以利用 [csstriggers.com](https://csstriggers.com/) 去验证重绘等行为
+
+# transform
+
+* 常用功能：translate, scale,rotate, skew
+* 小技巧： 绝对定位元素的垂直居中； translate(-50%,-50%)
+
+# transition
+
+* transition: 属性名，时长，过渡方式，延迟
+* 可以用 all 去代表所有属性
+
+# 动画帧 @keyframs
+
+* 写法1: 
+```css
+@keyframs xxx{
+    0%{}
+    30%{}
+    100%{}
+}
+```
+
+* 写法2： 
+```css
+@keyframs xxx{
+    from{}
+    to{}
+}
+```
+
+* 用法： animation: 时长 ｜ 过渡方式 ｜ 延迟 ｜ 次数 ｜ 方向 ｜ 填充模式 ｜ 是否暂停 ｜ 动画名
