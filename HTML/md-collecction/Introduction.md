@@ -37,13 +37,16 @@ HTML的首个公开描述出现于一个名为HTML Tags 页面存档备份，存
 * dl-dt-dd 描述列表，dt描述对象，dd描述内容
 
 4. 全局属性有哪些
-* class
+* class 可以多次重复用，可以拥有多个，空格分开
 * hidden （经过验证类似于checked,假如行内设置则一定生效，js则可以通过节点ele.hidden = true/false去设置）
 * id 尽量用class，除非确定项目唯一时可以用
 * tabindex 0-> last，正数按照数值大小排序，负数无法访问
 * title 网页标题
+* style="css code" 
+* contenteditable 可编辑
+* data-xxx:可以用来储存一些相应的数据
 
-5. 常用的内容标签有哪些，分别是什么意思（a、strong、em、code、pre 等等）
+1. 常用的内容标签有哪些，分别是什么意思（a、strong、em、code、pre 等等）
 
 * a link跳转
 * strong 加强内容 默认加粗

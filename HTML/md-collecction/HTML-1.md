@@ -1,3 +1,30 @@
+# 常见标签
+header:头部
+
+main: 主体
+
+footer:页脚
+
+nav:导航
+
+section:章节
+
+h1~h6:标题
+
+article:文章
+
+aside:侧边栏
+
+div:剩下所有的
+
+pre标签：一般用于展示代码（具有格式的一些文本）内包含code标签
+```html
+<pre>
+<code>
+</code>
+</pre>
+```
+
 # a 标签的用法
 
 属性：
@@ -22,7 +49,7 @@ download:下载
 
 需要考虑兼容问题
 
-通常隐士标签触发，href链接blob或者dataURL去下载。download属性对应下载的文件名
+通常隐式标签触发，href链接blob或者dataURL去下载。download属性对应下载的文件名
 
 # img 标签的用法
 图片标签，发送get请求获取图片
@@ -79,3 +106,15 @@ target：类似于a标签的target
 对于属性为radio类型的input，假如有多个选项，（分组为目的）的情况下，name属性要相同才能取值。
 
 * 注意：form中的input都要有name属性
+
+# form表单防止csrf攻击
+通过设置input=hidden 并且value附带后台生成的token来验证是否为同一个用户的操作（请求）
+
+# get和post类型有什么区别
+1.提交的数据形式不一样，GET是name=value，并且用&链接。 POSTurl不会变
+
+2.数据大小区别。GET有可能很长（对数据大小有限制），POST则不变所以没有限制
+
+3.语义上的区别。GET主要是获取大量数据。POST而是客户端要提交给服务端一些信息
+
+4.安全上差别。GET拼出来的URL，可以在URL中看到你传的字段（比如用户名密码可能会被看到），还有日志也会记录到你传的信息。而POST因为信息不在URL中，所以POST查不到其中的信息
