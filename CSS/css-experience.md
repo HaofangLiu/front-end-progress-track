@@ -83,8 +83,6 @@ grid-template-areas: ” header header header“
 
 row/column-gap 行/列间隔
 
-
-
 ### item
 grid-column-start
 grid-column-end
