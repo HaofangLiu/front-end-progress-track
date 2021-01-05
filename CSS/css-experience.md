@@ -219,3 +219,15 @@ height: 100%, 表示当前元素的content的高度等于父亲content的高度
 ```
 
 * 用法： animation: 时长 ｜ 过渡方式 ｜ 延迟 ｜ 次数 ｜ 方向 ｜ 填充模式 ｜ 是否暂停 ｜ 动画名
+
+# css计量单位
+
+* px： 像素
+* em： 2em 相对于父亲字体大小的倍数（如果是非font-size属性对应的值，则 是相对于当前元素的font-size 
+* rem： 2rem 根元素(html 或者:root)字体的倍数 
+* 百分比：80% 同em相对于父亲字体大小的倍数
+
+# 字体
+* text-align: center | left | right | justify（两边对齐，最后一行不生效）
+注意：应用在块级容器上，对块内元素生效
+
