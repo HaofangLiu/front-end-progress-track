@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .tip {
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        font-size: 20px;
+        border: 1px solid black;
+      }
+      .tooltip {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        background: yellow;
+        color: red;
+        width: 200px;
+        font-size: 12px;
+        padding: 6px;
+        border-radius: 4px;
+      }
+      .tip:hover .tooltip {
+        display: block;
+      }
+
+      .tooltip::before {
+        content: "";
+        position: absolute;
+        top: -16px;
+        left: 10px;
+        border: 8px solid transparent;
+        border-bottom-color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tip">
+      hover on me!
+      <div class="tooltip">this is a tip for you!</div>
+    </div>
+
+
+    </div>
+  </body>
+</html>

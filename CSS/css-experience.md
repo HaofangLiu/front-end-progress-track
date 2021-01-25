@@ -1,4 +1,10 @@
 # 文档流：
+## 什么是普通流 
+* 就是元素在正常情况下默认的摆放规则 
+* 块级元素宽度撑满父亲、高度由内容撑开，可以设置宽高。按照在HTML里的顺序从上到下排列，会出现边距合并 
+* 内联元素的宽高与内容一致，无法设置宽高，只要有足够空间就会在一行排列，如果空间不够会下移一行 
+## 什么是脱离普通流 
+* 就是元素不按默认规则摆放了，其他正常元素在计算自己的摆放位置时不把脱离普通流的元素包括在内
 
 ## 宽度：
 
@@ -24,8 +30,14 @@
 
 ## 脱离文档流
 * float
-* position:absolute/fixed
+* float 属性能让一个元素放在其容器的左侧或右侧，允许文本和内联元素环绕它。 设置浮动的元素从网页的普通流(normal flow)中脱离，但不是完全脱离
 
+* position:absolute/fixed
+static: 元素正常的布局行为
+relative: 元素做一些轻微的偏移（top/left/right/bottom）没有脱离正常的文档流（上下左右的位置偏移量是相对于参考元素的边框内壁来决定的）
+absolute: 相对于最近的非static元素进行定位，脱离普通文档流
+fixed: 相对于屏幕的视口（viewport）的位置来指定元素的位置。脱离文档流
+sticky:相对定位和固定定位的混合（当滚动的过程时相当于relative，设置了top距离以后滚动，就会固定在上部）
 
 # 布局
 * 960 / 1000 / 1024
@@ -39,9 +51,16 @@
 
 * border会影响时可以用outline
 
-* (如果是块级元素而且宽度固定)居中：margin：0 auto -> 最好替换为margin-left margin-right: auto
+* (如果是块级元素而且宽度固定)水平居中：margin：0 auto -> 最好替换为margin-left margin-right: auto
 
 * float的平均布局可以用负margin来解决换行问题
+
+* clear: left 
+* 要求该盒的top border边位于源文档中在此之前的元素形成的所有左浮动盒的底边下方 
+* clear: right 
+* 要求该盒的top border边位于源文档中在此之前的元素形成的所有右浮动盒的底边下方 
+* clear: both
+* 要求该盒的top border边位于源文档中在此之前的元素形成的所有左浮动盒和右浮动盒的底边下方
 
 ## flex布局
 `display:flex`

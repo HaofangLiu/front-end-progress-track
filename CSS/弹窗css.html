@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .modal-background {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: none;
+      }
+
+      .modal-background:target {
+        display: block;
+      }
+
+      .modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70%;
+        max-height: 500px;
+        background: #fff;
+        border-radius: 4px;
+      }
+
+      .modal-header > h2 {
+        padding: 10px;
+      }
+
+      .close {
+        float: right;
+        font-size: 14px;
+        margin-top: 8px;
+        text-decoration: none;
+      }
+
+      .modal-content {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+      <!-- 选中页面上id为当前hash的元素 -->
+    <a class="btn-show-modal" href='#show-modal'>show modal</a>
+    <div class="modal-background" id="show-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>this is header <a class="close" href="#">X</a></h2>
+        </div>
+        <hr />
+        <div class="modal-content">
+          <p>this is the content of modal</p>
+          <p>this is the content of modal</p>
+          <p>this is the content of modal</p>
+          <p>this is the content of modal</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
