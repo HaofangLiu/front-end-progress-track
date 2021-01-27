@@ -250,3 +250,51 @@ height: 100%, 表示当前元素的content的高度等于父亲content的高度
 * text-align: center | left | right | justify（两边对齐，最后一行不生效）
 注意：应用在块级容器上，对块内元素生效
 
+# 层叠上下文 stacking Context
+
+## 什么是上下文：
+* 是一个多方参与构建，遵循一定规则的、独立的环境
+* 子项可能创建新的上下文，与外层上下文有同样的规则，且与外层上下文隔绝
+
+## 形成层叠上下文的条件：
+* 根元素（比如html是最根本的层叠上下文）
+* z-index不为auto的绝对定位和相对定位元素
+* fixed、sticky定位元素
+* z-index不是auto的flex item
+* z-index不是auto的grid item
+* opacity小于1的元素
+* transform不为none的元素
+
+## 层叠规则：
+* 属于同一层叠上下文的同级元素比较
+* 当层叠上下文属于某一个层级时，其内的层叠上下文都属于对应层级.
+
+* 注意观察形成的层级，他们的父亲的层级是多少
+
+
+# BFC块级格式化上下文
+
+## 形成条件：
+* 根元素<html>
+* float不为none
+* position为absolute\fixed\sticky
+* display为inline-block、table-cell
+* display: flow-root 或者 flow-root list-item（推荐，但兼容性不好）
+* overflow为hidden、scroll、auto；
+
+## BFC特性 
+### 特性 
+* 内部的块级盒子会在垂直方向，一个接一个地放置。
+* 两个盒子垂直方向的间距由margin决定。属于同一个 BFC的两个相邻盒子的外边距会发生折叠。
+* BFC的区域不会与浮动盒重叠。 
+* BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。 
+* 计算BFC的高度时，浮动元素也参与计算。
+
+## BFC应用 
+* 阻止父子外边距合并 [阻止合并](http://js.jirengu.com/tavop/1/edit?html,css,output)
+* 阻止块级元素与浮动元素的覆盖(创建BFC后，p不与浮动元素重叠，文字也不会围绕浮动元素)[http://js.jirengu.com/cihiw/1/edit]
+* 清除浮动[clearfix](http://js.jirengu.com/loliy/1/edit)
+
+注意： 创建BFC需要添加额外的属性，而这些属性有各自特殊作用， 往往会带来一定副作用。display: flow-root虽然无副作用，但兼容 性很差（ https://caniuse.com/#search=flow-root ）。因此多数 情况下清除浮动使用伪元素clearfix的方式
+
+
