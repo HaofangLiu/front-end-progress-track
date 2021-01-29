@@ -63,7 +63,7 @@ sticky:相对定位和固定定位的混合（当滚动的过程时相当于rela
 * 要求该盒的top border边位于源文档中在此之前的元素形成的所有左浮动盒和右浮动盒的底边下方
 
 ## flex布局
-`display:flex`
+`display:flex`父亲设置，对外展示块级特性
 
 ### container
 flex-direction row|row-reverse|column|column-reverse
@@ -75,9 +75,9 @@ align-content flex-start|flex-end|center|stretch|space-between|space-around
 
 ### item
 *  order item排列顺序，默认是0，负数在前面，正数在后面
-*  flex-grow: 将多余的空间分配给item（变胖）
-*  flex-shrink 控制如何变瘦，在空间不够时如何缩小。默认是1，可以给0来防止item变小
-*  flex-basis （理解为宽度）控制基准宽度，默认是auto
+*  flex-grow: 将多余的空间分配给item（变胖）(用来“瓜分”父项的“剩余空间”。)
+*  flex-shrink 控制如何变瘦，在空间不够时如何缩小。默认是1，可以给0来防止item变小(用来“吸收”超出的空间)
+*  flex-basis （理解为宽度）控制基准宽度，默认是auto(设置子项的占用空间。如果设置了值，则子项占用的空间为设置的值； 如果没设置或者为 auto，那子项的空间为设置的width/height 的值)
 *  align-self 自己这个item怎么对齐
 
 
