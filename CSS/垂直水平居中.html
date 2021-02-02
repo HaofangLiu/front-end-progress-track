@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .wrapper-1 {
+        height: 200px;
+        border: 1px solid black;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .content-1 {
+        background: red;
+      }
+
+      .wrapper-2 {
+        height: 200px;
+        border: 1px solid black;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+      }
+
+      .content-2 {
+        background: red;
+      }
+
+      .wrapper-3 {
+        height: 200px;
+        border: 1px solid black;
+        display: grid;
+      }
+
+      .content-3 {
+        background: red;
+        margin: auto;
+      }
+
+      .wrapper-4 {
+        height: 200px;
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content-4 {
+        background: red;
+      }
+
+      .wrapper-5 {
+        height: 200px;
+        border: 1px solid black;
+        display: flex;
+      }
+
+      .content-5 {
+        background: red;
+        margin: auto;
+      }
+
+      .container {
+        width: 100%;
+        display: table;
+      }
+
+      .wrapper-6 {
+        height: 200px;
+        width: 100%;
+        border: 1px solid black;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+
+      .content-6 {
+        background: red;
+        margin: auto;
+        display: inline-block;
+      }
+
+      .wrapper-7 {
+        height: 200px;
+        border: 1px solid black;
+        position: relative;
+      }
+
+      .content-7 {
+        background: red;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+      }
+
+      .wrapper-8 {
+        height: 200px;
+        border: 1px solid black;
+        text-align: center;
+      }
+
+      .wrapper-8::after{
+          content: '';
+          line-height: 200px;
+      }
+
+      .content-8 {
+        background: red; 
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper-1">
+      <p class="content-1">hello</p>
+    </div>
+
+    <div class="wrapper-2">
+      <p class="content-2">hello</p>
+    </div>
+
+    <div class="wrapper-3">
+      <p class="content-3">hello</p>
+    </div>
+
+    <div class="wrapper-4">
+      <p class="content-4">hello</p>
+    </div>
+
+    <div class="wrapper-5">
+      <p class="content-5">hello</p>
+    </div>
+
+    <div class="container">
+      <div class="wrapper-6">
+        <p class="content-6">hello</p>
+      </div>
+    </div>
+
+    <div class="wrapper-7">
+      <p class="content-7">hello</p>
+    </div>
+
+    <div class="wrapper-8">
+      <p class="content-8">hello</p>
+    </div>
+  </body>
+</html>
