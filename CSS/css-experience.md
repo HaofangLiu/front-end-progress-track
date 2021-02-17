@@ -78,7 +78,9 @@ align-content flex-start|flex-end|center|stretch|space-between|space-around
 *  flex-grow: 将多余的空间分配给item（变胖）(用来“瓜分”父项的“剩余空间”。)
 *  flex-shrink 控制如何变瘦，在空间不够时如何缩小。默认是1，可以给0来防止item变小(用来“吸收”超出的空间)
 *  flex-basis （理解为宽度）控制基准宽度，默认是auto(设置子项的占用空间。如果设置了值，则子项占用的空间为设置的值； 如果没设置或者为 auto，那子项的空间为设置的width/height 的值)
-*  align-self 自己这个item怎么对齐
+*  align-self 自己这个item怎么对齐;
+*  flex : 1 === flex: 1 1 0%
+*  flex的三个值，有单位的会对应为flex basis，没有单位的两个数字会对应为flex-grow flex-shrink，仅有一个无单位的数字时会对应flex-grow
 
 
 ## grid布局
