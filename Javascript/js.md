@@ -63,3 +63,5 @@
 async的存在不影响DOM的解析和其他资源的加载， 特例独行，不保证顺序，不保证时机 
 * defer 
 defer存在不影响DOM的解析和其他资源的加载， 但是会保证在DOM资源准备就绪后再执行，并且对 于多个defer的外置js按顺序执行
+
+运算符以及非严格比较的一些注意事项！[csstriggers.com](https://zhuanlan.zhihu.com/p/351409061)
