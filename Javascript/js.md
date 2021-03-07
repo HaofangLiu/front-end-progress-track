@@ -100,3 +100,45 @@ const fib = (n) => {
   return fib(n-1) + fib(n - 2)
 }
 ```
+
+## 字符串相关
+* \ ---》 将后边的符号转译为普通符号，没有任何作用
+* .length  获取字符串的长度
+* str[0]字符串某一位
+* str.charAt(0) 同上
+* str.charCodeAt(0) 某一位的ASCII码
+* str.search('xx')寻找某字符串的index
+* str.indexOf('xx') 同上
+* str.lastIndexOf('xx')倒序寻找xx字符串的index
+* str.includes('xx')是否包含某字符串
+* str.startsWith('c') 是否以c开头
+* str.endsWith('x') 是否以x结尾
+* str.substr(1,3)字符串截取，从第几位开始（包含），截取几位
+* str.substring(1,3)从第几位开始（包含），到第几位结束（不包含）
+* str.slice(1,3)同上
+* str.split('')空字符分割字符串
+* str.trim()去掉两边空白字符 // trimLeft() trimRight()
+* str.toUpperCase();
+* str.toLowerCase();
+* str.padStart(8,'*')填充字符串，从前边开始填充*直到长度为8
+
+
+## 数组相关
+* arr[index] 获取对应的index的值
+* arr.pop() 返回arr最后一项  原本arr会改变
+* arr.push() arr中加入一项，返回数组的新的长度 （往数组塞，返回长度）
+* arr.unshift(10) arr头部加入一项，返回数组的长度
+* arr.shift() 返回arr拿出第一项 原本arr会改变
+* splice （a,b,c）a.开始的索引（插入则在这个index之前） b.删除元素的个数（返回结果 是删除的元素） c.插入的新元素 | 返回一个由删除元素组成的新数组
+* arr.concat() 可以用来拼接数组（但是也可以用来浅拷贝）
+* arr.join('') 空数组进行连接
+* arr.reverse() 数组顺序进行倒序（会改变原来的数组）
+* arr.sort() 排序 sort((a,b) =>a - b) 从小到大 sort((a,b) =>b - a)从大到小
+* arr.index(1) 寻找某一项的index，找不到返回-1
+* arr.lastIndexOf(1) 倒序查找，找不到返回-1
+* arr.forEach(value,index,array)
+* arr.every(val => val > 0) 所有回调函数都返回true的时候才会返回true，否则返回false
+* arr.some(val => val > 0)有一个回调函数都返回true的时候就返回true
+* arr.filter(val => val > 0) 根据条件过滤出新的数组
+* arr.map()遍历数组，回调函数返回值组成一个新数组返回，新数组索引结构和原数组一致，原数组不变（注意跟foeEach区别，forEach没有自动创建一个新数组）
+* arr.reduce(func(v1,v2), initValue)遍历数组，调用回调函数，将数组元素组合成一个值

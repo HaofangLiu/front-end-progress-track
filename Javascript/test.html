@@ -8,15 +8,23 @@
   </head>
   <body></body>
   <script>
-    const sum = function () {
-      let result = 0;
-      for (const item of arguments) {
-        if (typeof item !== "number") continue;
-        result += item;
-      }
-      console.log(result);
-    };
+    // const sum = function () {
+    //   let result = 0;
+    //   for (const item of arguments) {
+    //     if (typeof item !== "number") continue;
+    //     result += item;
+    //   }
+    //   console.log(result);
+    // };
 
-    sum(1, 2, "teat", 5);
+    // sum(1, 2, "teat", 5);
+
+    function fib(n) {
+      let arr = [0, 1, 1];
+      for (let i = 3; i <= n; i++) {
+        arr[i] = arr[i - 1] + arr[i - 2];
+      }
+      return arr[n];
+    }
   </script>
 </html>
