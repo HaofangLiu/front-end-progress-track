@@ -142,3 +142,30 @@ const fib = (n) => {
 * arr.filter(val => val > 0) 根据条件过滤出新的数组
 * arr.map()遍历数组，回调函数返回值组成一个新数组返回，新数组索引结构和原数组一致，原数组不变（注意跟foeEach区别，forEach没有自动创建一个新数组）
 * arr.reduce(func(v1,v2), initValue)遍历数组，调用回调函数，将数组元素组合成一个值
+
+## JS内置对象
+* JSON.stringify
+* 用于把一个值变成符合JSON格式的字符串
+* JSON.parse
+* 用于把一个符合JSON格式的字符串还原对象
+
+ ## Date
+ * new Date()获取一个时间对象
+ * d.getTime()返回实例对象距离1970年1月1日00:00:00对应的毫秒
+ * d.getDate()返回实例对象对应的每个月的几号（从1开始）
+ * d.getDay()返回星期几，星期一为1，星期日为0
+ * d.getFullYear()返回四位年份
+ * d.getMonth() 返回月份，一月为0，12月为11
+ * d.getHours()返回小时(0~23)
+ * d.getMilliseconds()返回毫秒(0~999)
+ * d.getMinuts()返回分钟(0~59)
+ * d.getSeconds()返回秒(0~59)
+
+## Math
+* Math.floor 向下取整
+* Math.ceil 向上取整
+* Math.round 四舍五入
+* Math.abs 绝对值
+* Math.max 取最大值
+* Math.min 取最小值
+* Math.random 随机数[0,1)
