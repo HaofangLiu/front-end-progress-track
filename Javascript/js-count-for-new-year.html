@@ -52,6 +52,30 @@
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    randomStr(3);
+    function deepCopy(src) {
+      let res = Array.isArray(src) ? [] : {};
+      for (let key in src) {
+        if (typeof src[key] === "object" && src[key] !== null) {
+          res[key] = deepCopy(src[key]);
+        } else {
+          res[key] = src[key];
+        }
+      }
+      return res;
+    }
+
+    // function deepCopy(src) {
+    //   let result = Array.isArray(src) ? [] : {};
+    //   for (let key in src) {
+    //     if (typeof src[key] === "object" && src[key] !== null) {
+    //       result[key] = deepCopy(src[key]);
+    //     } else {
+    //       result[key] = src[key];
+    //     }
+    //   }
+    //   return result;
+    // }
+
+    console.log(deepCopy({ a: 1, b: { v: 2 } }));
   </script>
 </html>
