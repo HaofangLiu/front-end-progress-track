@@ -26,5 +26,37 @@
       }
       return arr[n];
     }
+
+    function validPhone(str) {
+      const reg = /^1\d{10}$/g;
+      // const reg = new RegExp('^1\d{10}$','g')
+      return reg.test(str);
+    }
+
+    function validPassword(str) {
+      if (!/^[\w$]{6,20}$/.test(str)) return false;
+      if (/(^[a-z]+$)|(^[A-Z]+$)|(^\d+$)|(^_+$)|(^\$+$)/.test(str))
+        return false;
+      return true;
+    }
+
+    class Dog {
+      constructor(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      setName(name) {
+        this.name = name;
+      }
+      getName() {
+        return this.name;
+      }
+      setAge(age) {
+        this.age = age;
+      }
+      getAge() {
+        return this.age;
+      }
+    }
   </script>
 </html>
