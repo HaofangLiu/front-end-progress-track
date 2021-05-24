@@ -232,4 +232,5 @@ const fib = (n) => {
 * 写在class的属性和方法会挂在prototype上
 * Object.create(proto,propsDescription)  以proto为原型属性创建对象{}
 * hasOwnProperty判断对象自身属性中是否具有指定的属性
-* 
+* Object,assign(target, source, source1,source2....) 将所有可枚举属性,从一个或多个源对象赋值到目标对象, 返回目标对象
+* Mixin 通过不使用继承的方式让一个类中的方法被其他类复用 （利用Object.assign实现）
