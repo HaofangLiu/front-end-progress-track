@@ -234,3 +234,5 @@ const fib = (n) => {
 * hasOwnProperty判断对象自身属性中是否具有指定的属性
 * Object,assign(target, source, source1,source2....) 将所有可枚举属性,从一个或多个源对象赋值到目标对象, 返回目标对象
 * Mixin 通过不使用继承的方式让一个类中的方法被其他类复用 （利用Object.assign实现）
+* getter / setter 将对象属性绑定到查询/设置该属性时将被调用的函数
+* static静态属性 使用的时候需要用类名调用，实例没办法直接调用。可以继承
