@@ -241,3 +241,74 @@ const fib = (n) => {
 
 ### 闭包
 * 闭包是由函数以及创建该函数的词法环境组合而成。这个环境包含了这个闭包创建时所能访问的所有的局部变量
+
+
+### DOM文档对象模型
+* document.head/.body/.title/.location(href/search/hash/reload/assign)
+* node.nodeName：元素标签名，还有个类似的tagName
+* node.nodeType：元素类型
+* node.className：类名
+* node.id：元素id
+* node.children：子元素列表（HTMLCollection）
+* node.childNodes：子元素列表（NodeList）
+* node.firstChild：第一个子元素
+* node.lastChild：最后一个子元素
+* node.nextSibling：下一个兄弟元素
+* node.previousSibling：上一个兄弟元素
+* node.parentNode：父元素
+* //es3写法，不推荐
+* document.getElementById('id') //Element
+* document.getElementsByClassName('class') //HTMLCollection
+* document.getElementsByTagName('p') //HTMLCollection，需要转化，可以用Array.from()或者[...类数组]的方法来便利
+* document.getElementsByName('username') //NodeList，有foreach方法
+* //ES5写法，推荐
+* document.querySelector('.box') //Element
+* document.querySelectorAll('.box') //NodeList
+
+### DOM事件
+事件绑定
+* node.onclick = function(e){}
+* node.addEventListener('click', function(e){})
+* 在函数里面可以使用事件对象e
+* 函数里面的this代表node本身，如果用箭头函数则没有this（this指向window）
+
+### class操作
+* 常见API
+* node.className 老方法，用起来不严谨，尽量不用
+* node.classList.add
+* node.classList.remove
+* node.classList.contains
+* node.classList.toggle
+
+
+### 属性操作
+* node.getAttribute('id')
+* node.setAttribute('data-id','100')
+* node.removeAttribute('checked')
+* document.createAttribute('checked')
+* node.setAttributeNode(attrNode) ==》 node.setAttributeNode(document.createAttribute('checked'))
+
+### 元素创建
+* document.createElement('div')
+* 创建DOM节点，参数是标签名
+* document.createTextNode("Hello")
+* 创建文本节点，参数是字符串
+* document.createDocumentFragment()
+* 创建一个虚拟的DOM，用于提升性能，避免高频DOM操作
+
+### 元素复制添加修改删除
+parentNode.appendChild(childNode)
+* 在父亲的末尾添加元素
+* parentNode.insertBefore(newNode, referenceNode)
+* 把newNode插入到referenceNode元素之前
+* parentNode.replaceChild(newChild, oldChild)
+* 把oldChild替换为newChild
+* parentNode.removeChild(childNode)
+* 从parentNode里删除childNode
+* node.cloneNode(true)
+* 克隆一个元素，参数true的时候会深复制，也就是会复制元素及其子元素，false
+的时候只复制元素本身
+
+### 获取样式
+* 使用getComputedStyle获取元素计算后的样式，不要通过 node.style.属性获取
+
