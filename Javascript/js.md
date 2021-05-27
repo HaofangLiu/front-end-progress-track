@@ -129,6 +129,7 @@ const fib = (n) => {
 * arr.push() arr中加入一项，返回数组的新的长度 （往数组塞，返回长度）
 * arr.unshift(10) arr头部加入一项，返回数组的长度
 * arr.shift() 返回arr拿出第一项 原本arr会改变
+* arr.slice(start,end) 返回一个新数组，左闭右开，end可有可无，如果没有就是到结尾
 * arr.splice（a,b,c）a.开始的索引（插入则在这个index之前） b.删除元素的个数（返回结果 是删除的元素） c.插入的新元素 | 返回一个由删除元素组成的新数组
 * arr.concat() 可以用来拼接数组（但是也可以用来浅拷贝）
 * arr.join('') 空数组进行连接
