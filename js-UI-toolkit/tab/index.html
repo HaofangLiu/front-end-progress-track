@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab选项卡</title>
+    <style>
+      .container {
+        max-width: 800px;
+        border-radius: 4px;
+        margin: 30px auto;
+        box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.3);
+        padding: 16px;
+        /* justify-content: flex-start; */
+      }
+
+      .tab-header {
+        display: flex;
+        font-size: 13px;
+        color: #303030;
+        line-height: 30px;
+        font-weight: 500;
+        border-bottom: 2px solid #ddd;
+      }
+
+      .tab-item {
+        margin-right: 30px;
+        cursor: pointer;
+        margin-bottom: -2px;
+      }
+
+      .tab-item.active {
+        color: #409eff;
+        border-bottom: 2px solid #409eff;
+      }
+
+      .content {
+        padding: 12px 0;
+        display: none;
+      }
+
+      .content.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Tab选项卡</h2>
+      <div class="tabs">
+        <div class="tab-header">
+          <span class="tab-item active">Tab1</span>
+          <span class="tab-item">Tab2</span>
+          <span class="tab-item">Tab3</span>
+          <span class="tab-item">Tab4</span>
+        </div>
+        <div class="tab-content">
+          <div class="content active">content 1</div>
+          <div class="content">content 2</div>
+          <div class="content">content 3</div>
+          <div class="content">content 4</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+      // 用$开头的命名方式来记录是dom节点
+      const $itemtab = $$(".tab-item");
+      const $contenttab = $$(".tab-content .content");
+      $itemtab.forEach(($tab) => {
+        $tab.onclick = () => {
+          $itemtab.forEach(($tab) => {
+            $tab.classList.remove("active");
+          });
+          $tab.classList.add("active");
+          // this.classList.add("active");假设用function的时候可以用this
+          const index = Array.from($itemtab).indexOf($tab);
+          $contenttab.forEach(($content) => {
+            $content.classList.remove("active");
+          });
+          $contenttab[index].classList.add("active");
+        };
+      });
+    </script>
+  </body>
+</html>
