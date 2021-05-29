@@ -316,3 +316,16 @@ height: 100%, 表示当前元素的content的高度等于父亲content的高度
 
 （4）DOM 可控性区别。可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用 @import 的方式插入样式。
 ```
+
+
+* offsetWidth 水平方向 width + 左右padding + 左右border-width
+* offsetHeight 垂直方向 height + 上下padding + 上下border-width
+  
+* clientWidth 水平方向 width + 左右padding
+* clientHeight 垂直方向 height + 上下padding
+  
+* offsetTop 获取当前元素到 定位父节点 的top方向的距离
+* offsetLeft 获取当前元素到 定位父节点 的left方向的距离
+  
+* scrollWidth 元素内容真实的宽度，内容不超出盒子高度时为盒子的clientWidth
+* scrollHeight 元素内容真实的高度，内容不超出盒子高度时为盒子的clientHeight
