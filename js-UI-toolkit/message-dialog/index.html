@@ -43,10 +43,7 @@
         transform: translate(-50%, -10px);
         padding: 10px 16px;
         color: #fff;
-        background-color: #67c23a;
-        /* #e6a23c; warning */
-        /* #edf2fc; message */
-        /* #f56c6c; error */
+        /* background-color: #67c23a; */
         font-size: 14px;
         font-weight: 900;
         border-radius: 4px;
@@ -57,8 +54,45 @@
       }
 
       .message-popup.show {
-        transform: translate(-50%, 10px);
+        transform: translate(-50%, 50px);
         opacity: 1;
+      }
+
+      .success {
+        background-color: #67c23a;
+      }
+
+      .success::before {
+        content: "\2713";
+        margin-right: 3px;
+      }
+
+      .warning {
+        background-color: #e6a23c;
+      }
+
+      .warning::before {
+        content: "\26A0";
+        margin-right: 3px;
+      }
+
+      .message {
+        background-color: #edf2fc;
+        color: black;
+      }
+
+      .message::before {
+        content: "\2708";
+        margin-right: 3px;
+      }
+
+      .error {
+        background-color: #f56c6c;
+      }
+
+      .error::before {
+        content: "\2718";
+        margin-right: 3px;
       }
     </style>
   </head>
@@ -66,10 +100,10 @@
     <div class="container">
       <h2>Message消息提示</h2>
       <div class="btn-group">
-        <button class="succes">success</button>
-        <button class="warning">warning</button>
-        <button class="message">message</button>
-        <button class="error">error</button>
+        <button class="succes-btn">success</button>
+        <button class="warning-btn">warning</button>
+        <button class="message-btn">message</button>
+        <button class="error-btn">error</button>
       </div>
     </div>
     <script>
@@ -88,6 +122,7 @@
         render() {
           const $div = document.createElement("div");
           $div.classList.add("message-popup");
+          $div.classList.add(this.type);
           $div.innerText = this.text;
           document.body.appendChild($div);
           this.$message = $div;
@@ -108,11 +143,26 @@
 
         hide() {
           this.$message.classList.remove("show");
+          setTimeout(() => {
+            this.$message.parentNode.removeChild(this.$message);
+          }, 1000);
         }
       }
 
-      document.querySelector(".succes").onclick = () => {
+      document.querySelector(".succes-btn").onclick = () => {
         new Message({ text: "It is successful!", type: "success" });
+      };
+
+      document.querySelector(".warning-btn").onclick = () => {
+        new Message({ text: "Warning!", type: "warning" });
+      };
+
+      document.querySelector(".message-btn").onclick = () => {
+        new Message({ text: "This is a message", type: "message" });
+      };
+
+      document.querySelector(".error-btn").onclick = () => {
+        new Message({ text: "Error", type: "error" });
       };
     </script>
   </body>
