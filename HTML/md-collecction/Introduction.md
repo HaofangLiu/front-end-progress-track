@@ -44,7 +44,7 @@ HTML的首个公开描述出现于一个名为HTML Tags 页面存档备份，存
 * title 网页标题
 * style="css code" 
 * contenteditable 可编辑
-* data-xxx:可以用来储存一些相应的数据
+* data-xxx:可以用来储存一些相应的数据 在js中可以用node.dataset.xxx来获取自定义属性的value
 
 1. 常用的内容标签有哪些，分别是什么意思（a、strong、em、code、pre 等等）
 
