@@ -313,3 +313,12 @@ parentNode.appendChild(childNode)
 ### 获取样式
 * 使用getComputedStyle获取元素计算后的样式，不要通过 node.style.属性获取
 
+### JS事件
+* 事件是在编程时系统内发生的动作或者发生的事情（单击，双击，鼠标放置，表单内容发生变化，拖拽，页面滚动等等）
+
+## DOM事件流
+* 三个阶段： 事件捕获阶段，处于目标阶段（可以假装不存在），事件冒泡阶段
+* addEventListern('type',()=>{},true（发生在哪个阶段）)true发生在捕获阶段调用listener ，false发生在冒泡阶段（默认）
+* 第三个参数有两种用法，options{once是否仅监听一次: true ||false, capture是否捕获阶段监听:true || false, passive是否忽略preventDefault :true||false } 和 useCapture(true || false)
+* 阻止事件传播： e.stopPropagation()
+* 阻止默认事件： e.preventDefault() 比如a链接自动跳转或者form表单input type = submit
