@@ -188,7 +188,6 @@
       document.querySelectorAll('[data-name="tooltip"]').forEach(($node) => {
         $node.onmouseenter = function () {
           if ($node.tooltip) {
-            console.log($node.tooltip);
             $node.tooltip.show();
           } else {
             new Tooltip(this);
