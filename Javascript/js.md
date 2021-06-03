@@ -322,3 +322,23 @@ parentNode.appendChild(childNode)
 * 第三个参数有两种用法，options{once是否仅监听一次: true ||false, capture是否捕获阶段监听:true || false, passive是否忽略preventDefault :true||false } 和 useCapture(true || false)
 * 阻止事件传播： e.stopPropagation()
 * 阻止默认事件： e.preventDefault() 比如a链接自动跳转或者form表单input type = submit
+
+## 事件代理
+* 事件绑定代理给都元素，由父元素根据事件来源统一处理
+* 实际上是事件冒泡的应用
+
+### BOM浏览器对象模型
+* window对象： var声明的变量，或者function fn（）声明，都是window的属性
+* navigator对象：浏览器相关的信息 navigator.userAgent
+* screen 屏幕相关信息
+* offsetHeight页面文档的高度 screen.height屏幕高度
+* clientHeight视窗高度 等价于 window.innerHeight
+* window.scrollY || document.documentElement.scrollTop 当前页面滚动了多少
+* element.offsetParent距离最近的是定位元素的祖先元素
+* element.offsetTop到距离最近的是定位元素的祖先元素的距离
+* element.getBoundingClientRect()在当前窗口占据多少
+* element.getBoundingClientRect().top + document.body.scrollTop 元素距离页面顶部的距离
+
+## 滚动
+* scrollTo({top:100, left:0,behavior:'smooth'})滚动到哪里
+* scrollBy({top:window.innerHeight, left:0,behavior:'smooth'})平滑滚动多少
