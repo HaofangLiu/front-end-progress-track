@@ -206,6 +206,7 @@ const fib = (n) => {
 * /\Babc\B/ 匹配不是单词的abc
 * 贪婪模式：默认尽可能多的匹配，如果想使用非贪婪模式，则可以在量词后加？`'12345'.match(/\d{3,5}?/g)`
 * () 正则的分组，有几个括号就是$1/2/3...
+* i 不区分大小写 g全局匹配 m多行匹配
 
 
 ### 异步与回调
@@ -338,7 +339,20 @@ parentNode.appendChild(childNode)
 * element.offsetTop到距离最近的是定位元素的祖先元素的距离
 * element.getBoundingClientRect()在当前窗口占据多少
 * element.getBoundingClientRect().top + document.body.scrollTop 元素距离页面顶部的距离
+* const isShow = node => node.getBoundingClientRect().top < window.innerHeight && node.getBoundingClientRect().top > 0
+
+## 检测设备
+const isAndroid = () => /android/i.test(navigator.userAgent)
+const isIPhone = () => /iphone/i.test(navigator.userAgent)
+const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 
 ## 滚动
 * scrollTo({top:100, left:0,behavior:'smooth'})滚动到哪里
 * scrollBy({top:window.innerHeight, left:0,behavior:'smooth'})平滑滚动多少
+* decodeURI()
+* decodeURIComponent()
+* encodeURI()  不会对 : / ? & = # 编码
+* encodeURIComponent()  会对 : / ? & = # 编码
+
+## cookie seesion
+* cookie 最大容量4k 记录某些页面关闭或者刷新后仍然需要记录的信息； cookie每次发送请求时都会在请求头中。（常规后端设置，但是前端设置也可以）
