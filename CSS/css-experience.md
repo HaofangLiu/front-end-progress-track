@@ -125,6 +125,7 @@ grid-area属性接受4个由'/'分开的值：grid-row-start, grid-column-start,
 
 ## id选择器
 `#id{border:1px solid black}`
+`box-shadow 水平阴影的位置 垂直阴影的位置 模糊距离 阴影的大小 阴影的颜色`
 
 ## 类选择器
 `.active{color:red}`
@@ -213,12 +214,10 @@ height: 100%, 表示当前元素的content的高度等于父亲content的高度
 * 小技巧：可以利用 [csstriggers.com](https://csstriggers.com/) 去验证重绘等行为
 
 # transform
-
 * 常用功能：translate, scale,rotate, skew
 * 小技巧： 绝对定位元素的垂直居中； translate(-50%,-50%)
 
 # transition
-
 * transition: 属性名，时长，过渡方式，延迟
 * 可以用 all 去代表所有属性
 
