@@ -81,15 +81,26 @@
         list-style: none;
         margin: 0;
         padding: 0;
-        top: 90%;
-        display: flex;
+        bottom: 10px;
       }
 
       .indicators > li {
+        display: inline-block;
+        padding: 3px 0;
+        cursor: pointer;
+      }
+
+      .indicators > li::after {
+        content: '';
+        display: block;
         width: 30px;
         height: 3px;
+        background-color: #c0c4cc;
+        border-radius: 2px;
+      }
+
+      .indicators > li.active::after {
         background-color: #fff;
-        margin: 0 3px;
       }
     </style>
   </head>
