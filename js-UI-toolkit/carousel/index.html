@@ -55,7 +55,7 @@
         right: 10px;
       }
 
-      .pancel-content {
+      .panels-content {
         position: absolute;
         display: flex;
         justify-content: center;
@@ -63,14 +63,20 @@
         width: 100%;
         height: 100%;
         text-decoration: none;
+        opacity: 0;
+        transition: all 0.3s;
       }
 
-      .pancel-content:nth-child(even) {
+      .panels-content:nth-child(even) {
         background-color: lightsalmon;
       }
 
-      .pancel-content:nth-child(odd) {
+      .panels-content:nth-child(odd) {
         background-color: lightskyblue;
+      }
+
+      .panels-content.active {
+        opacity: 1;
       }
 
       .indicators {
@@ -91,7 +97,7 @@
       }
 
       .indicators > li::after {
-        content: '';
+        content: "";
         display: block;
         width: 30px;
         height: 3px;
@@ -109,10 +115,10 @@
       <h2>Carousel</h2>
       <div class="carousel">
         <div class="panels">
-          <a class="pancel-content" href="#1">1</a>
-          <a class="pancel-content" href="#2">2</a>
-          <a class="pancel-content" href="#3">3</a>
-          <a class="pancel-content" href="#4">4</a>
+          <a class="panels-content active" href="#0">1</a>
+          <a class="panels-content" href="#0">2</a>
+          <a class="panels-content" href="#0">3</a>
+          <a class="panels-content" href="#0">4</a>
         </div>
         <div class="arrows">
           <button class="arrow arrow-prev">&#60;</button>
@@ -127,5 +133,51 @@
       </div>
     </div>
   </body>
-  <script></script>
+  <script>
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => document.querySelectorAll(s);
+
+    const $prev = $(".arrow-prev");
+    const $next = $(".arrow-next");
+    const $$indicators = $$(".indicators > li");
+    const $$panels = $$(".panels-content");
+
+    const getIndex = () => [...$$indicators].indexOf($(".indicators .active"));
+    const getPrevIndex = () =>
+      (getIndex() - 1 + $$indicators.length) % $$indicators.length;
+    const getNextIndex = () => (getIndex() + 1) % $$indicators.length;
+
+    const setIndicator = (index) => {
+      $$indicators.forEach(($indicator) => {
+        $indicator.classList.remove("active");
+      });
+      $$indicators[index].classList.add("active");
+    };
+
+    const setPage = (index) => {
+      $$panels.forEach(($content) => {
+        $content.classList.remove("active");
+      });
+      $$panels[index].classList.add("active");
+    };
+
+    $prev.onclick = function () {
+      let index = getPrevIndex();
+      setIndicator(index);
+      setPage(index);
+    };
+
+    $next.onclick = function () {
+      let index = getNextIndex();
+      setIndicator(index);
+      setPage(index);
+    };
+
+    $$indicators.forEach(($indicator,index) => {
+      $indicator.onclick = () => {
+        setIndicator(index);
+        setPage(index);
+      };
+    });
+  </script>
 </html>
