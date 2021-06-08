@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轮播/走马灯</title>
+    <style>
+      .container {
+        margin: 20px auto;
+        max-width: 800px;
+        border: 4px solid #ddd;
+        border-radius: 2px;
+        padding: 10px 15px;
+        box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.3);
+      }
+
+      .carousel {
+        position: relative;
+        height: 200px;
+      }
+
+      .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        background-color: rgba(31, 45, 61, 0.11);
+        color: #fff;
+        font-size: 16px;
+        text-align: center;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        outline: none;
+        opacity: 0;
+        /* transition: all 0.3s; */
+      }
+
+      .arrow-prev {
+        left: 10px;
+      }
+
+      .carousel:hover .arrow {
+        opacity: 0.5;
+      }
+
+      .carousel:hover .arrow:hover {
+        opacity: 1;
+        cursor: pointer;
+      }
+
+      .arrow-next {
+        right: 10px;
+      }
+
+      .panels-content {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        opacity: 0;
+        transition: all 0.3s;
+      }
+
+      .panels-content:nth-child(even) {
+        background-color: lightsalmon;
+      }
+
+      .panels-content:nth-child(odd) {
+        background-color: lightskyblue;
+      }
+
+      .panels-content.active {
+        opacity: 1;
+      }
+
+      .indicators {
+        position: absolute;
+        /* border: 1px solid black; */
+        left: 50%;
+        transform: translateX(-50%);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        bottom: 10px;
+      }
+
+      .indicators > li {
+        display: inline-block;
+        padding: 3px 0;
+        cursor: pointer;
+      }
+
+      .indicators > li::after {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #c0c4cc;
+        border-radius: 2px;
+      }
+
+      .indicators > li.active::after {
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Carousel</h2>
+      <div class="carousel">
+        <div class="panels">
+          <a class="panels-content active" href="#0">1</a>
+          <a class="panels-content" href="#0">2</a>
+          <a class="panels-content" href="#0">3</a>
+          <a class="panels-content" href="#0">4</a>
+        </div>
+        <div class="arrows">
+          <button class="arrow arrow-prev">&#60;</button>
+          <button class="arrow arrow-next">&#62;</button>
+        </div>
+        <ul class="indicators">
+          <li class="active"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => document.querySelectorAll(s);
+
+    const $prev = $(".arrow-prev");
+    const $next = $(".arrow-next");
+    const $$indicators = $$(".indicators > li");
+    const $$panels = $$(".panels-content");
+
+    const getIndex = () => [...$$indicators].indexOf($(".indicators .active"));
+    const getPrevIndex = () =>
+      (getIndex() - 1 + $$indicators.length) % $$indicators.length;
+    const getNextIndex = () => (getIndex() + 1) % $$indicators.length;
+
+    const setIndicator = (index) => {
+      $$indicators.forEach(($indicator) => {
+        $indicator.classList.remove("active");
+      });
+      $$indicators[index].classList.add("active");
+    };
+
+    const setPage = (index) => {
+      $$panels.forEach(($content) => {
+        $content.classList.remove("active");
+      });
+      $$panels[index].classList.add("active");
+    };
+
+    $prev.onclick = function () {
+      let index = getPrevIndex();
+      setIndicator(index);
+      setPage(index);
+    };
+
+    $next.onclick = function () {
+      let index = getNextIndex();
+      setIndicator(index);
+      setPage(index);
+    };
+
+    $$indicators.forEach(($indicator,index) => {
+      $indicator.onclick = () => {
+        setIndicator(index);
+        setPage(index);
+      };
+    });
+  </script>
+</html>

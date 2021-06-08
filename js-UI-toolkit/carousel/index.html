@@ -18,6 +18,7 @@
       .carousel {
         position: relative;
         height: 200px;
+        overflow: hidden;
       }
 
       .arrow {
@@ -64,7 +65,6 @@
         height: 100%;
         text-decoration: none;
         opacity: 0;
-        transition: all 0.3s;
       }
 
       .panels-content:nth-child(even) {
@@ -113,6 +113,13 @@
   <body>
     <div class="container">
       <h2>Carousel</h2>
+      <div class="select">
+        <select id="select-animation-type">
+          <option value="slide">slide</option>
+          <option value="fade">fade</option>
+          <option value="zoom">zoom</option>
+        </select>
+      </div>
       <div class="carousel">
         <div class="panels">
           <a class="panels-content active" href="#0">1</a>
@@ -134,50 +141,178 @@
     </div>
   </body>
   <script>
-    const $ = (s) => document.querySelector(s);
-    const $$ = (s) => document.querySelectorAll(s);
+    // assign different type of css to target obj
+    const css = ($node, cssObj) => Object.assign($node.style, cssObj);
 
-    const $prev = $(".arrow-prev");
-    const $next = $(".arrow-next");
-    const $$indicators = $$(".indicators > li");
-    const $$panels = $$(".panels-content");
-
-    const getIndex = () => [...$$indicators].indexOf($(".indicators .active"));
-    const getPrevIndex = () =>
-      (getIndex() - 1 + $$indicators.length) % $$indicators.length;
-    const getNextIndex = () => (getIndex() + 1) % $$indicators.length;
-
-    const setIndicator = (index) => {
-      $$indicators.forEach(($indicator) => {
-        $indicator.classList.remove("active");
-      });
-      $$indicators[index].classList.add("active");
+    const animation = {
+      slide: ($from, $to, direction) => {
+        $from.style = "";
+        $to.style = "";
+        css($from, {
+          transform: `translateX(0)`,
+          opacity: "1",
+        });
+        css($to, {
+          transform: `translateX(${direction === "right" ? "-" : ""}100%)`,
+          opacity: "1",
+        });
+        setTimeout(() => {
+          css($from, {
+            transform: `translateX(${direction === "left" ? "-" : ""}100%)`,
+            transition: `all .4s`,
+          });
+          css($to, {
+            transform: `translateX(0)`,
+            transition: `all .4s`,
+          });
+        });
+      },
+      fade: ($from, $to) => {
+        $from.style = "";
+        $to.style = "";
+        css($from, {
+          opacity: "1",
+        });
+        css($to, {
+          opacity: "0",
+        });
+        setTimeout(() => {
+          css($from, {
+            opacity: "0",
+            transition: `all .4s`,
+          });
+          css($to, {
+            opacity: "1",
+            transition: `all .4s`,
+          });
+        });
+      },
+      zoom: ($from, $to) => {
+        $from.style = "";
+        $to.style = "";
+        css($from, {
+          transform: "scale(1)",
+          opacity: "1",
+        });
+        css($to, {
+          transform: "scale(10)",
+          opacity: "0",
+        });
+        setTimeout(() => {
+          css($from, {
+            transform: "scale(10)",
+            opacity: "0",
+            transition: `all .4s`,
+          });
+          css($to, {
+            transform: "scale(1)",
+            opacity: "1",
+            transition: `all .4s`,
+          });
+        });
+      },
     };
 
-    const setPage = (index) => {
-      $$panels.forEach(($content) => {
-        $content.classList.remove("active");
-      });
-      $$panels[index].classList.add("active");
-    };
+    class Carousel {
+      constructor($root, animation) {
+        this.$root = $root;
+        this.$prev = $root.querySelector(".arrow-prev");
+        this.$next = $root.querySelector(".arrow-next");
+        this.$$indicators = $root.querySelectorAll(".indicators > li");
+        this.$$panels = $root.querySelectorAll(".panels-content");
+        this.animation = animation;
 
-    $prev.onclick = function () {
-      let index = getPrevIndex();
-      setIndicator(index);
-      setPage(index);
-    };
+        this.bind();
+        // this.start();
+      }
 
-    $next.onclick = function () {
-      let index = getNextIndex();
-      setIndicator(index);
-      setPage(index);
-    };
-
-    $$indicators.forEach(($indicator,index) => {
-      $indicator.onclick = () => {
-        setIndicator(index);
-        setPage(index);
+      intervalTask = () => {
+        let fromIndex = this.getIndex();
+        let toIndex = this.getNextIndex();
+        this.setIndicator(toIndex);
+        this.setPage(fromIndex, toIndex, "left");
       };
-    });
+
+      bind() {
+        const self = this;
+
+        let timer = setInterval(this.intervalTask, 2000);
+
+        this.$prev.onclick = function () {
+          clearInterval(timer);
+          let fromIndex = self.getIndex();
+          let toIndex = self.getPrevIndex();
+          self.setIndicator(toIndex);
+          self.setPage(fromIndex, toIndex, "right");
+          timer = setInterval(self.intervalTask, 2000);
+        };
+
+        this.$next.onclick = function () {
+          clearInterval(timer);
+          let fromIndex = self.getIndex();
+          let toIndex = self.getNextIndex();
+          self.setIndicator(toIndex);
+          self.setPage(fromIndex, toIndex, "left");
+          timer = setInterval(self.intervalTask, 2000);
+        };
+
+        this.$$indicators.forEach(($indicator, index) => {
+          $indicator.onclick = () => {
+            clearInterval(timer);
+            let fromIndex = self.getIndex();
+            let direction = fromIndex > index ? "right" : "left";
+            this.setIndicator(index);
+            this.setPage(fromIndex, index, direction);
+            timer = setInterval(self.intervalTask, 2000);
+          };
+        });
+      }
+
+      getIndex() {
+        return [...this.$$indicators].indexOf(
+          this.$root.querySelector(".indicators .active")
+        );
+      }
+
+      getPrevIndex() {
+        return (
+          (this.getIndex() - 1 + this.$$indicators.length) %
+          this.$$indicators.length
+        );
+      }
+
+      getNextIndex() {
+        return (this.getIndex() + 1) % this.$$indicators.length;
+      }
+
+      setIndicator(index) {
+        this.$$indicators.forEach(($indicator) => {
+          $indicator.classList.remove("active");
+        });
+        this.$$indicators[index].classList.add("active");
+      }
+
+      setPage(fromIndex, toIndex, direction) {
+        // console.log("setPage", arguments);
+        this.animation(
+          this.$$panels[fromIndex],
+          this.$$panels[toIndex],
+          direction
+        );
+      }
+
+      setAnimation(ani) {
+        this.animation = ani;
+      }
+    }
+
+    const $carousal = new Carousel(
+      document.querySelector(".carousel"),
+      animation.slide
+    );
+
+    document.querySelector("#select-animation-type").onchange = (e) => {
+      $carousal.setAnimation(animation[e.target.value]);
+    };
   </script>
 </html>
