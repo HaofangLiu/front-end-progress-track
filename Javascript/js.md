@@ -356,3 +356,9 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 
 ## cookie seesion
 * cookie 最大容量4k 记录某些页面关闭或者刷新后仍然需要记录的信息； cookie每次发送请求时都会在请求头中。（常规后端设置，但是前端设置也可以）
+
+
+### 如何与后端交互
+* Form表单提交： 只有get和post || 有问无答，体验不佳
+* AJAX 支持XMLHttpRequest || Fetch
+* WebSocket 可以由服务器端主动发起
