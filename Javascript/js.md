@@ -396,3 +396,9 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 - Object.entries () 返回一个数组，其元素是与直接在 object 上找到的可枚举属性键值对相对应的数组。
 - 轮询：每隔固定时间发一次请求
 - 长轮询：客户端发请求等待响应，当响应时再次发请求。 服务器端，请求到来，如果没新数据，则不发，当有新数据通知客户端，再响应
+
+### 回调&异步
+- 回调：传一个函数进去。如果多层回调就会带来回调地狱的问题
+- Promise三个状态：pending | fulfilled | rejected
+- async/await 
+
