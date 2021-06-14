@@ -398,7 +398,51 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 - 长轮询：客户端发请求等待响应，当响应时再次发请求。 服务器端，请求到来，如果没新数据，则不发，当有新数据通知客户端，再响应
 
 ### 回调&异步
-- 回调：传一个函数进去。如果多层回调就会带来回调地狱的问题
-- Promise三个状态：pending | fulfilled | rejected
-- async/await 
 
+- 回调：传一个函数进去。如果多层回调就会带来回调地狱的问题
+- Promise 三个状态：pending | fulfilled | rejected
+- Promise.all 把全部 resolve 的结果放进一个数组
+- Promise.race 得到一个最先 resolve 的结果
+- await 需要在 Promise 对象之前
+- await 只在 async 函数内有效
+
+### 跨域
+
+- 同源：同协议 | 同域名 | 同端口
+- 同源策略的初衷：ip，数据，知识产权的保护
+- 是服务器拒绝还是浏览器拒绝？： 用户浏览器拒绝（不是不发请求，而是拦截响应，不展示数据）
+- 如果想跨域请求第三方接口，或者把自己的接口提供给第三方要怎么做？：JSONP | CORS | 服务器中转
+
+## JSONP
+
+- 原理： 同源策略只限制 ajax 请求，不限制 script 标签加载 js。可以通过 script 标签请求资源，并提前写好接收函数
+
+```
+<script>
+function handleData(data) {
+console.log(data)
+}
+</script>
+<script src=“http://api.jirengu.com/getWeather.php?callback=handleData”>
+```
+
+- 浏览器会发送一个带参数的请求，服务器在收到请求后，从 callback 参数得到 handleData，然后将数据加到这个 handleData 中，假设是 handleData({data:1})，script 里的资源加载后会当成 js 执行，相当于执行 handleData({data:1})，即可在预定义的 handleData 函数里处理数据
+
+##  CORS 跨域资源共享
+
+- 原理：在发送 ajax 请求时，浏览器发现该请求不符合同源策略，会给该请求加一个请求头：Origin。 后台收到请求后，如果确定接受请求则会再返回结果中加入一个响应头： Access-Control-Allow-Origin。 浏览器判断该响应头中是否包含当前 Origin 的值，如果有则会处理响应，我们就可以拿到响应数据，如果没有浏览器直接驳回
+
+##  服务器代理
+- 通过利用服务器转发请求来获取数据，不建议
+
+### withCredentials： 
+- XMLHttpRequest的一个属性，表示跨域请求是否提供类似cookies,authorization headers(头部授权)或者TLS客户端证书这一类资格证书。（同源无效）
+- Access-Control-Allow-Credentials: true ->服务器设置
+- xhr.withCredentials = true; 前端设置
+
+### sameSite
+- Cookie 往往用来存储用户的身份信息，恶意网站可以设法伪造带有正确 Cookie 的 HTTP 请求，这就是 CSRF 攻击。
+- Cookie 的SameSite属性用来限制第三方 Cookie，从而减少安全风险。
+
+### httponly 
+- 如果cookie中设置了HttpOnly属性，那么通过js脚本将无法读取到cookie信息，这样能有效的防止XSS攻击，窃取cookie内容，这样就增加了cookie的安全性，即便是这样，也不要将重要信息存入cookie。
