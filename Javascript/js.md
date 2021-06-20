@@ -222,6 +222,9 @@ const fib = (n) => {
 - 贪婪模式：默认尽可能多的匹配，如果想使用非贪婪模式，则可以在量词后加？`'12345'.match(/\d{3,5}?/g)`
 - () 正则的分组，有几个括号就是$1/2/3...
 - i 不区分大小写 g 全局匹配 m 多行匹配
+前瞻
+- exp1(?=exp2)	匹配后面是exp2的exp1
+- exp1(?!exp2)	匹配后面不是exp2的exp1
 
 ### 异步与回调
 
@@ -231,7 +234,7 @@ const fib = (n) => {
 
 ### 原型链
 
-- obj.**proto** === Class.prototype
+- obj.__proto__ === Class.prototype
 - instanceof 用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上
 
 ### 多个逻辑运算符
@@ -446,3 +449,10 @@ console.log(data)
 
 ### httponly 
 - 如果cookie中设置了HttpOnly属性，那么通过js脚本将无法读取到cookie信息，这样能有效的防止XSS攻击，窃取cookie内容，这样就增加了cookie的安全性，即便是这样，也不要将重要信息存入cookie。
+
+### nodejs npm yarn commonJS
+- nodejs 基于chrome v8引擎的JavaScript运行环境
+- LTS current区别在于 前者是长期支持的，后者是最新版
+- nodejs 是IO密集型（网络，磁盘读写）
+- 当使用require时，会先从该文件夹的/node-modules寻找，再去上一层，直到/
+- 
