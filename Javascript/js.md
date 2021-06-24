@@ -455,4 +455,15 @@ console.log(data)
 - LTS current区别在于 前者是长期支持的，后者是最新版
 - nodejs 是IO密集型（网络，磁盘读写）
 - 当使用require时，会先从该文件夹的/node-modules寻找，再去上一层，直到/
-- 
+- package.json中的bin文件就是cli指令
+- depencies 自己项目运行依赖的模块 --save
+- devDependencies 其他的依赖模块 --save-dev
+- script npm中的可执行的bash指令
+- npx从文件夹内去找这个指令
+
+### 模块化
+- 依赖管理
+- 命名冲突
+- 代码可读性
+- 代码复用性
+
