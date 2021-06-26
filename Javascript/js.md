@@ -210,8 +210,8 @@ const fib = (n) => {
 - \w 匹配一个字母数字下划线[a-zA-Z0-9_]
 - \W 匹配一个非单词字符
 - ? 前面的字符出现 0 或者 1 次
-- \+ 前面的字符出现一次或者多次
-- \* 前面的字符出现 0 次或者多次
+- (+) 前面的字符出现一次或者多次
+- (*) 前面的字符出现 0 次或者多次
 - {n} 前面的字符出现 n 次
 - {n,m} 前面的字符出现 n 到 m 次
 - {n,} 前面的字符出现至少 n 次
@@ -467,3 +467,27 @@ console.log(data)
 - 代码可读性
 - 代码复用性
 
+### webpack
+### entry
+- 假如希望有多个文件，就可以写这里
+- 入口起点(entry point) 指示 webpack 应该使用哪个模块，来作为构建其内部依赖图(dependency graph) 的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。
+#### Loaders 
+- webpack只能理解js和json文件，loader让webpack能去处理其他类型的文件，并将它们转换成有效的模块，以供程序使用，以及被添加到依赖图中
+- loader的两个属性： test（识别出哪个文件会被转换） use（定义在进行转换时，应该使用哪个loader）
+- style-loader 把 CSS插入到DOM 中。
+- css-loader css-loader会对@import和url()进行处理，就像js解析import/require()一样。
+
+#### plugins
+- 插件用于执行范围更广的任务。比如：打包优化，资源管理，注入环境变量等（目的在于解决loader无法实现的其他的事情）
+- CleanWebpackPlugin 构建前清理/dist文件夹。（现在推荐output.clean配置而不是插件）
+- HtmlWebpackPlugin 为应用程序生成一个 HTML 文件，并自动注入所有生成的 bundle。
+
+#### sourcemap
+- 在编译后的代码和源码进行一个mapping
+
+#### webpack-dev-server
+- 提供了一个基本的 web server，并且具有 live reloading(实时重新加载) 功能
+
+#### MHR
+- 模块热替换，开发过程中，可以让某个模块保持状态，但是模块产生更新
+- 它允许在运行时更新所有类型的模块，而无需完全刷新。
