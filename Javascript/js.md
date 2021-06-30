@@ -259,6 +259,8 @@ const fib = (n) => {
 - static 静态属性 使用的时候需要用类名调用，实例没办法直接调用。可以继承
 - new 一个函数： 首先创建一个空对象，执行这个函数，遇到 this 就是对这个 obj 操作，最后返回创建的新对象
 - 方法的原型默认有一个 constructor，一般是指向自身 class、func
+- class 对于 = 号声明的方法、变量，都会将其作为实例的属性，而对于非 = 号声明的属性，则是放在原型链上。
+- 通过箭头函数定义的方法时绑定在 this 上
 
 ### 闭包
 
@@ -485,9 +487,16 @@ console.log(data)
 #### sourcemap
 - 在编译后的代码和源码进行一个mapping
 
+#### devtool
+- 此选项控制是否生成，以及如何生成 source map。
+
 #### webpack-dev-server
 - 提供了一个基本的 web server，并且具有 live reloading(实时重新加载) 功能
 
 #### MHR
 - 模块热替换，开发过程中，可以让某个模块保持状态，但是模块产生更新
 - 它允许在运行时更新所有类型的模块，而无需完全刷新。
+
+#### compiler | compilation
+- compiler 对象代表一个完全配置的webpack环境
+- compilation 对象代表对版本资源的单次构建
