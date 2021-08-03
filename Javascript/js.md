@@ -211,7 +211,7 @@ const fib = (n) => {
 - \W 匹配一个非单词字符
 - ? 前面的字符出现 0 或者 1 次
 - (+) 前面的字符出现一次或者多次
-- (*) 前面的字符出现 0 次或者多次
+- (\*) 前面的字符出现 0 次或者多次
 - {n} 前面的字符出现 n 次
 - {n,m} 前面的字符出现 n 到 m 次
 - {n,} 前面的字符出现至少 n 次
@@ -222,9 +222,9 @@ const fib = (n) => {
 - 贪婪模式：默认尽可能多的匹配，如果想使用非贪婪模式，则可以在量词后加？`'12345'.match(/\d{3,5}?/g)`
 - () 正则的分组，有几个括号就是$1/2/3...
 - i 不区分大小写 g 全局匹配 m 多行匹配
-前瞻
-- exp1(?=exp2)	匹配后面是exp2的exp1
-- exp1(?!exp2)	匹配后面不是exp2的exp1
+  前瞻
+- exp1(?=exp2) 匹配后面是 exp2 的 exp1
+- exp1(?!exp2) 匹配后面不是 exp2 的 exp1
 
 ### 异步与回调
 
@@ -234,7 +234,7 @@ const fib = (n) => {
 
 ### 原型链
 
-- obj.__proto__ === Class.prototype
+- obj.**proto** === Class.prototype
 - instanceof 用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上
 
 ### 多个逻辑运算符
@@ -411,6 +411,12 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 - await 需要在 Promise 对象之前
 - await 只在 async 函数内有效
 
+  1.Promise 只能由 Pending 转化为 fulfilled 或者 rejected，fulfilled 与 rejected 不能相互转化
+  2.Promise 中的 then 不添加第二个参数，这时候就会执行 catch 里面的代码
+  3.Promise 的链式结构(但是有个重点是"promise 执行完毕后返回的 promise 默认进入 fulfilled 状态"，所以执行完毕后默认执行链式结构中的 resolve 回调。执行进入失败状态后，链式结构也会执行之后的 resolve 回调。)
+  4.then 里面的 resolve 报错，catch 是可以捕获报错信息，then 的第二个参数不能捕获
+  5.Promise 里面执行的代码可以被 then 的第二个参数捕获到,并且不会进入到 resolve，而是直接进入 reject(没有执行 resolve 代码，直接进入了 reject | 就算没有 reject 回调，还是会进入 reject 回调 | 如果不存在 then 的第二个回调，则会进入 catch)
+
 ### 跨域
 
 - 同源：同协议 | 同域名 | 同端口
@@ -433,70 +439,86 @@ console.log(data)
 
 - 浏览器会发送一个带参数的请求，服务器在收到请求后，从 callback 参数得到 handleData，然后将数据加到这个 handleData 中，假设是 handleData({data:1})，script 里的资源加载后会当成 js 执行，相当于执行 handleData({data:1})，即可在预定义的 handleData 函数里处理数据
 
-##  CORS 跨域资源共享
+## CORS 跨域资源共享
 
 - 原理：在发送 ajax 请求时，浏览器发现该请求不符合同源策略，会给该请求加一个请求头：Origin。 后台收到请求后，如果确定接受请求则会再返回结果中加入一个响应头： Access-Control-Allow-Origin。 浏览器判断该响应头中是否包含当前 Origin 的值，如果有则会处理响应，我们就可以拿到响应数据，如果没有浏览器直接驳回
 
-##  服务器代理
+## 服务器代理
+
 - 通过利用服务器转发请求来获取数据，不建议
 
-### withCredentials： 
-- XMLHttpRequest的一个属性，表示跨域请求是否提供类似cookies,authorization headers(头部授权)或者TLS客户端证书这一类资格证书。（同源无效）
+### withCredentials：
+
+- XMLHttpRequest 的一个属性，表示跨域请求是否提供类似 cookies,authorization headers(头部授权)或者 TLS 客户端证书这一类资格证书。（同源无效）
 - Access-Control-Allow-Credentials: true ->服务器设置
 - xhr.withCredentials = true; 前端设置
 
 ### sameSite
-- Cookie 往往用来存储用户的身份信息，恶意网站可以设法伪造带有正确 Cookie 的 HTTP 请求，这就是 CSRF 攻击。
-- Cookie 的SameSite属性用来限制第三方 Cookie，从而减少安全风险。
 
-### httponly 
-- 如果cookie中设置了HttpOnly属性，那么通过js脚本将无法读取到cookie信息，这样能有效的防止XSS攻击，窃取cookie内容，这样就增加了cookie的安全性，即便是这样，也不要将重要信息存入cookie。
+- Cookie 往往用来存储用户的身份信息，恶意网站可以设法伪造带有正确 Cookie 的 HTTP 请求，这就是 CSRF 攻击。
+- Cookie 的 SameSite 属性用来限制第三方 Cookie，从而减少安全风险。
+
+### httponly
+
+- 如果 cookie 中设置了 HttpOnly 属性，那么通过 js 脚本将无法读取到 cookie 信息，这样能有效的防止 XSS 攻击，窃取 cookie 内容，这样就增加了 cookie 的安全性，即便是这样，也不要将重要信息存入 cookie。
 
 ### nodejs npm yarn commonJS
-- nodejs 基于chrome v8引擎的JavaScript运行环境
-- LTS current区别在于 前者是长期支持的，后者是最新版
-- nodejs 是IO密集型（网络，磁盘读写）
-- 当使用require时，会先从该文件夹的/node-modules寻找，再去上一层，直到/
-- package.json中的bin文件就是cli指令
+
+- nodejs 基于 chrome v8 引擎的 JavaScript 运行环境
+- LTS current 区别在于 前者是长期支持的，后者是最新版
+- nodejs 是 IO 密集型（网络，磁盘读写）
+- 当使用 require 时，会先从该文件夹的/node-modules 寻找，再去上一层，直到/
+- package.json 中的 bin 文件就是 cli 指令
 - depencies 自己项目运行依赖的模块 --save
 - devDependencies 其他的依赖模块 --save-dev
-- script npm中的可执行的bash指令
-- npx从文件夹内去找这个指令
+- script npm 中的可执行的 bash 指令
+- npx 从文件夹内去找这个指令
 
 ### 模块化
+
 - 依赖管理
 - 命名冲突
 - 代码可读性
 - 代码复用性
 
 ### webpack
+
 ### entry
+
 - 假如希望有多个文件，就可以写这里
 - 入口起点(entry point) 指示 webpack 应该使用哪个模块，来作为构建其内部依赖图(dependency graph) 的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。
-#### Loaders 
-- webpack只能理解js和json文件，loader让webpack能去处理其他类型的文件，并将它们转换成有效的模块，以供程序使用，以及被添加到依赖图中
-- loader的两个属性： test（识别出哪个文件会被转换） use（定义在进行转换时，应该使用哪个loader）
-- style-loader 把 CSS插入到DOM 中。
-- css-loader css-loader会对@import和url()进行处理，就像js解析import/require()一样。
+
+#### Loaders
+
+- webpack 只能理解 js 和 json 文件，loader 让 webpack 能去处理其他类型的文件，并将它们转换成有效的模块，以供程序使用，以及被添加到依赖图中
+- loader 的两个属性： test（识别出哪个文件会被转换） use（定义在进行转换时，应该使用哪个 loader）
+- style-loader 把 CSS 插入到 DOM 中。
+- css-loader css-loader 会对@import 和 url()进行处理，就像 js 解析 import/require()一样。
 
 #### plugins
-- 插件用于执行范围更广的任务。比如：打包优化，资源管理，注入环境变量等（目的在于解决loader无法实现的其他的事情）
-- CleanWebpackPlugin 构建前清理/dist文件夹。（现在推荐output.clean配置而不是插件）
+
+- 插件用于执行范围更广的任务。比如：打包优化，资源管理，注入环境变量等（目的在于解决 loader 无法实现的其他的事情）
+- CleanWebpackPlugin 构建前清理/dist 文件夹。（现在推荐 output.clean 配置而不是插件）
 - HtmlWebpackPlugin 为应用程序生成一个 HTML 文件，并自动注入所有生成的 bundle。
 
 #### sourcemap
-- 在编译后的代码和源码进行一个mapping
+
+- 在编译后的代码和源码进行一个 mapping
 
 #### devtool
+
 - 此选项控制是否生成，以及如何生成 source map。
 
 #### webpack-dev-server
+
 - 提供了一个基本的 web server，并且具有 live reloading(实时重新加载) 功能
 
 #### MHR
+
 - 模块热替换，开发过程中，可以让某个模块保持状态，但是模块产生更新
 - 它允许在运行时更新所有类型的模块，而无需完全刷新。
 
 #### compiler | compilation
-- compiler 对象代表一个完全配置的webpack环境
+
+- compiler 对象代表一个完全配置的 webpack 环境
 - compilation 对象代表对版本资源的单次构建
