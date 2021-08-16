@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img class="imga" src="https://www.gostudy.com.au/wp-content/uploads/2018/10/MEL_header_2-1.jpg">
+
+    <ul class="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+
+    </ul>
+
+    <ul class="dUL">
+        <li>11</li>
+        <li>22</li>
+        <li>33</li>
+        <li>44</li>
+        <li>55</li>
+        <li>66</li>
+    </ul>
+</body>
+<script>
+    // 同步等待结果
+
+    const sleep = (second) => {
+        const start = new Date();
+        while (new Date() - start < second * 1000) {
+        }
+        // return;
+    }
+    // console.log('start');
+    // console.log('sleep start');
+    // sleep(3);
+    // console.log('sleep end');
+
+    // 异步不等待结果
+    const sleepAsync = (sec) => {
+        const start = new Date();
+        console.log('async sleep start');
+        setTimeout(() => {
+            while (new Date() - start < sec) {
+
+            }
+            console.log('async sleep end');
+        }, 3000)
+    }
+
+    // console.log('start');
+    // sleepAsync(3);
+    // console.log('end');
+
+    // 加载图片时的异步：
+    const img = document.querySelector('.imga')
+    console.log(img.width) // 当第一次获取时会是0因为图片还没有加载出来
+
+    //解决办法：利用监听事件onload可以触发
+    img.onload = () => {
+        console.log(img.width);
+    }
+
+    // 面试常见的异步题
+    const lis = document.querySelector('ul').children
+    // var 会带来变量提升
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].onclick = () => {
+            console.log(i);
+        }
+    }
+
+    const lisA = document.querySelector('.dUL').children;
+    for (let i = 0; i < lisA.length; i++) {
+        lisA[i].onclick = () => {
+            console.log(i);
+        }
+    }
+</script>
+
+</html>

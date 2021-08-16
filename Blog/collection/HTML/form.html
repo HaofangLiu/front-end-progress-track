@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/somebackendroute" method="POST" autocomplete="on">
+        <!-- form表单中的input都要有name属性，牢记 -->
+        <input type="text" name="username" />
+        <input type="submit" value="submit" />
+        <button type="submit">
+            <strong>submit</strong>
+        </button>
+        <!-- 区别：button内部可以有其他的标签 -->
+        <hr>
+        <!-- 同一个name表示一组，checkbox类型也是一样的 -->
+        <input type="radio" name='gender' /> male
+        <input type="radio" name='gender' /> female
+        <hr>
+        <input type="file" />
+        <input type="file" multiple />
+    </form>
+</body>
+
+</html>

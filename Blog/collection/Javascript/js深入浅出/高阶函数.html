@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 接受一个函数作为参数，是高阶函数
+    const arr = [1, 5, 74, 9, 63, 2, 5, 6, 4, 2, 3];
+    const res = arr.filter((ele) => {
+        if (ele > 2) {
+            return ele % 2 === 1;
+        }
+    })
+    console.log(arr);
+    console.log(res);
+
+    arr.sort((a, b) => {
+        return b - a
+    })
+
+    console.log(arr);
+</script>
+
+</html>
