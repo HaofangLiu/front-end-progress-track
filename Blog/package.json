@@ -1,0 +1,16 @@
+{
+  "name": "front-end-progress-track",
+  "version": "1.0.0",
+  "description": "my knowledge collection",
+  "main": "index.js",
+  "repository": "git@github.com:HaofangLiu/front-end-progress-track.git",
+  "author": "lucas",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.8.2"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}
