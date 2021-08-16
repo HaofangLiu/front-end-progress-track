@@ -1,7 +1,6 @@
-on: # 触发条件
-  # 每当 push 到 master 分支时触发部署
+on:
   push:
-    branches: [master]
+    branches: [main]
   # 是否手动触发部署
   workflow_dispatch:
 jobs:
