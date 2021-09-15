@@ -272,3 +272,26 @@ function reactive(obj){
 
 - Vue2 用Object.defineProperty 实现响应式， Vue3 使用Proxy实现响应式。 对比有什么优缺点？
     - Proxy能劫持整个对象， 而Object.defineProperty 只能劫持对象的属性； 前者递归返回属性对应的值的代理即可实现响应式。 后者需要深度遍历每个属性。 后者对数组的操作不友好。
+
+### 条件渲染
+- `v-if` 的变化会创建/删除元素， `v-show`变化只是元素的展示/隐藏(display:none)
+- 对于多个元素的控制可以用`<template>`包裹
+
+### v-for 列表渲染
+- `v-for`可基于数组渲染列表
+- 也可基于对象渲染列表
+- 可以使用值的范围
+- 可以在组件上循环渲染
+- `v-for`默认使用‘就地更新’ 策略， 数据项的顺序被改变，Vue就不会移动DOM元素来匹配数据项的顺序， 而是就地更新每个元素。
+- 为能跟踪每个节点的身份，重用和重新排序现有元素，提升性能，需要使用key
+```
+<li v-for="item in array">{{item}}</li>
+<li v-for="(item, index) in array">{{item}}</li>
+<li v-for="value in myObject">{{value}}</li>
+<li v-for="(value, key) in myObject">{{key}}:
+{{value}}</li>
+<span v-for="n in 10">{{ n }} </span>
+<!--1,...,10-->
+<my-component v-for="(item, index) in 
+items" :item="item" :key="item.id"></mycomponent>
+```
