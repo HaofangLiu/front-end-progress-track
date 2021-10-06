@@ -1,6 +1,3 @@
----
-sidebar: auto
----
 # Javascript 相关知识点
 
 ## 地址栏输入 URL 后发生了什么
