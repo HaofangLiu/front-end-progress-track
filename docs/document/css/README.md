@@ -65,6 +65,8 @@ sticky:相对定位和固定定位的混合（当滚动的过程时相当于rela
 ## flex布局
 `display:flex`父亲设置，对外展示块级特性
 
+先设置continer，在设置item
+
 ### container
 flex-direction row|row-reverse|column|column-reverse
 flex-wrap nowrap|wrap|wrap-reverse
@@ -85,6 +87,8 @@ align-content flex-start|flex-end|center|stretch|space-between|space-around
 
 ## grid布局
 `display:grid`
+
+先设置父亲，再设置孩子
 
 ### container
 grid-template-columns: 10px auto 10px
