@@ -1,5 +1,43 @@
 # Javascript 相关知识点
 
+## JS有哪几种数据类型
+共8种。 其中7种原始类型：null、undefined、String、Number、Boolean、BigInt、Symbol
+
+1种复合类型: Object。除了原始类型的剩下全是复合类型，比如原生对象、数组、函数、正则、宿主对象...
+
+（BigInt和Symbol用的比较少，得了解下怎么用。
+
+let a = 12333333333n * 3411452222n; 可以用在一个整数字面量后面加 n 的方式定义一个 BigInt
+
+const hugeString = BigInt("9007199254740991"); 或者调用函数BigInt()。
+
+let key = Symbol(42);
+
+let obj = {}
+
+obj[key] = 'xxx'
+
+## 变量声明提升？let与var的区别？
+
+var 和 function 的提升，let 和 const不提升；let有块级作用域。
+
+暂时性死区。创建、初始化、赋值，var是创建后立即初始化未undefined，let是创建后等赋值时初始化。未初始化就使用就会报错。[资料](https://zhuanlan.zhihu.com/p/28140450)
+
+函数提升优先级高于变量提升，且不会被同名变量声明覆盖，但是会被变量赋值后覆盖。而且存在同名函数与同名变量时，优先执行函数。
+
+## ES 6 语法你平常能用到哪些？
+let、const、箭头函数、Promise 、async/await、字符串模版、展开操作符、默认参数、import export。
+
+## undefined和null有什么区别？
+相同点：都代表“空”、“未定义”。
+不同点：
+1. 类型不同，undefined的类型是undefined， null的类型是对象（不完全准确）；
+
+null本身不是对象，typeof null === 'object’,是语言本身的一个bug。其原理是不同的对象在底层都是用二进制来表示的，在js中二进制前3位是0即判断是为对象，null的二进制表示是全0，即前三位都是0，所以执行typeof返回的是object，实际上null为基本数据类型。
+
+1. undefined一般代表未初始化，null一般代表一个尚未设置的对象的占位符。
+2. undefined 在有些场景下(函数内)能重新赋值(所有有时候用void 0 表示undefined)，null不能
+
 ## 地址栏输入 URL 后发生了什么
 
 1. DNS 域名解析；（浏览器缓存、系统缓存、路由器缓存、ISP 缓存、DNS 服务器）

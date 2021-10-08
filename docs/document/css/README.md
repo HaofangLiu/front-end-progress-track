@@ -355,3 +355,19 @@ reset是暴力清除标签默认样式，比如 * {margin:0; padding: 0}，norma
      zoom: 1; /* IE 兼容*/
  }
 ```
+
+## 浏览器是如何判断元素是否匹配某个 CSS 选择器？
+CSS选择器的匹配算法是从右到左。 （联想二叉树匹配）
+
+## inline 和 inline-block 的区别
+inline宽度收缩，inline元素设置宽高无效，设置上下margin无效，设置上下padding可用来撑开背景但不占用普通流空间，设置左右margin和padding有效。 可以给父级的块级元素设置text-align: center来水平居中。
+inline-block宽度收缩，宽高设置有效，上下margin、padding设置有效。可以给父级的块级元素设置text-align: center来水平居中。
+
+## 为什么提倡使用 translate() 而非 不是 absolute？
+translate能让浏览器调用显卡而不是CPU进行计算渲染，动画性能更好，页面不卡。
+
+## 如果实现一个高性能的CSS动画效果？
+尽可能使用CSS3过渡和动画，比如transition+transfrom，或者@keyframes + animation
+如果用js，尽量使用 requestAnimationFrame。
+
+
