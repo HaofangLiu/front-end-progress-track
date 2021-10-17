@@ -450,10 +450,16 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 - await 只在 async 函数内有效
 
   1.Promise 只能由 Pending 转化为 fulfilled 或者 rejected，fulfilled 与 rejected 不能相互转化
+
   2.Promise 中的 then 不添加第二个参数，这时候就会执行 catch 里面的代码
+
   3.Promise 的链式结构(但是有个重点是"promise 执行完毕后返回的 promise 默认进入 fulfilled 状态"，所以执行完毕后默认执行链式结构中的 resolve 回调。执行进入失败状态后，链式结构也会执行之后的 resolve 回调。)
+
   4.then 里面的 resolve 报错，catch 是可以捕获报错信息，then 的第二个参数不能捕获
+  
   5.Promise 里面执行的代码可以被 then 的第二个参数捕获到,并且不会进入到 resolve，而是直接进入 reject(没有执行 resolve 代码，直接进入了 reject | 就算没有 reject 回调，还是会进入 reject 回调 | 如果不存在 then 的第二个回调，则会进入 catch)
+  
+  （谨防看不懂）出处：[promise的两个参数](https://blog.csdn.net/py_boy/article/details/104721946)
 
 ### 跨域
 
