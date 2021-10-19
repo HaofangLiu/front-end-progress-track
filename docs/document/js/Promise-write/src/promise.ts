@@ -4,8 +4,7 @@ const REJECTED = "rejected";
 
 class MyPromise {
   status = PENDING;
-  success = null;
-  fail = null;
+  callbacks = [];
 
   constructor(excutor) {
     if (typeof excutor === "function") {
@@ -15,21 +14,37 @@ class MyPromise {
     }
   }
 
-  resolve = () => {
+  resolve = (result) => {
+    if (this.status !== PENDING) return;
+    this.status = FULFILLED;
     setTimeout(() => {
-      this.success();
+      this.callbacks.forEach((handle) => {
+        typeof handle[0] === "function" && handle[0](result);
+      });
     }, 0);
   };
 
-  reject = () => {
+  reject = (reason) => {
+    if (this.status !== PENDING) return;
+    this.status = REJECTED;
     setTimeout(() => {
-      this.fail();
+      this.callbacks.forEach((handle) => {
+        typeof handle[1] === "function" && handle[1](reason);
+      });
     }, 0);
   };
 
-  then(success, fail) {
-    this.success = success;
-    this.fail = fail;
+  then(onFulfilled?, onRejected?) {
+    const handle = [];
+
+    if (typeof onFulfilled === "function") {
+      handle[0] = onFulfilled;
+    }
+    if (typeof onRejected === "function") {
+      handle[1] = onRejected;
+    }
+
+    this.callbacks.push(handle);
   }
 }
 
