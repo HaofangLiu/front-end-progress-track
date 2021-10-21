@@ -166,8 +166,36 @@ describe("MyPromise", () => {
       done();
     }, 0);
   });
-  // it("", () => {});
-  // it("", () => {});
+  it("then在promise中可以多次调用", (done) => {
+    const promise = new MyPromise((resolve, reject) => {
+      reject();
+    });
+    const cbs = [sinon.fake(), sinon.fake(), sinon.fake()];
+    promise.then(null, cbs[0]);
+    promise.then(null, cbs[1]);
+    promise.then(null, cbs[2]);
+    setTimeout(() => {
+      assert(cbs[0].called);
+      assert(cbs[1].called);
+      assert(cbs[1].calledAfter(cbs[0]));
+      assert(cbs[2].called);
+      assert(cbs[2].calledAfter(cbs[1]));
+      done();
+    }, 0);
+  });
+  it("then必须返回一个promise", () => {
+    const promise = new MyPromise((resolve, reject) => {
+      resolve();
+    });
+    const res = promise.then(() => {}, () => {});
+    // @ts-ignore
+    assert(res instanceof MyPromise);
+  });
+  it("如果then（onFulfilled, onRejected）中的onFulfilled返回一个值x，那运行Promise Resolution Procedure [[Resolve]](promise2,x)", () => {
+    const promise = new MyPromise((resolve, reject) => {
+      resolve();
+    });
+  });
   // it("", () => {});
   // it("", () => {});
   // it("", () => {})

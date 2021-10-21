@@ -1,15 +1,16 @@
 # Javascript 相关知识点
 
-## JS有哪几种数据类型
-共8种。 其中7种原始类型：null、undefined、String、Number、Boolean、BigInt、Symbol
+## JS 有哪几种数据类型
 
-1种复合类型: Object。除了原始类型的剩下全是复合类型，比如原生对象、数组、函数、正则、宿主对象...
+共 8 种。 其中 7 种原始类型：null、undefined、String、Number、Boolean、BigInt、Symbol
 
-（BigInt和Symbol用的比较少，得了解下怎么用。
+1 种复合类型: Object。除了原始类型的剩下全是复合类型，比如原生对象、数组、函数、正则、宿主对象...
 
-let a = 12333333333n * 3411452222n; 可以用在一个整数字面量后面加 n 的方式定义一个 BigInt
+（BigInt 和 Symbol 用的比较少，得了解下怎么用。
 
-const hugeString = BigInt("9007199254740991"); 或者调用函数BigInt()。
+let a = 12333333333n \* 3411452222n; 可以用在一个整数字面量后面加 n 的方式定义一个 BigInt
+
+const hugeString = BigInt("9007199254740991"); 或者调用函数 BigInt()。
 
 let key = Symbol(42);
 
@@ -17,26 +18,29 @@ let obj = {}
 
 obj[key] = 'xxx'
 
-## 变量声明提升？let与var的区别？
+## 变量声明提升？let 与 var 的区别？
 
-var 和 function 的提升，let 和 const不提升；let有块级作用域。
+var 和 function 的提升，let 和 const 不提升；let 有块级作用域。
 
-暂时性死区。创建、初始化、赋值，var是创建后立即初始化未undefined，let是创建后等赋值时初始化。未初始化就使用就会报错。[资料](https://zhuanlan.zhihu.com/p/28140450)
+暂时性死区。创建、初始化、赋值，var 是创建后立即初始化未 undefined，let 是创建后等赋值时初始化。未初始化就使用就会报错。[资料](https://zhuanlan.zhihu.com/p/28140450)
 
 函数提升优先级高于变量提升，且不会被同名变量声明覆盖，但是会被变量赋值后覆盖。而且存在同名函数与同名变量时，优先执行函数。
 
 ## ES 6 语法你平常能用到哪些？
+
 let、const、箭头函数、Promise 、async/await、字符串模版、展开操作符、默认参数、import export。
 
-## undefined和null有什么区别？
+## undefined 和 null 有什么区别？
+
 相同点：都代表“空”、“未定义”。
 不同点：
-1. 类型不同，undefined的类型是undefined， null的类型是对象（不完全准确）；
 
-null本身不是对象，typeof null === 'object’,是语言本身的一个bug。其原理是不同的对象在底层都是用二进制来表示的，在js中二进制前3位是0即判断是为对象，null的二进制表示是全0，即前三位都是0，所以执行typeof返回的是object，实际上null为基本数据类型。
+1. 类型不同，undefined 的类型是 undefined， null 的类型是对象（不完全准确）；
 
-1. undefined一般代表未初始化，null一般代表一个尚未设置的对象的占位符。
-2. undefined 在有些场景下(函数内)能重新赋值(所有有时候用void 0 表示undefined)，null不能
+null 本身不是对象，typeof null === 'object’,是语言本身的一个 bug。其原理是不同的对象在底层都是用二进制来表示的，在 js 中二进制前 3 位是 0 即判断是为对象，null 的二进制表示是全 0，即前三位都是 0，所以执行 typeof 返回的是 object，实际上 null 为基本数据类型。
+
+1. undefined 一般代表未初始化，null 一般代表一个尚未设置的对象的占位符。
+2. undefined 在有些场景下(函数内)能重新赋值(所有有时候用 void 0 表示 undefined)，null 不能
 
 ## 地址栏输入 URL 后发生了什么
 
@@ -235,7 +239,7 @@ const fib = (n) => {
 - `string.match(/abc\d/g)`返回匹配到的 arr ['abc1','abc2']
 - `string.replace(/abc\d/g,'hi')`将 abc2 替换为 hi
 - `string.split(/\s/)`基于空格分离字符串，返回数组结果
-- 有意义的字符，需要用\转义：( [ { \ ^ $ | ) ? \* + .
+- 有意义的字符，需要用\转义：( [ { \ ^ \$ | ) ? \* + .
 - [abcd]中括号：匹配一个字符，可以是 abcd 任意一个
 - [0-9]同理
 - [a-zA-Z]匹配一个不限制大小写的字母
@@ -254,28 +258,28 @@ const fib = (n) => {
 - {n,m} 前面的字符出现 n 到 m 次
 - {n,} 前面的字符出现至少 n 次
 - /^xyz/ 必须以 xyz 开头 注意区分[^]里面的是除了
-- /abc$/必须以 abc 结尾
+- /abc\$/必须以 abc 结尾
 - /\babc\b/ 匹配时单词的 abc（左右两侧时字符串开头、结尾、中横线、空格）
 - /\Babc\B/ 匹配不是单词的 abc
 - 贪婪模式：默认尽可能多的匹配，如果想使用非贪婪模式，则可以在量词后加？`'12345'.match(/\d{3,5}?/g)`
-- () 正则的分组，有几个括号就是$1/2/3...
+- () 正则的分组，有几个括号就是\$1/2/3...
 - i 不区分大小写 g 全局匹配 m 多行匹配
   前瞻
 - exp1(?=exp2) 匹配后面是 exp2 的 exp1
 - exp1(?!exp2) 匹配后面不是 exp2 的 exp1
 
-### 异步与回调
+## 异步与回调
 
 - 同步任务：在主线程上等待执行任务，前一个结束后一个才会执行。
 - 异步任务：不进入主线程，进入任务队列，等待任务队列通知主线程，某个异步任务可以执行了，这个任务才可以进入主线程执行。
 - 回调函数，说的就是被挂起来的代码，异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行异步任务的回调函数
 
-### 原型链
+## 原型链
 
 - obj.**proto** === Class.prototype
 - instanceof 用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上
 
-### 多个逻辑运算符
+## 多个逻辑运算符
 
 - || 或运算寻找第一个真值
 - 一个或运算 || 的链，将返回第一个真值，如果不存在真值，就返回该链的最后一个值。
@@ -285,7 +289,7 @@ const fib = (n) => {
 
 - 与运算 && 的优先级比或运算 || 要高。
 
-### 继承
+## 继承
 
 - 继承可以使得子类具有父类的各种属性和方法，而不需要再次编写相同的代码。在令子类别继承父类别的同时，可以重新定义某些属性，并重写某些方法，即覆盖父类别的原有属性和方法，使其获得与父类别不同的功能。
 - 写在 class 的属性和方法会挂在 prototype 上
@@ -300,11 +304,45 @@ const fib = (n) => {
 - class 对于 = 号声明的方法、变量，都会将其作为实例的属性，而对于非 = 号声明的属性，则是放在原型链上。
 - 通过箭头函数定义的方法时绑定在 this 上
 
-### 闭包
+## 闭包
 
 - 闭包是由函数以及创建该函数的词法环境组合而成。这个环境包含了这个闭包创建时所能访问的所有的局部变量
 
-### DOM 文档对象模型
+## 函数节流与函数防抖
+
+- 防抖 debounce：如果下达命令后，在 t 毫秒时间内再次下达该命令，取消之前的命令，只执行新的命令。
+
+```
+const debounce = (func, wait) => {
+        let timer = null;
+        return function() {
+          if (timer) {
+            clearTimeout(timer);
+          }
+          timer = setTimeout(() => {
+            func.apply(this, arguments);
+          }, wait);
+        };
+      };
+```
+
+- 节流 throttle：从上一次命令结束开始的一定时间范围 t 内， 如果多次连续下达命令，则只执行当前时间段 t 内第一次命令。
+
+```
+const throttle = (fn, wait) => {
+        let lastTime = null;
+        let nowTime = null;
+        return function(){
+            nowTime = Date.now();
+            if(!lastTime || nowTime - lastTime > wait){
+                fn();
+                lastTime = nowTime;
+            }
+        }
+      };
+```
+
+## DOM 文档对象模型
 
 - document.head/.body/.title/.location(href/search/hash/reload/assign)
 - node.nodeName：元素标签名，还有个类似的 tagName
@@ -327,7 +365,7 @@ const fib = (n) => {
 - document.querySelector('.box') //Element
 - document.querySelectorAll('.box') //NodeList
 
-### DOM 事件
+## DOM 事件
 
 事件绑定
 
@@ -336,7 +374,7 @@ const fib = (n) => {
 - 在函数里面可以使用事件对象 e
 - 函数里面的 this 代表 node 本身，如果用箭头函数则没有 this（this 指向 window）
 
-### class 操作
+## class 操作
 
 - 常见 API
 - node.className 老方法，用起来不严谨，尽量不用
@@ -345,7 +383,7 @@ const fib = (n) => {
 - node.classList.contains
 - node.classList.toggle
 
-### 属性操作
+## 属性操作
 
 - node.getAttribute('id')
 - node.setAttribute('data-id','100')
@@ -353,7 +391,7 @@ const fib = (n) => {
 - document.createAttribute('checked')
 - node.setAttributeNode(attrNode) ==》 node.setAttributeNode(document.createAttribute('checked'))
 
-### 元素创建
+## 元素创建
 
 - document.createElement('div')
 - 创建 DOM 节点，参数是标签名
@@ -362,7 +400,7 @@ const fib = (n) => {
 - document.createDocumentFragment()
 - 创建一个虚拟的 DOM，用于提升性能，避免高频 DOM 操作
 
-### 元素复制添加修改删除
+## 元素复制添加修改删除
 
 parentNode.appendChild(childNode)
 
@@ -377,11 +415,11 @@ parentNode.appendChild(childNode)
 - 克隆一个元素，参数 true 的时候会深复制，也就是会复制元素及其子元素，false
   的时候只复制元素本身
 
-### 获取样式
+## 获取样式
 
 - 使用 getComputedStyle 获取元素计算后的样式，不要通过 node.style.属性获取
 
-### JS 事件
+## JS 事件
 
 - 事件是在编程时系统内发生的动作或者发生的事情（单击，双击，鼠标放置，表单内容发生变化，拖拽，页面滚动等等）
 
@@ -456,12 +494,12 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
   3.Promise 的链式结构(但是有个重点是"promise 执行完毕后返回的 promise 默认进入 fulfilled 状态"，所以执行完毕后默认执行链式结构中的 resolve 回调。执行进入失败状态后，链式结构也会执行之后的 resolve 回调。)
 
   4.then 里面的 resolve 报错，catch 是可以捕获报错信息，then 的第二个参数不能捕获
-  
-  5.Promise 里面执行的代码可以被 then 的第二个参数捕获到,并且不会进入到 resolve，而是直接进入 reject(没有执行 resolve 代码，直接进入了 reject | 就算没有 reject 回调，还是会进入 reject 回调 | 如果不存在 then 的第二个回调，则会进入 catch)
-  
-  （谨防看不懂）出处：[promise的两个参数](https://blog.csdn.net/py_boy/article/details/104721946)
 
-### 跨域
+  5.Promise 里面执行的代码可以被 then 的第二个参数捕获到,并且不会进入到 resolve，而是直接进入 reject(没有执行 resolve 代码，直接进入了 reject | 就算没有 reject 回调，还是会进入 reject 回调 | 如果不存在 then 的第二个回调，则会进入 catch)
+
+  （谨防看不懂）出处：[promise 的两个参数](https://blog.csdn.net/py_boy/article/details/104721946)
+
+## 跨域
 
 - 同源：同协议 | 同域名 | 同端口
 - 同源策略的初衷：ip，数据，知识产权的保护

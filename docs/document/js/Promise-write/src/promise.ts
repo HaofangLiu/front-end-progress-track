@@ -43,9 +43,14 @@ class MyPromise {
     if (typeof onRejected === "function") {
       handle[1] = onRejected;
     }
-
+    if (typeof onFulfilled === "function" || typeof onRejected === "function") {
+      handle[2] = new MyPromise(() => {});
+    }
     this.callbacks.push(handle);
+    return handle[2];
   }
+
+  resolveWith(x) {}
 }
 
 export default MyPromise;
