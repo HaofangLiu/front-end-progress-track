@@ -408,13 +408,204 @@ sayHi('hunger')">click</span>
 ```
 
 ### 单向数据流
+
 - 什么是单向数据流？
-父组件能直接传递数据给子组件，子组件不能随意修改父组件状态
+  父组件能直接传递数据给子组件，子组件不能随意修改父组件状态
 
 - 为什么单向？
-目的是让数据传递变得简单，可控，可追溯。 
+  目的是让数据传递变得简单，可控，可追溯。
 
 - 如何实现双向？
-父组件可以通过设置子组件的props直接传递数据给子组件。 子组件想传递数据给父组件时，可以在内部emit一个自定义事件，父组件可以在子组件上绑定该事件的监听，来处理子组件emit的事件和数据。
+  父组件可以通过设置子组件的 props 直接传递数据给子组件。 子组件想传递数据给父组件时，可以在内部 emit 一个自定义事件，父组件可以在子组件上绑定该事件的监听，来处理子组件 emit 的事件和数据。
 
-在Vue中， v-model实现的所谓双向绑定，本质就是这样
+在 Vue 中， v-model 实现的所谓双向绑定，本质就是这样
+
+### 全局组件和局部组件
+
+```
+app.component('component-a',{...}) // 全局组件
+
+const component = {components: {...}} // 局部组件
+```
+
+### 组件命名
+
+- kebab-case 短横线连接全小写的单词
+- 声明时使用 kebab-case，模板里必须用 kebab-case
+
+```
+app.component('component-a',({})
+<component-a></component-a>
+```
+
+- PascalCase 多个首字母大写单词直接连接
+- 声明时使用 PascalCase，模板里可以用 kebab-case 和 PascalCase
+
+```
+app.component('ComponentB',({})
+<component-b></component-b>
+<ComponentB></Component-B>
+```
+
+### Props
+
+#### 写法：
+
+```
+props: ['name', 'other']
+props: {
+name: String,
+other: Number //Boolean, Array, Object, Function
+}
+props: {
+name: {
+//传递的prop如果不满足条件，控制台会有警告
+type: String,
+required: true,
+//default: 'hello'
+}
+}
+
+```
+
+#### v-bind
+
+```
+post: {
+id: 1,
+title: 'My Journey with Vue'
+}
+以下两种写法等价
+<blog-post v-bind="post"></blog-post>
+<blog-post v-bind:id="post.id"
+v-bind:title="post.title"></blog-post>
+```
+
+### 非 prop 的 attribute
+
+- 指的是父组件模板里在使用子组件时设置了属性，但子组件内没有通过 Props 接收
+- 当组件返回单个根节点时，非 prop attribute 将自动添加到根节点的 attribute 中
+- 在子组件里可以通过`$attrs / this.$attrs` 获取 attributes
+- 如果想在非根节点应用传递的 attribute，使用`v-bind="$attrs"`
+
+```
+<div id="app">
+<user class="username"
+:data-user="username"></user>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+const User = {
+template: `<div>{{$attrs['data-user']}}</div>`
+}
+Vue.createApp({
+components: { User },
+data() {
+return { username: 'hunger' }
+}
+}).mount('#app')
+</script>
+```
+
+```
+div id="app">
+<username class="username" :error="errorMsg"
+@input="onInput"></username>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+const Username = {
+props: ['error'],
+template: `
+<fieldset>
+<legend>用户名</legend>
+<input v-bind="$attrs">
+<div>{{error}}</div>
+</fieldset>
+`
+}
+Vue.createApp({
+components: { Username },
+data() {
+return { errorMsg: '' }
+},
+methods: {
+onInput(e){
+this.errorMsg = e.target.value.length<6?"长度不够":""
+}
+}
+}).mount('#app')
+</script>
+```
+
+### 自定义事件
+
+- 子组件内触发事件用 `this.$emit('my-event')`
+- 父组件使用子组件时绑定`<component-a @my-event="doSomething"></component-a>`
+- 推荐 kebab-case 事件名，区分大小写
+
+```
+<div id="app">
+      <h1>{{username}}</h1>
+      <user
+        class="username"
+        :data-user="username"
+        @user-change="username=$event"
+      ></user>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const User = {
+        props: ["dataUser"],
+        events: ["user-change"],
+        template: `<div>{{dataUser}} <button @click='updateUser'>update</button></div>`,
+        methods: {
+          updateUser() {
+            this.$emit("user-change", this.dataUser + "!");
+          },
+        },
+      };
+      Vue.createApp({
+        components: { User },
+        data() {
+          return {
+            username: "hunger",
+          };
+        },
+      }).mount("#app");
+    </script>
+```
+
+#### v-model 自定义事件语法糖
+
+```
+<com v-model:foo="bar"></com> //等价于
+<com :foo="bar" @update:foo="bar=$event">
+```
+
+```
+<div id="app">
+<h1>{{username}}</h1>
+<user class="username"
+v-model:user="username"></user>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+const User = {
+props: ['user'],
+template: `<div>{{user}} <button @click="update
+User">update</button></div>`,
+methods: {
+updateUser() {
+this.$emit('update:user', this.user + '!')
+}
+}
+}
+Vue.createApp({
+components: { User },
+data() {
+return { username: 'hunger' }
+}
+}).mount('#app')
+</script>
+```
