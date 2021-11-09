@@ -320,7 +320,7 @@ sayHi('hunger')">click</span>
 
 ```
 <input v-model="message" /> {{ message }} //相应onInput事件
-<textarea v-model.lazy="message"></textarea> {{ message }} // 相应onChange事件
+<textarea v-model.lazy="message"></textarea> {{ message }} // 相应onChange事件，当鼠标从输入移走时才会更新
 <input type="checkbox" v-model="checked" /> {{checked}}
 <!-- 复选框 -->
 <input type="checkbox" value="a" v-model="list" />
@@ -609,3 +609,229 @@ return { username: 'hunger' }
 }).mount('#app')
 </script>
 ```
+
+### 插槽
+
+- 子组件的模板预留一个空位（slot）
+- 父组件使用子组件时可以在子组件标签内插入内容/组件，即向子组件内预留的空位插入
+- 父组件往插槽插入的内容只能使用父组件实例的属性
+
+```
+<div id="app">
+<x-button> <icon name="yes"></icon> {{text}} </xbutton>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+const Icon = {
+props: ['name'],
+template: `<span>{{type}}</span>`,
+computed: {
+type() { return this.name==='yes'?'✔':'✘' }
+}
+}
+const XButton = {
+template: `<button>
+<slot></slot>
+</button>`
+}
+Vue.createApp({
+components: { XButton, Icon },
+data() {
+return { text: '正确' }
+}
+}).mount('#app')
+</script>
+```
+
+### 具名插槽
+
+```
+<div id="app">
+<layout>
+<template v-slot:header>
+<h1>页面header</h1>
+</template>
+<template #default>
+<p>页面content</p>
+</template>
+<template #footer>
+<div>页面footer</div>
+</template>
+</layout>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+const Layout = {
+template: `<div class="container">
+<header> <slot name="header"></slot> </header>
+<main> <slot></slot></main>
+<footer><slot name="footer"></slot></footer>
+</div>`
+}
+Vue.createApp({
+components: { Layout },
+}).mount(
+```
+
+### 作用域插槽
+
+```
+div id="app">
+<news>hello world</news>
+<news v-slot="props">👉 {{props.item}}</news>
+<news v-slot="{ item }">✔ {{item}}</news>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+const News = {
+data() { return { news: ['first news', 'second news'] } },
+template: `<ul>
+<li v-for="item in news">
+<slot :item="item"></slot>
+</li>
+</ul>`
+}
+Vue.createApp({
+components: { News },
+}).mount('#app')
+</script>
+```
+
+### 动态组件与 keep-alive
+
+- 页面第一次进入，钩子的触发顺序 created-> mounted-> activated，
+- 退出时触发 deactivated
+- 当再次进入时，只触发 activated
+
+```
+<div id="app">
+<button vfor="tab in tabs" :key="tab" :class="{ active: currentTab === tab }"
+@click="currentTab = tab">
+{{ tab }}
+</button>
+<keep-alive>
+<component :is="currentTabComponent" class="tab"></component>
+</keep-alive>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+const app = Vue.createApp({
+data() {
+return {
+currentTab: 'Tab1',
+tabs: ['Tab1', 'Tab2']
+}
+},
+computed: {
+currentTabComponent() { return this.currentTab.toLowerCase() }
+}
+})
+app.component('tab1', {
+template: `<div>Tab1 content</div>`
+})
+app.component('tab2', {
+template: `<div>
+<input v-model="value" /> {{value}}
+</div>`,
+data() { return { value: 'hello' } },
+created() { console.log('tab2 created') },
+activated() { console.log('tab2 activated') }
+})
+app.mount('#app')
+</script>
+<style>
+.active { background: #e0e0e0; }
+</style>
+```
+
+### Provide Inject
+
+- 适用于深度嵌套的组件，父组件可以为所有子组件直接提供数据
+
+```
+div id="app">
+<toolbar></toolbar>
+<button @click="isDark=!isDark">切换</button>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+const ThemeButton = {
+inject: ['theme'],
+template: `
+<div :class="['button', theme]" ><slot></slot><
+/div>
+`
+}
+const Toolbar = {
+components: { ThemeButton },
+inject: ['theme'],
+template: `<div :class="['toolbar', theme]">
+<theme-button>确定</theme-button>
+</div>`
+}
+Vue.createApp({
+data() { return { isDark: false } },
+provide: { theme: 'dark'},
+// provide() {
+// return { theme: this.isDark?'dark':'white'
+}
+// },
+components: { Toolbar },
+}).mount('#app')
+</script>
+```
+
+### Provide Inject 响应式(使用 computed 箭头函数)
+
+```
+<div id="app">
+<toolbar></toolbar>
+<button @click="isDark=!isDark">切换</button>
+</div>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+const ThemeButton = {
+inject: ['theme'],
+template: `
+<div :class="['button', theme.value]" ><slot></slot></
+div>
+`
+}
+const Toolbar = {
+components: { ThemeButton },
+inject: ['theme'],
+template: `<div :class="['toolbar', theme.value]">
+<theme-button>确定</theme-button>
+</div>`
+}
+Vue.createApp({
+data() {
+return { isDark: false }
+},
+provide() {
+return { theme: Vue.computed(()=>this.isDark?'dark':
+'white') }
+},
+components: { Toolbar },
+}).mount('#app')
+</script>
+```
+
+### Vue 动画
+
+- 在 css 里配置好样式，通过切换 class 实现效果切换
+- 修改 style 和 data 中数据绑定
+- transition 组件
+  - v-enter-from：在元素被插入之前生效，在元素被插入之后的下一帧移除
+  - v-enter-active：定义进入过渡生效时的状态
+  - v-enter-to：定义进入过渡的结束状态。在元素被插入之后下一帧生效 ，在过渡/动画完成之后移除
+  - v-leave-from：在离开过渡被触发时立刻生效，下一帧被移除
+  - v-leave-active：定义离开过渡生效时的状态
+  - v-leave-to：离开过渡的结束状态。在离开过渡被触发之后下一帧生效 ，在过渡/动画完成之后移除
+- 多元素过渡： 指的是多元素进行切换，同一时间只显示一个
+- 使用不同的 key 提升性能
+- mode 属性解决两个元素同时存在的现象
+  - out-in 当前元素先出，下一个元素再进
+  - in-out 下一个元素先进，当前元素在出
+- 多组件切换：  使用动态组件实现Tab切换效果 -> 如果动态组件使用了keep-alive，需要放在transition内部
+- 使用transition-group实现列表过渡
