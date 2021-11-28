@@ -114,3 +114,31 @@ Plugin 直译为"插件"。Plugin 可以扩展 Webpack 的功能。 在 Webpack 
 - treeshaking
 - 抽离公共的文件
 - 模块懒加载
+
+
+# babel
+## babel-loader有什么作用
+- 把最新的JS语法或者JSX转化为ES5，需要babel转
+
+## @babel/core 有什么作用
+- 转换语法，需要配合插件使用
+
+## @babel/preset-env 有什么作用
+- 把最新标准的js转化成es5
+
+## @babel/preset-react 有什么作用
+- 把jsx变成js
+
+## 什么是插件，什么是预设
+预设就是多个插件配置在一起（带有preset都是预设）
+插件就是core需要用来解析的工具
+可以在babel.rc里面进行配置
+
+## 其他
+
+# 聊一聊性能优化
+- 加载优化 ---文件小，数目少，压缩合并， 服务端开启gzip， 静态资源用CDN，服务器配置缓存）
+- 渲染优化 ---repaint reflow， 尽量少的dom操作
+- 滚动（操作）优化 ---懒加载，请求少。 节流，防抖的优化。 DOM的复用
+- 动画的优化 ---尽量css3， 多用transform（这里是利用显存）
+- 构建（打包）的优化 ---打包时间

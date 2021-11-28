@@ -100,6 +100,7 @@ Vue.createApp(App)会创建一个 app 应用实例， app.mount(#app) 会生成�
 mounted(){
     this.$nextTick(function(){
         // 仅在渲染整个视图之后运行的代码
+        // 当修改数据后， 如果想尽早得到渲染后的DOM
     })
 }
 ```
