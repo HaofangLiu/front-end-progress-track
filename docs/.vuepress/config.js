@@ -14,6 +14,7 @@ module.exports = {
       "/document/html/": ["", "question"],
       "/document/css/": "auto",
       "/document/js/": "auto",
+      "/document/vue/": "auto",
     },
     collapsable: true,
     sidebarDepth: 2,
