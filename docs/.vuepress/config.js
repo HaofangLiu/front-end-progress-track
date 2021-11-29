@@ -15,6 +15,7 @@ module.exports = {
       "/document/css/": "auto",
       "/document/js/": "auto",
       "/document/vue/": "auto",
+      "/document/react/": "auto",
     },
     collapsable: true,
     sidebarDepth: 2,

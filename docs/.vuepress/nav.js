@@ -14,6 +14,7 @@ module.exports = [
       { text: "CSS", link: "/document/css/" },
       { text: "Javascript", link: "/document/js/" },
       { text: "Vue", link: "/document/vue/" },
+      { text: "React", link: "/document/react/" },
     ],
   },
   {
