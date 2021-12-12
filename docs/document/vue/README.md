@@ -486,8 +486,10 @@ v-bind:title="post.title"></blog-post>
 
 - 指的是父组件模板里在使用子组件时设置了属性，但子组件内没有通过 Props 接收
 - 当组件返回单个根节点时，非 prop attribute 将自动添加到根节点的 attribute 中
-- 在子组件里可以通过`$attrs / this.$attrs` 获取 attributes
+- 在子组件里可以通过`$attrs / this.$attrs / context.attrs` 获取 attributes
 - 如果想在非根节点应用传递的 attribute，使用`v-bind="$attrs"`
+- 默认所有属性都绑定到根元素
+- 使用`inheritAttrs:false`来取消默认绑定
 
 ```
 <div id="app">
