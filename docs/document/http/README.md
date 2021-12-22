@@ -204,3 +204,136 @@ private 是告诉中间的代理服务器不要缓存资源，只让目标浏览
 ### Cache-Control: no-cache 和 Cache-Control: no-store 有什么区别？
 
 一个收到存下来不直接用，再次确认后再用。 一个是完全不存。
+
+### connection: keep-alive
+
+HTTP 1.0 存在问题： 建立的一次连接，只有包含一个请求响应（对应一个资源）
+
+HTTP1.1
+
+- 改进1: 连接可以复用。一次连接，多个请求响应（对应多个资源）
+- 改进2：增加流水线（pipeline）操作。下一个请求可不用等上一个响应来之后再发送。（但响应到来的顺序不变 FIFO）
+
+- http1.1中默认开启，通过http请求头设置“connection: close”关闭。
+- http1.0默认是关闭的，通过http请求头设置“connection: keep-alive”进行开启
+
+依旧存在的问题：
+
+1. 请求按次序，后来者需要排队等待
+2. 请求头都类似，重复传输浪费资源
+3. 同一域名浏览器有最大并行请求限制
+
+### HTTP2
+基于二进制流。 将一个TCP连接分为若干个流（Stream），每个流中可以传输若干消息（Message），每个消息由若干最小的二进制帧（Frame）组成。
+将 HTTP 消息分解为独立的帧，交错发送，然后在另一端重新组装。
+
+并行交错地发送多个请求，请求之间互不影响。
+并行交错地发送多个响应，响应之间互不干扰。
+使用一个连接并行发送多个请求和响应。
+
+![http2](./4.svg)
+
+### cookie 鉴权
+请求
+
+POST /login HTTP/1.1
+Host: jirengu.com
+Content-Type: application/json;charset=UTF-8
+
+{username: "hunger", password: "123456"}
+
+
+响应
+
+HTTP/1.1 200 OK
+
+Content-Type: application/json; charset=utf-8
+
+set-cookie: sid=abc24sf; Path=/; Expires=Wed, 03 Feb 2021 12:14:36 GMT; HttpOnly; Secure; SameSite=Strict
+
+{"status": "ok"}
+
+- set-cookie告诉浏览器我要种cookie
+- 在Wed, 21 Oct 2021 06:18:00 GMT 时这个cookie失效
+- 标记为 Secure 的 Cookie 只应通过被 HTTPS 协议加密过的请求发送给服务端
+- 使用 HttpOnly 属性告诉浏览器禁止通过 JavaScript 访问 cookie 值
+- SameSite=Strict告诉浏览器跨域请求时不要带上cookie，设置为none时表示跨域也能带上
+
+GET /search HTTP/1.1
+
+Host: xxx.com
+
+Cookie: sid=abc24sf;
+
+{"q":"asd"}
+
+带着cookie去请求，服务器可以识别身份。
+
+### Token 鉴权
+请求
+
+POST /login HTTP/1.1
+
+Host: xxx.com
+
+Content-Type: application/json;charset=UTF-8
+
+{username: "hunger", password: "123456"}
+
+
+响应
+
+HTTP/1.1 200 OK
+
+Content-Type: application/json; charset=utf-8
+
+
+{"status": "ok", "token": "abcd1234"}
+
+
+请求
+
+GET /search HTTP/1.1
+
+Host: xxx.com
+
+Cookie: sid=abc24sf
+
+Authorization: Bearer abcd1234
+
+{"q":"kkk"}
+
+用 Aurorization 带着token去请求，服务器可以识别身份。
+
+#### withCredentials
+XMLHttpRequest.withCredentials 属性是一个Boolean类型，它指示了是否该使用类似cookies,authorization headers(头部授权)或者TLS客户端证书这一类资格证书来创建一个跨站点访问控制（cross-site Access-Control）请求。在同一个站点下使用withCredentials属性是无效的。
+
+如果在发送来自其他域的XMLHttpRequest请求之前，未设置withCredentials 为true，那么就不能为它自己的域设置cookie值。而通过设置withCredentials 为true获得的第三方cookies，将会依旧享受同源策略，因此不能被通过document.cookie或者从头部相应请求的脚本等访问。
+
+### HTTP2.0的特性、为什么有这些变化、好在哪里
+
+Http1.x存在的问题
+1. pipeling 传输方式浏览器在处理时有各自问题和bug，所以一般默认也未开启支持。另外对于大文件依旧会存在服务器阻塞。
+2. 主流用的还是keep-alive，在一个连接里资源的请求是串行的。为了加快并行速度浏览器会开多个连接，一个域名默认最多开约6个连接，超过限制数目的请求会被阻塞。（所以一些网站静态资源使用了多个域名，但域名太多管理不便且域名解析也需要时间）
+3. 只能客户端主动发起请求，不能服务器主动发起
+4. 请求/响应首部太大了，未经压缩就发送，浪费
+5. 每次请求/响应的首部大都是冗余的重复的内容
+6. 数据压缩非强制，可能存在未经压缩的情况
+7. 请求顺序没优先级，只能听天命(HTML资源顺序)
+8. 客户端可以解析html发送一个个的资源请求，服务器也能啊
+9. 更多...
+
+Http2.0的改进
+1. 基于二进制流。 将一个TCP连接分为若干个流（Stream），每个流中可以传输若干消息（Message），每个消息由若干最小的二进制帧（Frame）组成。
+2. 多路复用(Multiplexing)。一个TCP连接，可以无限制处理多个请求
+3. 请求可以设置优先级
+4. 压缩Http首部
+5. 服务器推送(Server Push) 。客户端发送获取HTML的请求，服务器把HTML以及HTML里需要的资源一起发过去
+6. 服务器提示(Server Hints)，preload 和prefetch。 浏览器会在空闲的时间加载这个大的图片，下次请求可能会用到
+
+### HTTP3 改进
+HTTP / 3是 HTTP 即将发布的主要版本。HTTP语义在各个版本之间是一致的：相同的请求方法，状态代码和消息字段通常适用于所有版本。不同之处在于这些语义到基础传输的映射。HTTP / 1.1和HTTP / 2使用TCP作为其传输。HTTP / 3使用QUIC，这是Google最初开发的一种基于UDP的传输层网络协议。改用QUIC的目的是解决HTTP / 2的一个主要问题HOL阻塞 (head-of-line blocking) 。HTTP / 1.1中的HOL是指当浏览器中允许的并行请求数用完时，随后的请求需要等待前一个请求完成。HTTP / 2通过请求复用解决了此问题，该复用消除了应用程序层的HOL阻塞，但HOL仍存在于传输（TCP）层。
+
+小知识 Preload与 Server Push
+- preload 预加载，告诉浏览器下一步立即要加载什么资源。<link rel="preload" href="https://example.com/images/large-background.jpg">
+- prefetch 预加载，告诉浏览器下一步要加载什么资源。在空闲时加载。<link rel="preload" href="https://example.com/images/music.mp3">
