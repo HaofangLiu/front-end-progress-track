@@ -15,6 +15,8 @@ module.exports = [
       { text: "Javascript", link: "/document/js/" },
       { text: "Vue", link: "/document/vue/" },
       { text: "React", link: "/document/react/" },
+      { text: "HTTP", link: "/document/http/" },
+      { text: "Webpack", link: "/document/webpack/" },
     ],
   },
   {
