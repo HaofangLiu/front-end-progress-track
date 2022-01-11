@@ -319,6 +319,12 @@ height: 100%, 表示当前元素的 content 的高度等于父亲 content 的高
 - rem： 2rem 根元素(html 或者:root)字体的倍数
 - 百分比：80% 同 em 相对于父亲字体大小的倍数
 
+## 怎么实现0.5px
+1. 给容器内设置伪元素，设置绝对定位，宽、高是200%，边框是1px，然后使用transform: scale(0.5) 让伪元素缩小原来的一半，这时候伪元素的边框和容器的边缘重合，视觉上宽度只有0.5px。这种方法兼容性最好，4个边框都能一次性设置，能正常展示圆角，推荐使用。
+2. 给容器设置伪元素，设置绝对定位，高度为1px，背景图为线性渐变，一半有颜色，一半透明。视觉上宽度只有0.5px。这种方法适合设置一条边框，没法展示圆角。
+3. 用阴影代替边框，设置阴影box-shadow: 0 0 0 .5px #000; 使用方便，能正常展示圆角，兼容性一般。
+4. 直接设置 border-width: 0.5px； 使用方便，但兼容性不好。
+
 ## 字体
 
 - text-align: center | left | right | justify（两边对齐，最后一行不生效）
@@ -443,3 +449,122 @@ translate 能让浏览器调用显卡而不是 CPU 进行计算渲染，动画�
 
 尽可能使用 CSS3 过渡和动画，比如 transition+transfrom，或者@keyframes + animation
 如果用 js，尽量使用 requestAnimationFrame。
+
+## 移动端适配
+1. 0适配，使用合理的flex布局+媒体查询做微调
+2. 基于一个尺寸的屏幕做设计，其他屏幕等比缩放
+3. 移动端适配动态REM方案
+
+设计师交付给前端开发一张宽度为750px的视觉稿，设计稿上元素的尺寸、颜色、位置等已做过标注，要求工程师工在适配不同屏幕尺寸的设备时采用等比缩放的方案。
+
+在使用单位控制页面元素大小时，可以使用固定单位px，也可以使用相对单位rem。 1rem 等于html标签font-size的2倍。基于这个原理，对于需要适配屏幕等比缩放的元素可以选用rem作为单位，对于不需要等比缩放的元素依旧使用px作为单位。只要调整html标签的font-size，就能让所有使用rem单位的元素跟随着发生变化，而使用px单位的元素不受影响。 问题的关键在于如何根据屏幕尺寸跳转html标签的font-size。
+
+举个实际的例子。设计师交付的设计稿宽度是750px，设计稿上一个div的标注尺寸是375px（宽度是设计稿宽度的一半）。
+
+我们可以
+1. 设置html的font-size 为 100*屏幕宽度/设计稿宽度
+2. 在写CSS时设置 div 的宽度是 3.75rem （计算时用设计稿标注值除以100），边框宽度为1px 
+
+假设用户在逻辑像素宽度是375px的设备上打开页面，则html的font-size是100*375/750 = 50px，div的宽度是3.75rem ，即187.5px 正好是屏幕宽度的一半。
+
+假设用户在逻辑像素宽度是428px的设备上打开页面，则html的font-size是100*428/750 = 57.07px，div的宽度是3.75rem ，即214px 正好是屏幕宽度的一半。
+
+为什么要用100来乘以屏幕宽度/设计稿宽度？ 其实100只是随便选取的一个值，我们也可以随便其他任意值比如选个50。如果选择100，设计稿中一个元素标注的是375px，我们可以很快速的计算出3.75rem。如果html的font-size 设置为 50*屏幕宽度/设计稿宽度，那么div的宽度就应该是7.5rem了。换算起来就没那么直观了。
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <script>
+    const WIDTH = 750  //如果是尺寸的设计稿在这里修改
+    const setView = () => {
+      //设置html标签的fontSize
+      document.documentElement.style.fontSize = (100*screen.width/WIDTH) + 'px'
+    }
+    window.onorientationchange = setView
+    setView()
+  </script>
+  
+  <style>
+    div {
+      width: 3.75rem; /* 需要随屏幕等比缩放，使用rem单位，比如设计稿中标注的32px这里写成0.32rem */
+      border: 1px solid #ccc; /*不需要缩放的部分用px*/
+    }
+  </style>
+</head>
+<body>
+  <div>内容</div>
+</body>
+</html>
+```
+
+4. vw适配
+
+vw是相对单位，1vw表示屏幕宽度的1%。基于此，我们可以把所有需要适配屏幕大小等比缩放的元素都使用vw做为单位。不需要缩放的元素使用px做单位。
+
+举个例子。设计师交付的设计稿宽度是750px，设计稿上一个标题的fontSize标注尺寸是32px。(32/750)*100% = 4.27% ，换句话说这个标题的尺寸占屏幕宽度的4.27%，不管任何屏幕都是如此。 4.27% 即 4.27vw。
+
+对于任何需要等比缩放的元素，在写CSS设置样式时直接换算成vw即可，尺寸 = 100vw*设计稿标注大小/设计稿宽度。
+
+假设设计稿尺寸是750px，页面有一个按钮，按钮文字标注大小28px，按钮高度标注为48px，宽度为120px，边框为1px。
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .button {
+      width: 16vw;        /*  100vw*120/750  */
+      font-size: 3.73vw;  /*  100vw*28/750  */
+      line-height: 6.4vw; /*  100vw*48/750  */
+      border: 1px solid #000; /*不需要缩放的部分用px*/
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="button">按钮</div>
+</body>
+</html>
+
+```
+
+在写样式时会发现，虽然不用写JS做适配，但标注尺寸换算为vw又麻烦又不直观。
+
+我们可以在CSS里使用calc来换算换，只不过需要注意新语法的兼容性。
+
+```
+:root {
+  --ratio: calc(100vw/750);
+}
+
+.button {
+  font-size: calc(100vw*28/750);  /* 直接用calc */
+  line-height: calc(100vw*48/750);
+
+  width: calc(120*var(--ratio));  /* 可以用calc配合var使用，IE不支持 */     
+  border: 1px solid #000; /*不需要缩放的部分用px*/
+  text-align: center;
+}
+```
+
+在正式的项目里，我们也可以用SCSS，把换算交给预处理器
+
+```
+@function px2vw($px) {
+  @return $px * 100vw / 750;
+}
+
+.button {
+  width: px2vw(120);
+  font-size: px2vw(28);
+  line-height: px2vw(48);
+  border: 1px solid #000;
+  text-align: center;
+}
+```
+

