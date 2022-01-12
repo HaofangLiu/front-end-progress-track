@@ -179,6 +179,7 @@ const fib = (n) => {
 
 - arr[index] 获取对应的 index 的值
 - arr.pop() 返回 arr 最后一项 原本 arr 会改变
+- arr.includes(item) arr中是否包含这个item
 - arr.push() arr 中加入一项，返回数组的新的长度 （往数组塞，返回长度）
 - arr.unshift(10) arr 头部加入一项，返回数组的长度
 - arr.shift() 返回 arr 拿出第一项 原本 arr 会改变
@@ -188,7 +189,7 @@ const fib = (n) => {
 - arr.join('') 空数组进行连接
 - arr.reverse() 数组顺序进行倒序（会改变原来的数组）
 - arr.sort() 排序 sort((a,b) =>a - b) 从小到大 sort((a,b) =>b - a)从大到小
-- arr.index(1) 寻找某一项的 index，找不到返回-1
+- arr.indexOf(1) 寻找某一项的 index，找不到返回-1
 - arr.lastIndexOf(1) 倒序查找，找不到返回-1
 - arr.forEach(value,index,array)
 - arr.every(val => val > 0) 所有回调函数都返回 true 的时候才会返回 true，否则返回 false
