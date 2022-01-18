@@ -294,6 +294,7 @@ const fib = (n) => {
 ![this](./this.png)
 
 this代表当前this直属的函数的所属的对象
+setTimeout, setInterval this指向全局window
 
 
 ## 继承
@@ -489,8 +490,8 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 
 - 回调：传一个函数进去。如果多层回调就会带来回调地狱的问题
 - Promise 三个状态：pending | fulfilled | rejected
-- Promise.all 把全部 resolve 的结果放进一个数组
-- Promise.race 得到一个最先 resolve 的结果
+- Promise.all 成功的时候返回的是一个结果数组，而失败的时候则返回最先被reject失败状态的值。
+- Promise.race 得到一个最先 resolve 的结果。不管结果本身是成功状态还是失败状态。
 - await 需要在 Promise 对象之前
 - await 只在 async 函数内有效
 
