@@ -197,7 +197,14 @@ const fib = (n) => {
 - arr.filter(val => val > 0) 根据条件过滤出新的数组
 - arr.map()遍历数组，回调函数返回值组成一个新数组返回，新数组索引结构和原数组一致，原数组不变（注意跟 foeEach 区别，forEach 没有自动创建一个新数组）
 - arr.reduce(func(v1,v2), initValue)遍历数组，调用回调函数，将数组元素组合成一个值
+- arr.find() 返回数组中满足提供的测试函数的第一个元素的值  否则返回 undefined。
 
+
+## 深拷贝
+` JSON.parse(JSON.stringify(obj));`
+
+## 浅拷贝
+`[...obj]`
 ## JS 内置对象
 
 - JSON.stringify
@@ -294,7 +301,7 @@ const fib = (n) => {
 ![this](./this.png)
 
 this代表当前this直属的函数的所属的对象
-setTimeout, setInterval this指向全局window
+setTimeout, setInterval 普通函数的this指向全局window， 箭头函数的this代表当前this直属的函数的所属的对象
 
 
 ## 继承
