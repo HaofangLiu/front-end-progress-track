@@ -1,3 +1,15 @@
+# 网络
+
+## OSI 七层模型
+
+- 物理层：底层数据传输，如网线；网卡标准.
+- 数据链路层：定义数据的基本格式，如何传输，如何标识；如网卡 MAC 地址.交换机就处在这一层
+- 网络层：定义 IP 编址，定义路由功能；如不同设备的数据转发.
+- 传输层：端到端传输数据的基本功能；如 TCP、UDP.
+- 会话层：控制应用程序之间会话能力；如不同软件数据分发给不同软件. 比如 DNS
+- 表示层：数据格式标识，基本压缩加密功能.
+- 应用层：各种应用软件，包括 Web 应用.
+
 # HTTP
 
 ## 应用层协议 vs 传输层协议
@@ -38,14 +50,28 @@ A：Me too. (ACK=1, ack=201)
 
 ### 为什么不能是两步？
 
-- 假设是两步握手。客户端发送请求报文 A，因网络延时服务器没收到。又发了一遍报文 A，服务器收到后建立链接等待客户端发送数据。客户端正常发送数据。 过了一会第一次发送的报文 A 也到达服务器，服务器再次建立链接等待客户端发送数据，而客户端并不知情。浪费服务器资源。
+- 第一次握手：客户端发送网络包，服务端收到了。这样服务端就能得出结论：客户端的发送能力、服务端的接收能力是正常的。
+- 第二次握手：服务端发包，客户端收到了。这样客户端就能得出结论：服务端的接收、发送能力，客户端的接收、发送能力是正常的。不过此时服务器并不能确认客户端的接收能力是否正常。
+- 第三次握手：客户端发包，服务端收到了。这样服务端就能得出结论：客户端的接收、发送能力正常，服务器自己的发送、接收能力也正常。
 
 ## 四次挥手
 
-客户端发送一个 FIN ，告诉服务器想关闭连接。
-服务器收到这个 FIN ，发回一个 ACK。
-服务器通知应用程序关闭网络连接，应用程序关闭后通知服务器。服务器发送一个 FIN 给客户端 。
-客户端发回 ACK 报文确认。
+- 客户端打算关闭连接，此时会发送一个 TCP 首部 FIN 标志位被置为 1 的报文，也即 FIN 报文，之后客户端进入 FIN_WAIT_1 状态。
+- 服务端收到该报文后，就向客户端发送 ACK 应答报文，接着服务端进入 CLOSED_WAIT 状态。客户端收到服务端的 ACK 应答报文后，之后进入 FIN_WAIT_2 状态。
+- 等待服务端处理完数据后，也向客户端发送 FIN 报文，之后服务端进入 LAST_ACK 状态。
+- 客户端收到服务端的 FIN 报文后，回一个 ACK 应答报文，之后进入 TIME_WAIT 状态- 服务器收到了 ACK 应答报文后，就进入了 CLOSE 状态，至此服务端已经完成连接的关闭。
+- 客户端在经过 2MSL 一段时间后，自动进入 CLOSE 状态，至此客户端也完成连接的关闭。
+
+这里一点需要注意是：主动关闭连接的，才有 TIME_WAIT 状态。
+
+- 要确保服务器是否已经收到了我们的 ACK 报文，如果没有收到的话，服务器会重新发 FIN 报文给客户端，客户端再次收到 FIN 报文之后，就知道之前的 ACK 报文丢失了，然后再次发送 ACK 报文。
+
+- 关闭连接时，客户端向服务端发送 FIN 时，仅仅表示客户端不再发送数据了但是还能接收数据。服务器收到客户端的 FIN 报文时，先回一个 ACK 应答报文，而服务端可能还有数据需要处理和发送，等服务端不再发送数据时，才发送 FIN 报文给客户端来表示同意现在关闭连接。
+
+TCP 挥手可以只需要三次吗？
+可以的。
+
+- 因为服务器端收到客户端的 FIN 后，服务器端同时也要关闭连接，这样就可以把 ACK 和 FIN 合并到一起发送，节省了一个包，变成了“三次挥手”。
 
 ## 状态码
 
@@ -211,11 +237,11 @@ HTTP 1.0 存在问题： 建立的一次连接，只有包含一个请求响应�
 
 HTTP1.1
 
-- 改进1: 连接可以复用。一次连接，多个请求响应（对应多个资源）
-- 改进2：增加流水线（pipeline）操作。下一个请求可不用等上一个响应来之后再发送。（但响应到来的顺序不变 FIFO）
+- 改进 1: 连接可以复用。一次连接，多个请求响应（对应多个资源）
+- 改进 2：增加流水线（pipeline）操作。下一个请求可不用等上一个响应来之后再发送。（但响应到来的顺序不变 FIFO）
 
-- http1.1中默认开启，通过http请求头设置“connection: close”关闭。
-- http1.0默认是关闭的，通过http请求头设置“connection: keep-alive”进行开启
+- http1.1 中默认开启，通过 http 请求头设置“connection: close”关闭。
+- http1.0 默认是关闭的，通过 http 请求头设置“connection: keep-alive”进行开启
 
 依旧存在的问题：
 
@@ -223,17 +249,8 @@ HTTP1.1
 2. 请求头都类似，重复传输浪费资源
 3. 同一域名浏览器有最大并行请求限制
 
-### HTTP2
-基于二进制流。 将一个TCP连接分为若干个流（Stream），每个流中可以传输若干消息（Message），每个消息由若干最小的二进制帧（Frame）组成。
-将 HTTP 消息分解为独立的帧，交错发送，然后在另一端重新组装。
-
-并行交错地发送多个请求，请求之间互不影响。
-并行交错地发送多个响应，响应之间互不干扰。
-使用一个连接并行发送多个请求和响应。
-
-![http2](./4.svg)
-
 ### cookie 鉴权
+
 请求
 
 POST /login HTTP/1.1
@@ -241,7 +258,6 @@ Host: jirengu.com
 Content-Type: application/json;charset=UTF-8
 
 {username: "hunger", password: "123456"}
-
 
 响应
 
@@ -253,11 +269,11 @@ set-cookie: sid=abc24sf; Path=/; Expires=Wed, 03 Feb 2021 12:14:36 GMT; HttpOnly
 
 {"status": "ok"}
 
-- set-cookie告诉浏览器我要种cookie
-- 在Wed, 21 Oct 2021 06:18:00 GMT 时这个cookie失效
+- set-cookie 告诉浏览器我要种 cookie
+- 在 Wed, 21 Oct 2021 06:18:00 GMT 时这个 cookie 失效
 - 标记为 Secure 的 Cookie 只应通过被 HTTPS 协议加密过的请求发送给服务端
 - 使用 HttpOnly 属性告诉浏览器禁止通过 JavaScript 访问 cookie 值
-- SameSite=Strict告诉浏览器跨域请求时不要带上cookie，设置为none时表示跨域也能带上
+- SameSite=Strict 告诉浏览器跨域请求时不要带上 cookie，设置为 none 时表示跨域也能带上
 
 GET /search HTTP/1.1
 
@@ -267,9 +283,10 @@ Cookie: sid=abc24sf;
 
 {"q":"asd"}
 
-带着cookie去请求，服务器可以识别身份。
+带着 cookie 去请求，服务器可以识别身份。
 
 ### Token 鉴权
+
 请求
 
 POST /login HTTP/1.1
@@ -280,16 +297,13 @@ Content-Type: application/json;charset=UTF-8
 
 {username: "hunger", password: "123456"}
 
-
 响应
 
 HTTP/1.1 200 OK
 
 Content-Type: application/json; charset=utf-8
 
-
 {"status": "ok", "token": "abcd1234"}
-
 
 请求
 
@@ -303,37 +317,53 @@ Authorization: Bearer abcd1234
 
 {"q":"kkk"}
 
-用 Aurorization 带着token去请求，服务器可以识别身份。
+用 Aurorization 带着 token 去请求，服务器可以识别身份。
 
 #### withCredentials
-XMLHttpRequest.withCredentials 属性是一个Boolean类型，它指示了是否该使用类似cookies,authorization headers(头部授权)或者TLS客户端证书这一类资格证书来创建一个跨站点访问控制（cross-site Access-Control）请求。在同一个站点下使用withCredentials属性是无效的。
 
-如果在发送来自其他域的XMLHttpRequest请求之前，未设置withCredentials 为true，那么就不能为它自己的域设置cookie值。而通过设置withCredentials 为true获得的第三方cookies，将会依旧享受同源策略，因此不能被通过document.cookie或者从头部相应请求的脚本等访问。
+XMLHttpRequest.withCredentials 属性是一个 Boolean 类型，它指示了是否该使用类似 cookies,authorization headers(头部授权)或者 TLS 客户端证书这一类资格证书来创建一个跨站点访问控制（cross-site Access-Control）请求。在同一个站点下使用 withCredentials 属性是无效的。
 
-### HTTP2.0的特性、为什么有这些变化、好在哪里
+如果在发送来自其他域的 XMLHttpRequest 请求之前，未设置 withCredentials 为 true，那么就不能为它自己的域设置 cookie 值。而通过设置 withCredentials 为 true 获得的第三方 cookies，将会依旧享受同源策略，因此不能被通过 document.cookie 或者从头部相应请求的脚本等访问。
 
-Http1.x存在的问题
-1. pipeling 传输方式浏览器在处理时有各自问题和bug，所以一般默认也未开启支持。另外对于大文件依旧会存在服务器阻塞。
-2. 主流用的还是keep-alive，在一个连接里资源的请求是串行的。为了加快并行速度浏览器会开多个连接，一个域名默认最多开约6个连接，超过限制数目的请求会被阻塞。（所以一些网站静态资源使用了多个域名，但域名太多管理不便且域名解析也需要时间）
+### HTTP2
+
+基于二进制流。 将一个 TCP 连接分为若干个流（Stream），每个流中可以传输若干消息（Message），每个消息由若干最小的二进制帧（Frame）组成。
+将 HTTP 消息分解为独立的帧，交错发送，然后在另一端重新组装。
+
+并行交错地发送多个请求，请求之间互不影响。
+并行交错地发送多个响应，响应之间互不干扰。
+使用一个连接并行发送多个请求和响应。
+
+![http2](./4.svg)
+
+### HTTP2.0 的特性、为什么有这些变化、好在哪里
+
+Http1.x 存在的问题
+
+1. pipeling 传输方式浏览器在处理时有各自问题和 bug，所以一般默认也未开启支持。另外对于大文件依旧会存在服务器阻塞。
+2. 主流用的还是 keep-alive，在一个连接里资源的请求是串行的。为了加快并行速度浏览器会开多个连接，一个域名默认最多开约 6 个连接，超过限制数目的请求会被阻塞。（所以一些网站静态资源使用了多个域名，但域名太多管理不便且域名解析也需要时间）
 3. 只能客户端主动发起请求，不能服务器主动发起
 4. 请求/响应首部太大了，未经压缩就发送，浪费
 5. 每次请求/响应的首部大都是冗余的重复的内容
 6. 数据压缩非强制，可能存在未经压缩的情况
-7. 请求顺序没优先级，只能听天命(HTML资源顺序)
-8. 客户端可以解析html发送一个个的资源请求，服务器也能啊
+7. 请求顺序没优先级，只能听天命(HTML 资源顺序)
+8. 客户端可以解析 html 发送一个个的资源请求，服务器也能啊
 9. 更多...
 
-Http2.0的改进
-1. 基于二进制流。 将一个TCP连接分为若干个流（Stream），每个流中可以传输若干消息（Message），每个消息由若干最小的二进制帧（Frame）组成。
-2. 多路复用(Multiplexing)。一个TCP连接，可以无限制处理多个请求
+Http2.0 的改进
+
+1. 基于二进制流。 将一个 TCP 连接分为若干个流（Stream），每个流中可以传输若干消息（Message），每个消息由若干最小的二进制帧（Frame）组成。
+2. 多路复用(Multiplexing)。一个 TCP 连接，可以无限制处理多个请求
 3. 请求可以设置优先级
-4. 压缩Http首部
-5. 服务器推送(Server Push) 。客户端发送获取HTML的请求，服务器把HTML以及HTML里需要的资源一起发过去
-6. 服务器提示(Server Hints)，preload 和prefetch。 浏览器会在空闲的时间加载这个大的图片，下次请求可能会用到
+4. 压缩 Http 首部
+5. 服务器推送(Server Push) 。客户端发送获取 HTML 的请求，服务器把 HTML 以及 HTML 里需要的资源一起发过去
+6. 服务器提示(Server Hints)，preload 和 prefetch。 浏览器会在空闲的时间加载这个大的图片，下次请求可能会用到
 
 ### HTTP3 改进
-HTTP / 3是 HTTP 即将发布的主要版本。HTTP语义在各个版本之间是一致的：相同的请求方法，状态代码和消息字段通常适用于所有版本。不同之处在于这些语义到基础传输的映射。HTTP / 1.1和HTTP / 2使用TCP作为其传输。HTTP / 3使用QUIC，这是Google最初开发的一种基于UDP的传输层网络协议。改用QUIC的目的是解决HTTP / 2的一个主要问题HOL阻塞 (head-of-line blocking) 。HTTP / 1.1中的HOL是指当浏览器中允许的并行请求数用完时，随后的请求需要等待前一个请求完成。HTTP / 2通过请求复用解决了此问题，该复用消除了应用程序层的HOL阻塞，但HOL仍存在于传输（TCP）层。
 
-小知识 Preload与 Server Push
+HTTP / 3 是 HTTP 即将发布的主要版本。HTTP 语义在各个版本之间是一致的：相同的请求方法，状态代码和消息字段通常适用于所有版本。不同之处在于这些语义到基础传输的映射。HTTP / 1.1 和 HTTP / 2 使用 TCP 作为其传输。HTTP / 3 使用 QUIC，这是 Google 最初开发的一种基于 UDP 的传输层网络协议。改用 QUIC 的目的是解决 HTTP / 2 的一个主要问题 HOL 阻塞 (head-of-line blocking) 。HTTP / 1.1 中的 HOL 是指当浏览器中允许的并行请求数用完时，随后的请求需要等待前一个请求完成。HTTP / 2 通过请求复用解决了此问题，该复用消除了应用程序层的 HOL 阻塞，但 HOL 仍存在于传输（TCP）层。
+
+小知识 Preload 与 Server Push
+
 - preload 预加载，告诉浏览器下一步立即要加载什么资源。<link rel="preload" href="https://example.com/images/large-background.jpg">
 - prefetch 预加载，告诉浏览器下一步要加载什么资源。在空闲时加载。<link rel="preload" href="https://example.com/images/music.mp3">
