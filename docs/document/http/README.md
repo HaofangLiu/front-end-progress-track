@@ -325,7 +325,7 @@ XMLHttpRequest.withCredentials 属性是一个 Boolean 类型，它指示了是�
 
 如果在发送来自其他域的 XMLHttpRequest 请求之前，未设置 withCredentials 为 true，那么就不能为它自己的域设置 cookie 值。而通过设置 withCredentials 为 true 获得的第三方 cookies，将会依旧享受同源策略，因此不能被通过 document.cookie 或者从头部相应请求的脚本等访问。
 
-### HTTP2
+## HTTP2
 
 基于二进制流。 将一个 TCP 连接分为若干个流（Stream），每个流中可以传输若干消息（Message），每个消息由若干最小的二进制帧（Frame）组成。
 将 HTTP 消息分解为独立的帧，交错发送，然后在另一端重新组装。
