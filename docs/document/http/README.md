@@ -75,7 +75,7 @@ TCP 挥手可以只需要三次吗？
 
 ## 状态码
 
-- 1xx 信息响应 100 contine
+- 1xx 信息响应 100 need continue
 - 2xx 成功响应
 - 3xx 重定向
 - 4xx 客户端错误
