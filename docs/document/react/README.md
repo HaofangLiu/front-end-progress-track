@@ -18,7 +18,6 @@
 ## 什么时候是异步更新， 什么时候是同步更新
 - 组件里面的事件处理程序， 比如`onClick = {handleClick}`里面的setState是异步更新， 生命周期函数里面的setState是异步更新。
 - 其他地方， 比如`setTimeout` 或者`addEventListener`都是同步更新。
-- 
 
 
 ## 列表渲染时为什么加key
