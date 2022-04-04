@@ -17,6 +17,7 @@ module.exports = [
       { text: "React", link: "/document/react/" },
       { text: "HTTP", link: "/document/http/" },
       { text: "Webpack", link: "/document/webpack/" },
+      { text: "NodeJS", link: "/document/nodejs/" },
     ],
   },
   {

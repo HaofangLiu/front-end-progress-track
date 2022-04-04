@@ -18,6 +18,7 @@ module.exports = {
       "/document/react/": "auto",
       "/document/http/": "auto",
       "/document/webpack/": "auto",
+      "/document/nodejs/": "auto",
     },
     collapsable: true,
     sidebarDepth: 2,
