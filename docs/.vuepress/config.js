@@ -19,6 +19,7 @@ module.exports = {
       "/document/http/": "auto",
       "/document/webpack/": "auto",
       "/document/nodejs/": "auto",
+      "/blog/": "auto",
     },
     collapsable: true,
     sidebarDepth: 2,
