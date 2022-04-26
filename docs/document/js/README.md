@@ -465,6 +465,25 @@ parentNode.appendChild(childNode)
 - element.getBoundingClientRect().top + document.body.scrollTop 元素距离页面顶部的距离
 - const isShow = node => node.getBoundingClientRect().top < window.innerHeight && node.getBoundingClientRect().top > 0
 
+### js获取鼠标坐标位置
+![js坐标](./jsbom.png)
+#### clientX/Y
+clientX/Y获取到的是触发点相对浏览器可视区域左上角距离，不随页面滚动而改变。
+兼容性：所有浏览器均支持
+
+#### pageX/Y
+pageX/Y获取到的是触发点相对文档区域左上角距离，会随着页面滚动而改变
+兼容性：除IE6/7/8不支持外，其余浏览器均支持
+
+#### offsetX/Y
+offsetX/Y获取到是触发点相对被触发dom的左上角距离，不过左上角基准点在不同浏览器中有区别，其中在IE中以内容区左上角为基准点不包括边框，如果触发点在边框上会返回负值，而chrome中以边框左上角为基准点。
+
+兼容性：IE所有版本，chrome，Safari均完美支持，Firefox不支持
+
+#### screenX/Y
+screenX/Y获取到的是触发点相对显示器屏幕左上角的距离，不随页面滚动而改变。
+兼容性：所有浏览器均支持
+
 ## 检测设备
 
 const isAndroid = () => /android/i.test(navigator.userAgent)

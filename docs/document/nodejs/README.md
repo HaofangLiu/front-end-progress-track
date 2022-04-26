@@ -75,3 +75,5 @@ Node.js主要分为四大部分，Node Standard Library，Node Bindings，V8，L
 - 用bindings让JS和C/C++沟通
 - V8运行JS
 - 用NodeJS简化JS代码
+
+## file文件系统
