@@ -22,6 +22,12 @@
 - css-loader：加载 CSS，支持模块化、压缩、文件导入等特性
 - style-loader：把 CSS 代码注入到 JavaScript 中，通过 DOM 操作去加载 CSS。
 
+### 文件指纹 name 配置
+
+- [hash] 和整个项目构建相关，只要项目文件有修改，整个项目的 hash 值 就会变化
+- [chunkhash] 和 webpack 打包的 chunk 有关，不同 entry 会生成不同的 chunkhash 值， 一般 js 会使用
+- [contenthash] 根据文件内容来定义 hash， 文件内容不变，则 contenthash 不变， 一般 css 会使用
+
 ## plugins
 
 - 插件用于执行范围更广的任务。比如：打包优化，资源管理，注入环境变量等（目的在于解决 loader 无法实现的其他的事情）
@@ -115,30 +121,36 @@ Plugin 直译为"插件"。Plugin 可以扩展 Webpack 的功能。 在 Webpack 
 - 抽离公共的文件
 - 模块懒加载
 
-
 # babel
-## babel-loader有什么作用
-- 把最新的JS语法或者JSX转化为ES5，需要babel转
+
+## babel-loader 有什么作用
+
+- 把最新的 JS 语法或者 JSX 转化为 ES5，需要 babel 转
 
 ## @babel/core 有什么作用
+
 - 转换语法，需要配合插件使用
 
 ## @babel/preset-env 有什么作用
-- 把最新标准的js转化成es5
+
+- 把最新标准的 js 转化成 es5
 
 ## @babel/preset-react 有什么作用
-- 把jsx变成js
+
+- 把 jsx 变成 js
 
 ## 什么是插件，什么是预设
-预设就是多个插件配置在一起（带有preset都是预设）
-插件就是core需要用来解析的工具
-可以在babel.rc里面进行配置
+
+预设就是多个插件配置在一起（带有 preset 都是预设）
+插件就是 core 需要用来解析的工具
+可以在 babel.rc 里面进行配置
 
 ## 其他
 
 # 聊一聊性能优化
-- 加载优化 ---文件小，数目少，压缩合并， 服务端开启gzip， 静态资源用CDN，服务器配置缓存）懒加载 tree-shaking 采用HTTP2
-- 渲染优化 ---repaint reflow， 尽量少的dom操作
-- 滚动（操作）优化 ---懒加载，请求少。 节流，防抖的优化。 DOM的复用
-- 动画的优化 ---尽量css3， 多用transform（这里是利用显存）
+
+- 加载优化 ---文件小，数目少，压缩合并， 服务端开启 gzip， 静态资源用 CDN，服务器配置缓存）懒加载 tree-shaking 采用 HTTP2
+- 渲染优化 ---repaint reflow， 尽量少的 dom 操作
+- 滚动（操作）优化 ---懒加载，请求少。 节流，防抖的优化。 DOM 的复用
+- 动画的优化 ---尽量 css3， 多用 transform（这里是利用显存）
 - 构建（打包）的优化 ---打包时间
