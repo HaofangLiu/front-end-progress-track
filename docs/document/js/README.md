@@ -536,6 +536,12 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 
   5.Promise 里面执行的代码可以被 then 的第二个参数捕获到,并且不会进入到 resolve，而是直接进入 reject(没有执行 resolve 代码，直接进入了 reject | 就算没有 reject 回调，还是会进入 reject 回调 | 如果不存在 then 的第二个回调，则会进入 catch)
 
+  6.then()方法的成功或者失败回调函数，只要里面throw错误，得到的就是一个rejected的promise。
+
+  7.then()方法的成功或者失败回调函数，执行得到的结果是一个非promise的普通值，那then()方法执行完得到的就是一个fullfilled的promise
+  
+  8.then()方法的成功或者失败回调函数，执行得到的返回结果还是一个promise，那就根据返回的promise的状态而决定，返回的到底是fullfilled还是rejected的promise
+
   （谨防看不懂）出处：[promise 的两个参数](https://blog.csdn.net/py_boy/article/details/104721946)
 
 ## 跨域
