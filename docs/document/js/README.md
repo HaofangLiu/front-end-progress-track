@@ -175,6 +175,13 @@ const fib = (n) => {
 - str.toLowerCase();
 - str.padStart(8,'*')填充字符串，从前边开始填充*直到长度为 8
 
+## JS 十进制 转 十六进制
+从任意进制转换为10进制
+parseInt(string, radix);
+
+让10进制转换为任意进制
+intValue.toString(radix)
+
 ## 数组相关
 
 - arr[index] 获取对应的 index 的值
