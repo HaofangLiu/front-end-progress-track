@@ -511,11 +511,18 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 - encodeURI() 不会对 : / ? & = # 编码
 - encodeURIComponent() 会对 : / ? & = # 编码
 
-## cookie seesion
-
+## cookie session
+- token 理解为加密字符串
 - cookie 最大容量 4k 记录某些页面关闭或者刷新后仍然需要记录的信息； cookie 每次发送请求时都会在请求头中。（常规后端设置，但是前端设置也可以）
+- session 服务器在内存或者文件中保存每个client对应的uid，并使用加密对应其uid来判断是哪个用户的session
+## JWT
+- 相比于session， jwt不需要占用服务器内存或者文件。
+- jwt相当于把用户uid用密文加密，然后将加密后的结果发给前端
+- jwt三部分构成， header(alg) + payload(json) + signature(s), 中间用.连接
+- s = 加密（私钥加密后的{uid:1}, base64(header), base64(body)）
 
-### 如何与后端交互
+
+## 如何与后端交互
 
 - Form 表单提交： 只有 get 和 post || 有问无答，体验不佳
 - AJAX 支持 XMLHttpRequest || Fetch
@@ -524,7 +531,7 @@ const isIOS = () => /iphone|ipad/i.test(navigator.userAgent)
 - 轮询：每隔固定时间发一次请求
 - 长轮询：客户端发请求等待响应，当响应时再次发请求。 服务器端，请求到来，如果没新数据，则不发，当有新数据通知客户端，再响应
 
-### 回调&异步
+## 回调&异步
 
 - 回调：传一个函数进去。如果多层回调就会带来回调地狱的问题
 - Promise 三个状态：pending | fulfilled | rejected
