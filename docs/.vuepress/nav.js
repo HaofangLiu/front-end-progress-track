@@ -18,11 +18,8 @@ module.exports = [
       { text: "HTTP", link: "/document/http/" },
       { text: "Webpack", link: "/document/webpack/" },
       { text: "NodeJS", link: "/document/nodejs/" },
+      { text: "Typescript", link: "/document/ts/" },
     ],
-  },
-  {
-    text: "导向",
-    link: "/guide/",
   },
   {
     text: "Github",
