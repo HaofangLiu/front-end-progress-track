@@ -1,6 +1,6 @@
 # typescript 知识点
 
-# ts 如何运行
+## ts 如何运行
 
 - 一段 js 代码可以直接运行在浏览器/nodejs 环境中， 但是 ts 需要进行类型擦除才可以运行在浏览器/nodejs，否则会直接报错。 但可以通过 deno 直接运行。
 - 如果需要擦除类型，可以使用的包包含：
@@ -17,13 +17,13 @@
 
 # 数据类型
 
-## JS / TS 类型
+### JS / TS 类型
 
-### JS
+#### JS
 
 - null / undefined / string / number / boolean / object / Symbol / bigint
 
-### ts
+#### ts
 
 - 以上所有， 加上
 - void / never / enum / unknown / any
