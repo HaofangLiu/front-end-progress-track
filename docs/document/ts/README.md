@@ -86,4 +86,115 @@ type fnA = (a: number, b: number) => number;
 - 结论： ts一般使用`() => ?` 来描述函数
 
 
+### any/unknown/never
+
+- any全知全能
+- unknown 适合值从外部获取，不确定类型时候使用。 尽量使用这个然后自己去断言
+- never 空集合不包含任何类型
+
+### enum 枚举类型
+
+#### 应用场景1 数字情况
+```ts
+// 什么时候用enum
+// 数字 初始值为0
+
+enum A {
+  todo,
+  done,
+  archived,
+  deleted,
+}
+```
+#### 应用场景2 前端权限管理
+
+```ts
+enum Permission {
+  None = 0,
+  Read = 1 << 0,
+  Write = 1 << 1,
+  Delete = 1 << 2,
+  Manage = Read | Write | Delete,
+}
+
+type User = { 
+  permission: Permission;
+};
+
+//0b开头证明这是二进制在js中
+const user: User = {
+  permission: 0b0010,
+};
+
+// 任何一个x 与 Permission.Write 进行与操作（&） 结果等于Permission.Write， 那证明权限拥有
+// 因为 与&预算， 都是1才为1
+if ((user.permission & Permission.Write) === Permission.Write) {
+  console.log("user has right to write");
+}
+```
+
+#### 什么时候不用enum
+- 使用string | other 类型时， 不用enum
+- 原因是可以使用更为简单直接的写法， 可直接提示赋值
+
+
+### type
+- 类型别名 Type Aliases
+- 给其他类型取个名字(并没有产生真的人)
+- 几乎什么时候都可以用
+- type不可以重新赋值
+
+```ts
+type Name = string
+type FalseLike = ' | 0 | false | null | undefined
+type Poinr = {a: number, b:number}
+type Points = Points[];
+type Line = [Point, Point]
+type Circle = {center:P:oint; radisu : number}
+type Fn= (a:number) => number
+type FnWithProp = {
+  //note: 对象中声明函数不能像上面用箭头函数，要用冒号
+  (a: number, b: number): number;
+  prop: string;
+};
+```
+
+
+### interface
+
+- 用来声明接口
+- 描述对象的属性(declare the shapes of objects)
+- interface自动合并
+
+```ts
+interface Date {
+  [key: string]: string;
+}
+interface Point {
+  x: number;
+  y: number;
+}
+interface Points extends Array<Point> {}
+interface Fn {
+  (x: number, y: number): number;
+}
+```
+
+![ts interface](./2.png)
+
+
+### type interface 区别
+
+- 区别1: interface只描述对象 type则描述所有数据
+- 区别2： type 只是别名， interface是（真名）类型声明
+- 区别3： 对外API尽量用interface， 方便拓展。 对内部API尽量用type, 防止代码分散
+
+### void
+- 返回空， 但是编译不会报错， 如果想要使用返回值时报错
+- 
+
+
+
+
+
 
