@@ -76,3 +76,19 @@
     - 第二个参数为空数组的时候，相当于componenntDidMount，仅仅在初始化的时候执行。
 - useState 函数内组件参数。
 
+## useLayoutEffect / useEffect
+
+React 提供了两个钩子函数来在组件渲染之后触发副作用：useEffect 和 useLayoutEffect。
+
+useEffect 是一个高阶函数，它接受一个回调函数作为参数，在组件渲染之后调用该回调函数，并且在组件卸载时进行清理工作。
+
+useLayoutEffect 与 useEffect 类似，它也接受一个回调函数作为参数，并在组件渲染之后调用该回调函数，并且在组件卸载时进行清理工作。
+
+不同之处在于 useLayoutEffect 会在浏览器更新布局之前执行，而 useEffect 会在浏览器更新画面之后执行。
+
+这意味着 useLayoutEffect 可以在更新之前访问 DOM 节点的布局信息，而 useEffect 则需要等到浏览器更新画面之后才能访问。
+
+因此，useLayoutEffect通常用来处理需要立即获取 DOM 布局信息或者需要在 DOM 布局更新之前触发操作的场景，比如动画，高度计算等。
+
+总结，useEffect和useLayoutEffect都是用来处理副作用，但是useLayoutEffect会在浏览器更新布局之前执行，而useEffect会在浏览器更新画面之后执行。
+
