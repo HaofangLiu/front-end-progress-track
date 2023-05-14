@@ -70,31 +70,34 @@ type A2 = Record<string, number>;
 - 结论： ts 一般使用索引签名或者 `Record` 泛型来描述普通对象
 
 ### 数组对象
+
 ```Javascript
 type A = string[];
 
 //等价于
 type AA = Array<string>
 ```
-- 结论： ts一般使用`Array<?>`或者`string[]`或者`[string, number]`来描述数组
+
+- 结论： ts 一般使用`Array<?>`或者`string[]`或者`[string, number]`来描述数组
 
 ### 函数对象
+
 ```Javascript
 type fnA = (a: number, b: number) => number;
 ```
 
-- 结论： ts一般使用`() => ?` 来描述函数
-
+- 结论： ts 一般使用`() => ?` 来描述函数
 
 ### any/unknown/never
 
-- any全知全能
+- any 全知全能
 - unknown 适合值从外部获取，不确定类型时候使用。 尽量使用这个然后自己去断言
 - never 空集合不包含任何类型
 
 ### enum 枚举类型
 
-#### 应用场景1 数字情况
+#### 应用场景 1 数字情况
+
 ```ts
 // 什么时候用enum
 // 数字 初始值为0
@@ -106,7 +109,8 @@ enum A {
   deleted,
 }
 ```
-#### 应用场景2 前端权限管理
+
+#### 应用场景 2 前端权限管理
 
 ```ts
 enum Permission {
@@ -117,7 +121,7 @@ enum Permission {
   Manage = Read | Write | Delete,
 }
 
-type User = { 
+type User = {
   permission: Permission;
 };
 
@@ -133,16 +137,17 @@ if ((user.permission & Permission.Write) === Permission.Write) {
 }
 ```
 
-#### 什么时候不用enum
-- 使用string | other 类型时， 不用enum
+#### 什么时候不用 enum
+
+- 使用 string | other 类型时， 不用 enum
 - 原因是可以使用更为简单直接的写法， 可直接提示赋值
 
-
 ### type
+
 - 类型别名 Type Aliases
 - 给其他类型取个名字(并没有产生真的人)
 - 几乎什么时候都可以用
-- type不可以重新赋值
+- type 不可以重新赋值
 
 ```ts
 type Name = string
@@ -159,12 +164,11 @@ type FnWithProp = {
 };
 ```
 
-
 ### interface
 
 - 用来声明接口
 - 描述对象的属性(declare the shapes of objects)
-- interface自动合并
+- interface 自动合并
 
 ```ts
 interface Date {
@@ -182,18 +186,246 @@ interface Fn {
 
 ![ts interface](./2.png)
 
-
 ### type interface 区别
 
-- 区别1: interface只描述对象 type则描述所有数据
-- 区别2： type 只是别名， interface是（真名）类型声明
-- 区别3： 对外API尽量用interface， 方便拓展。 对内部API尽量用type, 防止代码分散
+- 区别 1: interface 只描述对象 type 则描述所有数据
+- 区别 2： type 只是别名， interface 是（真名）类型声明
+- 区别 3： 对外 API 尽量用 interface， 方便拓展。 对内部 API 尽量用 type, 防止代码分散
 
 ### void
+
 - 返回空， 但是编译不会报错， 如果想要使用返回值时报错
 
+### 联合类型 （并集 | ）
+
+#### 举例
+
+```
+type A1 = number;
+type B1 = string;
+
+type C1 = A1 | B1;
+
+const c1: C1 = "42";
+const c2: C1 = 12;
+```
+
+```
+type A2 = { name: string };
+type B2 = { age: number };
+
+type C2 = A2 | B2;
+
+const c11: C2 = {
+  name: "xxx",
+  age: 61,
+};
+```
+
+![联合类型](./3.png)
+
+#### 如何使用联合类型？
+
+假如接受一个联合类型，string | number
+既不能当作 string 直接使用，或者 number 直接使用
+那么怎么直接使用这个变量？
+
+答案： 想办法区分出类型
+
+#### 类型收窄
+
+##### 方法 1： 使用 typeof
+
+```
+const f1 = (a: number | string) => {
+  // 注意，这里只有50%几率是number / string
+  // 所以不能直接使用其对应的方法， 只能使用number & string的共同方法
+  // 只能想办法区分开类型
+
+  //方法1：使用typeof
+  // 也叫做类型收窄
+  if (typeof a === "number") {
+    a.toFixed(2);
+  } else if (typeof a === "string") {
+    a.toLocaleLowerCase();
+  } else {
+    // 注意这里是never
+    // 不能对a进行任何操作
+    console.log(a);
+  }
+};
+```
+
+- 可以得到的值包含： string / number / bigint / boolean / symbal / undefined / object / function
+
+- 局限性：array / normal obj / date / null 都会得到 object
+
+##### 方法 2： 使用 instanceOf
+
+```
+const f2 = (a: Date | Date[]) => {
+  //方法2：使用instanceOf
+  if (a instanceof Date) {
+    a.getDate();
+  } else if (a instanceof Array) {
+    a.push(new Date());
+  } else {
+    // 注意这里是never
+    // 不能对a进行任何操作
+    console.log(a);
+  }
+};
+
+```
+
+- 局限性：
+  - 不支持 string / number / boolean 等
+  - 不支持独有的 ts 类型
+  - ![不支持独有的类型](./4.png)
+
+##### 方法 3： 使用 in
+
+```
+type Person = {
+  name: string;
+};
+
+type Animal = {
+  age: number;
+};
+
+const f3 = (a: Person | Animal) => {
+  //方法3：使用in
+  if ("name" in a) {
+    a.name.charCodeAt(0);
+  } else if ("age" in a) {
+    a.age.toString();
+  } else {
+    // 注意这里是never
+    // 不能对a进行任何操作
+    console.log(a);
+  }
+};
+```
+
+- 局限性：适用于部分对象
+
+##### 方法 4： 使用 js 中的判断类型的函数区分或者逻辑
+
+- 比如 Array.isArray 等
 
 
+#### 类型谓词is（区分类型的万全办法）
+
+```
+type Rect = {
+  width: number;
+  height: number;
+};
+
+type Circle = {
+  center: [number, number];
+  radius: number;
+};
+
+
+// 在你的代码中，isRect和isCircle被定义为箭头函数表达式，所以按照正常的规则，它们应该在使用之前进行定义。
+// 然而，在这种情况下，由于它们被用作类型谓词（Type Predicate），TypeScript的类型系统会对其进行特殊处理。
+
+// TypeScript允许在类型谓词的上下文中使用尚未声明的函数。
+// 这是因为类型谓词的类型检查是基于形状和类型的，而不是基于具体的运行时行为。
+// 所以，尽管在代码中它们被定义为箭头函数表达式，在类型检查期间，TypeScript将会将它们视为类型谓词并进行处理。
+
+const f1 = (a: Rect | Circle) => {
+  if (isRect(a)) {
+    console.log(a);
+  } else {
+    console.log(a);
+  }
+};
+
+const isRect = (x: Rect | Circle): x is Rect => {
+  return "height" in x && "width" in x;
+};
+
+const isCircle = (x: Rect | Circle): x is Circle => {
+  return "center" in x && "radius" in x;
+};
+```
+
+- 优点： 支持所有ts类型
+- 缺点：麻烦
+
+#### 可辩别联合 Discriminated Unions
+
+```
+type Rect = {
+  kind: "rect";
+  width: number;
+  height: number;
+};
+
+type Circle = {
+  kind: "circle";
+  center: [number, number];
+  radius: number;
+};
+
+type Shape = Circle | Rect; // 这里Shape就是可辨别联合类型
+
+const f2 = (shape: Shape) => {
+  if (shape.kind === "circle") {
+    console.log(shape); // Circle
+  } else {
+    console.log(shape); // Rect
+  }
+};
+
+```
+
+- 优点： 让复杂类型的收窄，变成简单类型的对比
+
+- 要求：T=A|B|C|D....
+  - 要求 A|B|C|D 有相同的属性（比如kind）
+  - kind的类型必须是简单类型
+  - 各类型中的kind可以区分（无交集）
+  - 这个T就可以成为可辩别联合类型
+
+
+### 交叉类型 （交集 &）
+
+#### 举例
+```
+type A = string & number; // A 是never
+
+type L = {
+  lefthand: string;
+};
+
+type R = {
+  righthand: string;
+};
+
+type C = L | R;
+type D = L & R;
+
+const d: D = {
+  //  Property righthand   is missing
+  lefthand: "x",
+};
+
+```
+
+- 假如使用type有属性冲突，会被推断成never， 不能赋值
+- 假如使用interface有属性冲突，会直接报错
+
+- 两个函数的交集， 得到一个参数的并集
+
+
+#### 结论：
+- 交叉类型常用于有交集的类型 A 、B0
+- 注意理解`type a = {name : string }` 是一个name为string的对象A类型，意思是这个可以包含其他任何属性在对象中， 所以并不单单这一个对象会包含在其中
+- 但是赋值/第一次声明的时候， ts会做严格检查， 也就是说第一次声明不能有额外的值在对象中
 
 
 
