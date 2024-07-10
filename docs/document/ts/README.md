@@ -114,11 +114,11 @@ enum A {
 
 ```ts
 enum Permission {
-  None = 0,
-  Read = 1 << 0,
-  Write = 1 << 1,
-  Delete = 1 << 2,
-  Manage = Read | Write | Delete,
+  None = 0, // 0000
+  Read = 1 << 0, // 0001
+  Write = 1 << 1, // 0010
+  Delete = 1 << 2, // 0100
+  Manage = Read | Write | Delete, // 0111
 }
 
 type User = {
@@ -150,13 +150,13 @@ if ((user.permission & Permission.Write) === Permission.Write) {
 - type 不可以重新赋值
 
 ```ts
-type Name = string
-type FalseLike = ' | 0 | false | null | undefined
-type Poinr = {a: number, b:number}
-type Points = Points[];
-type Line = [Point, Point]
-type Circle = {center:P:oint; radisu : number}
-type Fn= (a:number) => number
+type Name = string;
+type FalseLike = " | 0 | false | null | undefined";
+type Point = { a: number; b: number };
+type Points = Point[];
+type Line = [Point, Point];
+type Circle = { center: Point; radisu: number };
+type Fn = (a: number) => number;
 type FnWithProp = {
   //note: 对象中声明函数不能像上面用箭头函数，要用冒号
   (a: number, b: number): number;
@@ -475,3 +475,151 @@ p = user
 ##### 返回值类型不同， 能兼容吗？
 
 返回值属性少集合大 = 返回值属性多集合小
+
+## 对象类型语法
+
+```
+type Person = {
+  name: string;
+};
+
+interface PersonInterface{
+  name: string;
+}
+
+```
+
+### 索引签名
+
+```
+type Person2 = {
+  name: string;
+  age?: number;
+};
+
+```
+
+### 映射类型（多用于泛型）
+
+```
+type Hash2 = {
+  [key in string]: unknown;
+};
+```
+
+### ？表示可选
+
+```
+type Person2 = {
+  name: string;
+  age?: number;
+};
+
+```
+
+### readonly 表示只读， 不能写
+
+```
+type Person2 = {
+  readonly id:number;
+  name: string;
+  age?: number;
+};
+
+```
+
+## 函数类型语法
+
+对象的语法全部适用于函数
+
+### 声明函数及其类型
+
+```
+//第一种， 先写类型再赋值
+type F1 = (a:number, b:number) => number
+const f1: F1 = (a,b) => a + b
+
+//第二种， 先实现箭头函数， 再获取类型
+const f2= (a:number, b:number):number => a + b
+type F2 = typeof f2
+
+//第三种， 先实现普通函数， 再获取类型
+function f3= (this:unknown, a:number, b:number):number{
+  return a + b
+}
+type F3 = typeof f3
+
+//第四种， 先实现匿名函数， 再获取类型
+const f4= function(this:unknown, a:number, b:number):number{
+  return a + b
+}
+type F4 = typeof f4
+```
+
+#### 类型谓词
+
+```
+funtion isPerson(x: Person | Animal):x is Person{
+  return 'name' in x
+}
+```
+
+#### 可选参数
+
+addEventListener 第三个参数
+
+##### 参数默认值
+
+#### 参数也可以是函数
+
+#### 返回值也是函数
+
+函数柯里化（redux 的 connect）
+
+## 泛型
+
+- ts 泛型 -> 理解为 js 的函数
+
+```
+type F<A|B> = A|B // 前面为接收参数 后为返回结果
+type Result = F<string, number> // 返回一个类型， 调用F函数
+```
+
+- 不确定接受的参数是什么， 在需要用的时候才知道， 传进来的时候才知道
+
+### extends
+
+- 读作包含于（一个集合小于等于某个集合）
+
+```
+type LikeString<T> = T extends string ? true : false;
+type LikeNumber<T> = T extends number ? 1 : 2;
+type LikePerson<T> = T extends Person ? 'yes' : 'no';
+```
+
+- 规则 1： 若泛型 T 为 never， 则表达式的值为 never
+- 规则 2： 若泛型 T 为联合类型， 则分开计算
+- 注意 仅仅对泛型有效
+
+### keyof
+
+- 获取到所有 T 泛型的 key
+
+```
+type Person = {
+  name: string;
+  age: number;
+};
+type GetKeys<T> = keyof T;
+
+
+type Result = GetKeys<Person> //name || age
+```
+
+### extends keyof
+
+```
+type GetKeyType<T, K extends keyof T> = T[K] // 如果不加会报错， 因为K不一定是T的key
+
+type ResTwo = GetKeyType<Person, 'name'>
+```
