@@ -23,7 +23,8 @@
   - state：组件即将渲染的下一个 state。
 
 - getSnapshotBeforeUpdate(prevProps, prevState)
-  - render以后， 只会在更新的时候执行
+
+  - render 以后， 只会在更新的时候执行
   - 如果你实现了 getSnapshotBeforeUpdate，React 会在 React 更新 DOM 之前时直接调用它。它使你的组件能够在 DOM 发生更改之前捕获一些信息（例如滚动的位置）。此生命周期方法返回的任何值都将作为参数传递给 componentDidUpdate。
 
 - 挂载时
@@ -100,18 +101,20 @@
 
 `<Suspense fallback={<Loading />}></Suspense>`
 
-## React Hooks 怎么用？ useEffect 返回值？依赖值？
+## hooks
+
+### React Hooks 怎么用？ useEffect 返回值？依赖值？
 
 - useEffect
   - 不设置第二个参数的时候， 监控所有的 state 的变化。相当于 componentDidMount 和 componentDidUpdate
-  - 返回一个箭头函数的时候， 用于组件卸载时执行。相当于 componentWillUnmount
+  - 返回一个箭头函数的时候， 用于组件卸载时执行。相当于 componentWillUnmount。（组建依赖项更新时也会被调用， 更新的执行， 相当于卸载了。 想切换更新时的例子）
   - 第二个参数不为空的时候，表示仅对该 state 进行监控。
   - 第二个参数为空数组的时候，相当于 componenntDidMount，仅仅在初始化的时候执行。
-- useState 函数内组件参数。
+  - useState 函数内组件参数。
 
-## useLayoutEffect / useEffect
+### useEffect 与 useLayoutEffect
 
-React 提供了两个钩子函数来在组件渲染之后触发副作用：useEffect 和 useLayoutEffect。
+React 提供了两个钩子函数来在组件渲染之后触发副作用：useEffect 和 useLayoutEffect。(注意是浏览器渲染以后)
 
 useEffect 是一个高阶函数，它接受一个回调函数作为参数，在组件渲染之后调用该回调函数，并且在组件卸载时进行清理工作。
 
@@ -124,3 +127,20 @@ useLayoutEffect 与 useEffect 类似，它也接受一个回调函数作为参�
 因此，useLayoutEffect 通常用来处理需要立即获取 DOM 布局信息或者需要在 DOM 布局更新之前触发操作的场景，比如动画，高度计算等。
 
 总结，useEffect 和 useLayoutEffect 都是用来处理副作用，但是 useLayoutEffect 会在浏览器更新布局之前执行，而 useEffect 会在浏览器更新画面之后执行。
+
+### useMemo
+- 它是用于react渲染过程中的性能优化。
+适用于： 父组件要进行更新，子组件的重新render计算量比较大，而且结果可以复用。就可以使用useMemo来提升父组件引起子组件不必要渲染的性能优化。
+useMemo：返回计算得到的值。
+
+- 但是不是所有地方都要用。 不得已的时候才会用
+  - useMemo本身有性能消耗， 缓存消耗内存， useMemo自身维护也是有性能开销的
+  - 增加开发成本， 维护困难
+  - api可能会被取消
+
+- React.memo
+可以阻止父组件渲染引起的子组件（组件本身）更新。
+
+### useCallback
+对函数引用的缓存
+useCallback：返回缓存的函数。
