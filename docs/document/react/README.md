@@ -144,3 +144,30 @@ useMemo：返回计算得到的值。
 ### useCallback
 对函数引用的缓存
 useCallback：返回缓存的函数。
+
+### useRef
+- 获取dom实例
+- forwardRef
+  - 实际上函数式组件没有ref， 需要用forwardRef转发出去
+
+### useContext
+跨组件传值
+- 核心是父组件用Provider包裹， 给所有子组件注入上下文
+- 子组件通过useContext拿到value
+
+### useTransition
+- 演示react真正意义比vue厉害的地方（用于性能提升）
+- 特性： 并发更新（fiber架构）
+
+
+### 并发更新
+- fiber架构 -> 指的是一种数据结构 （深度优先遍历）
+  - 底层： 三个属性：child parent sibling
+- 分片更新
+
+- 浏览器的空闲时间
+  
+  - react并发更新的作用：
+    - 给予fiber数据结构， 进行细粒度的任务拆分
+    - 在浏览器空闲时间执行， requestIdleCallback的思想。
+    - 因为requestIdleCallback兼容性不好， 所以目前使用PostMessage去模拟实现的。它是宏任务的异步。
