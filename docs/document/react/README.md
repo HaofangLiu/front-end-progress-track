@@ -171,3 +171,22 @@ useCallback：返回缓存的函数。
     - 给予fiber数据结构， 进行细粒度的任务拆分
     - 在浏览器空闲时间执行， requestIdleCallback的思想。
     - 因为requestIdleCallback兼容性不好， 所以目前使用PostMessage去模拟实现的。它是宏任务的异步。
+
+
+### useDeferredValue
+- 将任务处理为低优先级的任务
+
+### useTransition 和 useDeferredValue 有什么区别？
+- 一般useDeferredValue比较适合组件接收的props参数导致渲染缓慢的优化
+- useTransition 适合在自己组件内部/本身进行优化
+
+### useId
+-  react组件渲染过程中生成一个ID
+-  这个ID是根据react组件树的位置相关， 不是随机的， 每次生成都一样
+  
+- 为什么不能用随机数？
+- 因为nodejs做react的服务端渲染时， 需要确保node端生成的id和前端一样
+
+### useImperativeHandle
+- 作用： 自定义转发出去的ref（与ref一起使用的）
+- 应用场景： 不希望开发者直接操作dom， 你用我给你提供的方法就好
