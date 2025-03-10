@@ -638,3 +638,45 @@ type ResTwo = GetKeyType<Person, 'name'>
 ```
 type Factory<T = boolean> = T | number | string;
 ```
+泛型中，我们可以使用 extends 关键字来约束传入的泛型参数必须符合要求。关于 extends，A extends B 意味着 A 是 B 的子类型，这里我们暂时只需要了解非常简单的判断逻辑，也就是说 A 比 B 的类型更精确，或者说更复杂。具体来说，可以分为以下几类。
+- 更精确，如字面量类型是对应原始类型的子类型，即 'jian' extends string，599 extends number 成立。类似的，联合类型子集均为联合类型的子类型，即 1、 1 | 2 是 1 | 2 | 3 | 4 的子类型。
+- 更复杂，如 { name: string } 是 {} 的子类型，因为在 {} 的基础上增加了额外的类型，基类与派生类（父类与子类）同理。
+
+
+还可以给默认值
+```
+type ResStatus<ResCode extends number = 10000> = ResCode extends 10000 | 10001 | 10002
+  ? 'success'
+  : 'failure';
+
+type Res4 = ResStatus; // "success"
+
+```
+
+### 对象类型中的泛型
+由于泛型提供了对类型结构的复用能力，我们也经常在对象类型结构中使用泛型。最常见的一个例子应该还是响应类型结构的泛型处理：
+```
+interface IRes<TData = unknown> {
+  code: number;
+  error?: string;
+  data: TData;
+}
+```
+
+### 函数中的泛型
+假设我们有这么一个函数，它可以接受多个类型的参数并进行对应处理，比如：
+- 对于字符串，返回部分截取；
+- 对于数字，返回它的 n 倍；
+- 对于对象，修改它的属性并返回。
+这个时候，我们要如何对函数进行类型声明？是 any 大法好？
+
+```
+function handle(input: string): string
+function handle(input: number): number
+function handle(input: {}): {}
+function handle(input: string | number | {}): string | number | {} { }
+```
+这个时候，我们就该请出泛型了：
+```
+function handle<T>(input: T): T {}
+```
