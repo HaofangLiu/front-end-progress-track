@@ -601,8 +601,13 @@ type LikePerson<T> = T extends Person ? 'yes' : 'no';
 - 规则 2： 若泛型 T 为联合类型， 则分开计算
 - 注意 仅仅对泛型有效
 
+泛型中，我们可以使用 extends 关键字来约束传入的泛型参数必须符合要求。关于 extends，A extends B 意味着 A 是 B 的子类型，这里我们暂时只需要了解非常简单的判断逻辑，也就是说 A 比 B 的类型更精确，或者说更复杂。具体来说，可以分为以下几类。
+- 更精确，如字面量类型是对应原始类型的子类型，即 'jian' extends string，599 extends number 成立。类似的，联合类型子集均为联合类型的子类型，即 1、 1 | 2 是 1 | 2 | 3 | 4 的子类型。
+- 更复杂，如 { name: string } 是 {} 的子类型，因为在 {} 的基础上增加了额外的类型，基类与派生类（父类与子类）同理。
+
 ### keyof
 
+- keyof 操作符接受一个对象类型作为参数，返回该对象属性名组成的字面量联合类型，其作用类似 JavaScript 中的 Object.keys
 - 获取到所有 T 泛型的 key
 
 ```
@@ -622,4 +627,14 @@ type Result = GetKeys<Person> //name || age
 type GetKeyType<T, K extends keyof T> = T[K] // 如果不加会报错， 因为K不一定是T的key
 
 type ResTwo = GetKeyType<Person, 'name'>
+```
+
+### T[number]
+
+获取元组 T 中所有元素的联合类型，即取出元组中所有可能的值，我们可以使用 T[number] 的写法。
+
+### 泛型约束与默认值
+像函数可以声明一个参数的默认值一样，泛型同样有着默认值的设定，比如：
+```
+type Factory<T = boolean> = T | number | string;
 ```
