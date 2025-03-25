@@ -1,5 +1,93 @@
 # webpack
 
+## 复习 commonJS
+
+### commonJS 规范
+
+- 每个文件是一个模块（模块内部的变量， 函数， 类都是私有的， 对其他不可见）
+- 在模块中使用 global 定义全局对象， 不需要导出， 在别的模块中可以直接使用
+- 每个模块内部, module 变量(一个对象)代表当前模块， module.exports 属性代表当前模块对外接口
+- 通过 require 加载模块， 读取并执行模块代码， 返回 module.exports 对象
+- 所有代码运行在模块作用域， 不会污染全局作用域
+- 模块可以多次加载， 但只会在第一次加载时运行一次， 然后缓存起来， 以后再加载就直接读取缓存
+- 模块加载的顺序， 按照代码中出现的顺序
+
+#### module.exports 和 exports 的区别
+
+- module.exports 初始值是一个空对象 {}
+- exports 是 module.exports 的一个引用
+- require() 返回的是 module.exports 而不是 exports
+- exports.xxx = xxx 是在对 exports 对象添加属性， 而 module.exports = xxx 是对 module.exports 赋值
+- 如果 module.exports 被赋值， exports 就不再指向 module.exports
+- 一般情况下， 一个模块只能使用一种导出方式， 不能混用
+
+### ES Module
+
+- ES Module 是 JS 的模块化规范， 也是 JS 语言的官方标准
+- ES Module 是静态的， 在编译时就能确定模块的依赖关系
+
+### ES Module 和 commonJS 的区别
+
+- ES Module 是编译时加载， commonJS 是运行时加载
+- ES Module 输出的是值的引用， commonJS 输出的是值的拷贝
+- ES Module 是异步加载， commonJS 是同步加载
+- ES Module 是单例模式， commonJS 是多例模式
+- ES Module 可以直接导入模块中的变量， commonJS 只能导出模块中的变量
+- ES Module 可以导入模块中的部分内容， commonJS 只能导出整个模块
+- ES Module 可以在编译时优化， commonJS 只能在运行时优化
+- ES Module 可以在浏览器中运行， commonJS 只能在 Node.js 中运行
+- ES Module 可以在浏览器中异步加载模块， commonJS 不能异步加载模块
+- ES Module 可以在浏览器中预解析模块， commonJS 不能预解析模块
+- ES Module 可以在浏览器中缓存模块， commonJS 不能缓存模块
+- ES Module 可以在浏览器中预编译模块， commonJS 不能预编译模块
+
+## webpack 是什么
+
+- webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)
+
+### webpack 打包的过程
+
+- 输入：从文件系统读入代码文件；
+- 模块递归处理：调用 Loader 转译 Module 内容，并将结果转换为 AST，从中分析出模块依赖关系，进一步递归调用模块处理过程，直到所有依赖文件都处理完毕；
+- 后处理：所有模块递归处理完毕后开始执行后处理，包括模块合并、注入运行时、产物优化等，最终输出 Chunk 集合；
+- 输出：将 Chunk 写出到外部文件系统；
+
+### 流程类
+
+与打包流程强相关的配置项有：
+
+- 输入输出：
+  - entry：用于定义项目入口文件，Webpack 会从这些入口文件开始按图索骥找出所有项目文件；
+  - context：项目执行上下文路径；
+  - output：配置产物输出路径、名称等；
+- 模块处理：
+  - resolve：用于配置模块路径解析规则，可用于帮助 Webpack 更精确、高效地找到指定模块
+  - module：用于配置模块加载规则，例如针对什么类型的资源需要使用哪些 Loader 进行处理
+  - externals：用于声明外部资源，Webpack 会直接忽略这部分资源，跳过这些资源的解析、打包操作
+- 后处理：
+  - optimization：用于控制如何优化产物包体积，内置 Dead Code Elimination、Scope Hoisting、代码混淆、代码压缩等功能
+  - target：用于配置编译产物的目标运行环境，支持 web、node、electron 等值，不同值最终产物会有所差异
+  - mode：编译模式短语，支持 development、production 等值，可以理解为一种声明环境的短语
+
+这里的重点是，Webpack 首先需要根据输入配置(entry/context) 找到项目入口文件；之后根据按模块处理(module/resolve/externals 等) 所配置的规则逐一处理模块文件，处理过程包括转译、依赖分析等；模块处理完毕后，最后再根据后处理相关配置项(optimization/target 等)合并模块资源、注入运行时依赖、优化产物结构等。
+这些配置项与打包流程强相关，建议学习时多关注它们对主流程的影响，例如 entry 决定了项目入口，而 output 则决定产物最终往哪里输出；resolve 决定了怎么找到模块，而 module 决定了如何解读模块内容，等等。
+
+### 工具类
+
+除了核心的打包功能之外，Webpack 还提供了一系列用于提升研发效率的工具，大体上可划分为：
+
+- 开发效率类：
+  - watch：用于配置持续监听文件变化，持续构建
+  - devtool：用于配置产物 Sourcemap 生成规则
+  - devServer：用于配置与 HMR 强相关的开发服务器功能
+- 性能优化类：
+  - cache：Webpack 5 之后，该项用于控制如何缓存编译过程信息与编译结果
+  - performance：用于配置当产物大小超过阈值时，如何通知开发者
+- 日志类：
+  - stats：用于精确地控制编译过程的日志内容，在做比较细致的性能调试时非常有用
+  - infrastructureLogging：用于控制日志输出方式，例如可以通过该配置将日志输出到磁盘文件
+- 等等
+
 ## entry
 
 - 假如希望有多个文件，就可以写这里
@@ -33,6 +121,7 @@
 - 插件用于执行范围更广的任务。比如：打包优化，资源管理，注入环境变量等（目的在于解决 loader 无法实现的其他的事情）
 - CleanWebpackPlugin 构建前清理/dist 文件夹。（现在推荐 output.clean 配置而不是插件）
 - HtmlWebpackPlugin 为应用程序生成一个 HTML 文件，并自动注入所有生成的 bundle。
+- 在默认情况下，Webpack 使用 style-loader 会将 CSS 代码以 `<style> `标签的形式插入到 HTML 文件的 `<head> `部分。但在生产环境中，这种做法存在一些弊端，比如不利于 CSS 的缓存和并行加载。MiniCssExtractPlugin 可以将 CSS 代码从 JavaScript 文件中分离出来，生成独立的 CSS 文件，这样浏览器就可以并行加载 CSS 和 JavaScript 文件，提高页面的加载速度。
 
 ### 常见的 plugin
 
