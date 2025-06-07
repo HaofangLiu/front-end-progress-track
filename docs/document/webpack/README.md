@@ -10,7 +10,7 @@
 - 通过 require 加载模块， 读取并执行模块代码， 返回 module.exports 对象
 - 所有代码运行在模块作用域， 不会污染全局作用域
 - 模块可以多次加载， 但只会在第一次加载时运行一次， 然后缓存起来， 以后再加载就直接读取缓存
-- 模块加载的顺序， 按照代码中出现的顺序
+- 模块加载的顺序， 按照代码中出现的顺用于控制如何优化产物包体积序
 
 #### module.exports 和 exports 的区别
 
@@ -68,6 +68,9 @@
   - optimization：用于控制如何优化产物包体积，内置 Dead Code Elimination、Scope Hoisting、代码混淆、代码压缩等功能
   - target：用于配置编译产物的目标运行环境，支持 web、node、electron 等值，不同值最终产物会有所差异
   - mode：编译模式短语，支持 development、production 等值，可以理解为一种声明环境的短语
+  - mode：development、production 区别是什么？
+    - development：开发模式，开启调试功能，关闭代码压缩
+    - production：生产模式，开启代码压缩，关闭调试功能
 
 这里的重点是，Webpack 首先需要根据输入配置(entry/context) 找到项目入口文件；之后根据按模块处理(module/resolve/externals 等) 所配置的规则逐一处理模块文件，处理过程包括转译、依赖分析等；模块处理完毕后，最后再根据后处理相关配置项(optimization/target 等)合并模块资源、注入运行时依赖、优化产物结构等。
 这些配置项与打包流程强相关，建议学习时多关注它们对主流程的影响，例如 entry 决定了项目入口，而 output 则决定产物最终往哪里输出；resolve 决定了怎么找到模块，而 module 决定了如何解读模块内容，等等。
@@ -87,6 +90,11 @@
   - stats：用于精确地控制编译过程的日志内容，在做比较细致的性能调试时非常有用
   - infrastructureLogging：用于控制日志输出方式，例如可以通过该配置将日志输出到磁盘文件
 - 等等
+
+逻辑上，每一个工具类配置都在主流程之外提供额外的工程化能力，例如 devtool 用于配置产物 Sourcemap 生成规则，与 Sourcemap 强相关；devServer 用于配置与 HMR 相关的开发服务器功能；watch 用于实现持续监听、构建。
+工具类配置内聚性较强，通常一个配置项专注于解决一类工程问题，学习时建议先对配置项按其功能做个简单分类，例如上述开发效率类、性能优化类等，之后再展开研究其可选值与效果。
+
+![webpack 配置流程图](./1.png)
 
 ## entry
 
@@ -115,6 +123,18 @@
 - [hash] 和整个项目构建相关，只要项目文件有修改，整个项目的 hash 值 就会变化
 - [chunkhash] 和 webpack 打包的 chunk 有关，不同 entry 会生成不同的 chunkhash 值， 一般 js 会使用
 - [contenthash] 根据文件内容来定义 hash， 文件内容不变，则 contenthash 不变， 一般 css 会使用
+面试题: hash、chunkHash、contentHash的区别？
+hash: 根据webpack所有模块生成的，有任何变化重新生成，而且唯一
+chunkHash： 根据chunk所有的依赖生成的，只要chunk中的依赖发生变化就会重新生成，也有问题。例如： 异步加载的组件，css js
+contentHash: 根据文件来的，项目一般用这个，没有前面两种情况的问题
+
+最佳实践总结
+JS 文件：使用 [name].[chunkhash].js 或 [name].[contenthash].js，避免全局 hash。
+CSS 文件：必须使用 contentHash（如 [name].[contenthash].css），确保 CSS 缓存独立。
+图片 / 字体等资源：使用 [contenthash] 或 [hash]（如 [name].[contenthash][ext]）。
+长期缓存策略：
+第三方库（如 React、Vue）单独打包，使用 chunkHash。
+应用代码使用 contentHash，确保修改一处不影响其他资源缓存。
 
 ## plugins
 
@@ -243,3 +263,32 @@ Plugin 直译为"插件"。Plugin 可以扩展 Webpack 的功能。 在 Webpack 
 - 滚动（操作）优化 ---懒加载，请求少。 节流，防抖的优化。 DOM 的复用
 - 动画的优化 ---尽量 css3， 多用 transform（这里是利用显存）
 - 构建（打包）的优化 ---打包时间
+
+- 在 Webpack 配置中，MiniCssExtractPlugin.loader 和 style-loader 均用于处理 CSS，但工作方式和适用场景有所不同：
+- 输出形态
+  MiniCssExtractPlugin.loader：生成独立的 CSS 文件（如.css），通过 HTML 的<link>标签引入。
+  style-loader：将 CSS 以<style>标签形式内联到 JS 文件中，随 JS 加载后注入 DOM。
+- 加载时机
+  MiniCssExtractPlugin.loader：CSS 与 JS 并行加载，利用浏览器缓存机制提升性能。
+  style-loader：依赖 JS 执行，需等待 JS 加载完成后动态生成样式，可能导致页面闪烁。
+
+MiniCssExtractPlugin.loader：推荐用于生产环境，减少 JS 体积并支持 CSS 分割。
+style-loader：适用于开发环境，支持 HMR（热模块替换）实时更新样式。
+兼容性
+MiniCssExtractPlugin.loader：默认不支持 HMR，需配合额外插件实现样式热更新。
+style-loader：原生支持 HMR，修改 CSS 后无需刷新页面即可生效。
+
+- 文件体积
+  MiniCssExtractPlugin.loader：可通过 CSS 压缩工具（如 css-minimizer-webpack-plugin）单独优化。
+  style-loader：CSS 内容嵌入 JS，会增加 JS 文件体积。
+  典型配置对比
+
+开发阶段：优先使用 style-loader，利用 HMR 提升开发效率。
+生产环境：建议采用 MiniCssExtractPlugin.loader，优化加载性能和缓存策略。
+特殊场景：如需优化首屏加载，可结合 html-inline-css-webpack-plugin 将关键 CSS 内联，其余 CSS 分离。
+
+面试题：module bundle chunk  的区别？
+
+![module bundle chunk  的区别？](./2.png)
+
+module 就是没有被编译之前的代码，通过 webpack 的根据文件引用关系生成 chunk 文件，webpack 处理好 chunk 文件后，生成运行在浏览器中的代码 bundle。
