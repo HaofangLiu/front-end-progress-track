@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest # 指定运行所需要的虚拟机环境（必填）
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           # “最近更新时间” 等 git 日志相关信息，需要拉取全部提交记录
           fetch-depth: 0
