@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>typescript 知识点 | Lucas文档库</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="compass.svg">
+    <meta name="description" content="Lucas document collection">
+    
+    <link rel="preload" href="/front-end-progress-track/assets/css/0.styles.1c631b42.css" as="style"><link rel="preload" href="/front-end-progress-track/assets/js/app.55fbb09c.js" as="script"><link rel="preload" href="/front-end-progress-track/assets/js/2.3c044b6f.js" as="script"><link rel="preload" href="/front-end-progress-track/assets/js/1.946bbbaf.js" as="script"><link rel="preload" href="/front-end-progress-track/assets/js/20.35b1a1eb.js" as="script"><link rel="prefetch" href="/front-end-progress-track/assets/js/10.100ad0ba.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/11.11c89185.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/12.452422eb.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/13.cdbffaeb.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/14.29cb1f24.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/15.25a9f6f1.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/16.1008613e.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/17.e87875c8.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/18.21caedd4.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/19.261180c5.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/21.e78369f6.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/22.67b70316.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/23.f866a84e.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/24.6ffc8fb8.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/25.2594d9bd.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/26.3cdec195.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/27.98585499.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/28.7910915e.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/29.a483cbdd.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/3.945872b5.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/30.c84d22d4.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/31.982a1c57.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/32.3c98e77b.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/33.17ee5942.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/34.1e87628b.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/35.6e127866.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/36.5af02e95.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/37.065e5dc3.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/4.e5e6a7bb.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/5.d63af971.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/6.489cfffe.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/7.0c7d04fe.js"><link rel="prefetch" href="/front-end-progress-track/assets/js/vendors~docsearch.c632dcce.js">
+    <link rel="stylesheet" href="/front-end-progress-track/assets/css/0.styles.1c631b42.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/front-end-progress-track/" class="home-link router-link-active"><img src="/front-end-progress-track/compass.svg" alt="Lucas文档库" class="logo"> <span class="site-name can-hide">Lucas文档库</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/front-end-progress-track/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/front-end-progress-track/blog/" class="nav-link">
+  博客
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="文档" class="dropdown-title"><span class="title">文档</span> <span class="arrow down"></span></button> <button type="button" aria-label="文档" class="mobile-dropdown-title"><span class="title">文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/html/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/css/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/js/" class="nav-link">
+  Javascript
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/react/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/http/" class="nav-link">
+  HTTP
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/webpack/" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/nodejs/" class="nav-link">
+  NodeJS
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/ts/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Typescript
+</a></li></ul></div></div><div class="nav-item"><a href="/front-end-progress-track/document/ts/.html" class="nav-link">
+  Github
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/front-end-progress-track/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/front-end-progress-track/blog/" class="nav-link">
+  博客
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="文档" class="dropdown-title"><span class="title">文档</span> <span class="arrow down"></span></button> <button type="button" aria-label="文档" class="mobile-dropdown-title"><span class="title">文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/html/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/css/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/js/" class="nav-link">
+  Javascript
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/react/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/http/" class="nav-link">
+  HTTP
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/webpack/" class="nav-link">
+  Webpack
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/nodejs/" class="nav-link">
+  NodeJS
+</a></li><li class="dropdown-item"><!----> <a href="/front-end-progress-track/document/ts/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Typescript
+</a></li></ul></div></div><div class="nav-item"><a href="/front-end-progress-track/document/ts/.html" class="nav-link">
+  Github
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>typescript 知识点</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/front-end-progress-track/document/ts/#ts-如何运行" class="sidebar-link">ts 如何运行</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/front-end-progress-track/document/ts/#类型擦除" class="sidebar-link">类型擦除</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/front-end-progress-track/document/ts/#数据类型" class="sidebar-link">数据类型</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#js-ts-类型" class="sidebar-link">JS / TS 类型</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#为什么有两个-number-number-string-string-boolean-boolean-呢" class="sidebar-link">为什么有两个 number/Number | string/String | boolean/Boolean 呢？</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#object-类型" class="sidebar-link">Object 类型</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#数组对象" class="sidebar-link">数组对象</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#函数对象" class="sidebar-link">函数对象</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#any-unknown-never" class="sidebar-link">any/unknown/never</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#enum-枚举类型" class="sidebar-link">enum 枚举类型</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#type" class="sidebar-link">type</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#interface" class="sidebar-link">interface</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#type-interface-区别" class="sidebar-link">type interface 区别</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#void" class="sidebar-link">void</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#联合类型-并集" class="sidebar-link">联合类型 （并集 | ）</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#交叉类型-交集" class="sidebar-link">交叉类型 （交集 &amp;）</a></li></ul></li><li><a href="/front-end-progress-track/document/ts/#类型兼容与赋值" class="sidebar-link">类型兼容与赋值</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#为什么要兼容" class="sidebar-link">为什么要兼容</a></li></ul></li><li><a href="/front-end-progress-track/document/ts/#对象类型语法" class="sidebar-link">对象类型语法</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#索引签名" class="sidebar-link">索引签名</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#映射类型-多用于泛型" class="sidebar-link">映射类型（多用于泛型）</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#表示可选" class="sidebar-link">？表示可选</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#readonly-表示只读-不能写" class="sidebar-link">readonly 表示只读， 不能写</a></li></ul></li><li><a href="/front-end-progress-track/document/ts/#函数类型语法" class="sidebar-link">函数类型语法</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#声明函数及其类型" class="sidebar-link">声明函数及其类型</a></li></ul></li><li><a href="/front-end-progress-track/document/ts/#泛型" class="sidebar-link">泛型</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#extends" class="sidebar-link">extends</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#keyof" class="sidebar-link">keyof</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#extends-keyof" class="sidebar-link">extends keyof</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#t-number" class="sidebar-link">T[number]</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#泛型约束与默认值" class="sidebar-link">泛型约束与默认值</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#对象类型中的泛型" class="sidebar-link">对象类型中的泛型</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#函数中的泛型" class="sidebar-link">函数中的泛型</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#类型查询操作符" class="sidebar-link">类型查询操作符</a></li><li class="sidebar-sub-header"><a href="/front-end-progress-track/document/ts/#基于-in-与-instanceof-的类型保护" class="sidebar-link">基于 in 与 instanceof 的类型保护</a></li></ul></li><li><a href="/front-end-progress-track/document/ts/#top-type" class="sidebar-link">Top Type</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/front-end-progress-track/document/ts/#向下探索-直到万物虚无" class="sidebar-link">向下探索，直到万物虚无</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/front-end-progress-track/document/ts/#infer-关键字" class="sidebar-link">infer 关键字</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/front-end-progress-track/document/ts/#逆变与协变" class="sidebar-link">逆变与协变</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="typescript-知识点"><a href="#typescript-知识点" class="header-anchor">#</a> typescript 知识点</h1> <h2 id="ts-如何运行"><a href="#ts-如何运行" class="header-anchor">#</a> ts 如何运行</h2> <ul><li><p>一段 js 代码可以直接运行在浏览器/nodejs 环境中， 但是 ts 需要进行类型擦除才可以运行在浏览器/nodejs，否则会直接报错。 但可以通过 deno 直接运行。</p></li> <li><p>如果需要擦除类型，可以使用的包包含：</p> <ul><li>esbuild （快，不检查 ts 语法） <code>npm i -g esbuild</code></li> <li>swc （快，不检查 ts 语法） <code>npm i -g @swc/cli @swc/core</code></li> <li>tsc （慢， 会检查语法） <code>npm i -g typescript</code></li> <li>babel （慢， 会检查语法， 依赖多，需要在项目中运行）<code>npm i @babel/core @babel/cli @babel/preset-typescript</code></li></ul></li></ul> <h2 id="类型擦除"><a href="#类型擦除" class="header-anchor">#</a> 类型擦除</h2> <p>简单来讲就是 ts 经过类型擦除可以转化成 ES6 代码
+<img src="/front-end-progress-track/assets/img/1.edb195a4.png" alt="ts compile"></p> <h2 id="数据类型"><a href="#数据类型" class="header-anchor">#</a> 数据类型</h2> <h3 id="js-ts-类型"><a href="#js-ts-类型" class="header-anchor">#</a> JS / TS 类型</h3> <h4 id="js"><a href="#js" class="header-anchor">#</a> JS</h4> <ul><li>null / undefined / string / number / boolean / object / Symbol / bigint</li></ul> <h4 id="ts"><a href="#ts" class="header-anchor">#</a> ts</h4> <ul><li>以上所有， 加上</li> <li>void / never / enum / unknown / any</li> <li>再加上自定义类型 type / interface</li></ul> <h3 id="为什么有两个-number-number-string-string-boolean-boolean-呢"><a href="#为什么有两个-number-number-string-string-boolean-boolean-呢" class="header-anchor">#</a> 为什么有两个 number/Number | string/String | boolean/Boolean 呢？</h3> <ul><li>因为被 js 做了一层包装对象</li> <li><code>42.toFixed(2)</code>等价于<div class="language- line-numbers-mode"><pre class="language-text"><code>let temp = new Number;
+value = tem.toFixed(2);
+delete temp
+return value;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div></li> <li>所以 JS 中的 Number String Boolean 只用于包装对象</li> <li>正常情况下 js/ts 都不用</li></ul> <h3 id="object-类型"><a href="#object-类型" class="header-anchor">#</a> Object 类型</h3> <ul><li><p>正常不会直接使用 object 类型在 ts</p></li> <li><p>对象 = 普通对象</p> <ul><li>数组对象 Array</li> <li>函数对象 Function</li> <li>正则对象 RegExp</li> <li>日期对象 Date</li></ul></li></ul> <h4 id="如何在-ts-中描述对象数据类型"><a href="#如何在-ts-中描述对象数据类型" class="header-anchor">#</a> 如何在 ts 中描述对象数据类型？</h4> <ol><li>用 class 或者 constructor 描述</li> <li>使用 type 或者 interface 描述</li></ol> <div class="language-Javascript line-numbers-mode"><pre class="language-javascript"><code><span class="token comment">//索引签名</span>
+<span class="token comment">//k可以为任意</span>
+type <span class="token constant">A</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">[</span>k<span class="token operator">:</span> string<span class="token punctuation">]</span><span class="token operator">:</span> string<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">//等于泛型</span>
+type <span class="token constant">A2</span> <span class="token operator">=</span> Record<span class="token operator">&lt;</span>string<span class="token punctuation">,</span> number<span class="token operator">&gt;</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><ul><li>结论： ts 一般使用索引签名或者 <code>Record</code> 泛型来描述普通对象</li></ul> <h3 id="数组对象"><a href="#数组对象" class="header-anchor">#</a> 数组对象</h3> <div class="language-Javascript line-numbers-mode"><pre class="language-javascript"><code>type <span class="token constant">A</span> <span class="token operator">=</span> string<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">//等价于</span>
+type <span class="token constant">AA</span> <span class="token operator">=</span> Array<span class="token operator">&lt;</span>string<span class="token operator">&gt;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><ul><li>结论： ts 一般使用<code>Array&lt;?&gt;</code>或者<code>string[]</code>或者<code>[string, number]</code>来描述数组</li></ul> <h3 id="函数对象"><a href="#函数对象" class="header-anchor">#</a> 函数对象</h3> <div class="language-Javascript line-numbers-mode"><pre class="language-javascript"><code>type <span class="token function-variable function">fnA</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">a</span><span class="token operator">:</span> number<span class="token punctuation">,</span> <span class="token literal-property property">b</span><span class="token operator">:</span> number</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> number<span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ul><li>结论： ts 一般使用<code>() =&gt; ?</code> 来描述函数</li></ul> <h3 id="any-unknown-never"><a href="#any-unknown-never" class="header-anchor">#</a> any/unknown/never</h3> <ul><li>any 全知全能</li> <li>unknown 适合值从外部获取，不确定类型时候使用。 尽量使用这个然后自己去断言</li> <li>never 空集合不包含任何类型</li></ul> <h3 id="enum-枚举类型"><a href="#enum-枚举类型" class="header-anchor">#</a> enum 枚举类型</h3> <h4 id="应用场景-1-数字情况"><a href="#应用场景-1-数字情况" class="header-anchor">#</a> 应用场景 1 数字情况</h4> <div class="language-ts line-numbers-mode"><pre class="language-ts"><code><span class="token comment">// 什么时候用enum</span>
+<span class="token comment">// 数字 初始值为0</span>
+
+<span class="token keyword">enum</span> <span class="token constant">A</span> <span class="token punctuation">{</span>
+  todo<span class="token punctuation">,</span>
+  done<span class="token punctuation">,</span>
+  archived<span class="token punctuation">,</span>
+  deleted<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><h4 id="应用场景-2-前端权限管理"><a href="#应用场景-2-前端权限管理" class="header-anchor">#</a> 应用场景 2 前端权限管理</h4> <div class="language-ts line-numbers-mode"><pre class="language-ts"><code><span class="token keyword">enum</span> Permission <span class="token punctuation">{</span>
+  None <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment">// 0000</span>
+  Read <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment">// 0001</span>
+  Write <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">// 0010</span>
+  Delete <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token comment">// 0100</span>
+  Manage <span class="token operator">=</span> Read <span class="token operator">|</span> Write <span class="token operator">|</span> Delete<span class="token punctuation">,</span> <span class="token comment">// 0111</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">type</span> <span class="token class-name">User</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  permission<span class="token operator">:</span> Permission<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">//0b开头证明这是二进制在js中</span>
+<span class="token keyword">const</span> user<span class="token operator">:</span> User <span class="token operator">=</span> <span class="token punctuation">{</span>
+  permission<span class="token operator">:</span> <span class="token number">0b0010</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 任何一个x 与 Permission.Write 进行与操作（&amp;） 结果等于Permission.Write， 那证明权限拥有</span>
+<span class="token comment">// 因为 与&amp;预算， 都是1才为1</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>user<span class="token punctuation">.</span>permission <span class="token operator">&amp;</span> Permission<span class="token punctuation">.</span>Write<span class="token punctuation">)</span> <span class="token operator">===</span> Permission<span class="token punctuation">.</span>Write<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;user has right to write&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br></div></div><h4 id="什么时候不用-enum"><a href="#什么时候不用-enum" class="header-anchor">#</a> 什么时候不用 enum</h4> <ul><li>使用 string | other 类型时， 不用 enum</li> <li>原因是可以使用更为简单直接的写法， 可直接提示赋值</li></ul> <h3 id="type"><a href="#type" class="header-anchor">#</a> type</h3> <ul><li>类型别名 Type Aliases</li> <li>给其他类型取个名字(并没有产生真的人)</li> <li>几乎什么时候都可以用</li> <li>type 不可以重新赋值</li></ul> <div class="language-ts line-numbers-mode"><pre class="language-ts"><code><span class="token keyword">type</span> <span class="token class-name">Name</span> <span class="token operator">=</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token keyword">type</span> <span class="token class-name">FalseLike</span> <span class="token operator">=</span> <span class="token string">&quot; | 0 | false | null | undefined&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">type</span> <span class="token class-name">Point</span> <span class="token operator">=</span> <span class="token punctuation">{</span> a<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span> b<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">type</span> <span class="token class-name">Points</span> <span class="token operator">=</span> Point<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">type</span> <span class="token class-name">Line</span> <span class="token operator">=</span> <span class="token punctuation">[</span>Point<span class="token punctuation">,</span> Point<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">type</span> <span class="token class-name">Circle</span> <span class="token operator">=</span> <span class="token punctuation">{</span> center<span class="token operator">:</span> Point<span class="token punctuation">;</span> radisu<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">type</span> <span class="token class-name">Fn</span> <span class="token operator">=</span> <span class="token punctuation">(</span>a<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token keyword">type</span> <span class="token class-name">FnWithProp</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">//note: 对象中声明函数不能像上面用箭头函数，要用冒号</span>
+  <span class="token punctuation">(</span>a<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> b<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  prop<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><h3 id="interface"><a href="#interface" class="header-anchor">#</a> interface</h3> <ul><li>用来声明接口</li> <li>描述对象的属性(declare the shapes of objects)</li> <li>interface 自动合并</li></ul> <div class="language-ts line-numbers-mode"><pre class="language-ts"><code><span class="token keyword">interface</span> <span class="token class-name">Date</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">[</span>key<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">interface</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  x<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  y<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">interface</span> <span class="token class-name">Points</span> <span class="token keyword">extends</span> <span class="token class-name"><span class="token builtin">Array</span><span class="token operator">&lt;</span>Point<span class="token operator">&gt;</span></span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">interface</span> <span class="token class-name">Fn</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">(</span>x<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> y<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><p><img src="/front-end-progress-track/assets/img/2.e4bf9595.png" alt="ts interface"></p> <h3 id="type-interface-区别"><a href="#type-interface-区别" class="header-anchor">#</a> type interface 区别</h3> <ul><li>区别 1: interface 只描述对象 type 则描述所有数据</li> <li>区别 2： type 只是别名， interface 是（真名）类型声明</li> <li>区别 3： 对外 API 尽量用 interface， 方便拓展。 对内部 API 尽量用 type, 防止代码分散</li></ul> <h3 id="void"><a href="#void" class="header-anchor">#</a> void</h3> <ul><li>返回空， 但是编译不会报错， 如果想要使用返回值时报错</li></ul> <h3 id="联合类型-并集"><a href="#联合类型-并集" class="header-anchor">#</a> 联合类型 （并集 | ）</h3> <h4 id="举例"><a href="#举例" class="header-anchor">#</a> 举例</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>type A1 = number;
+type B1 = string;
+
+type C1 = A1 | B1;
+
+const c1: C1 = &quot;42&quot;;
+const c2: C1 = 12;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><div class="language- line-numbers-mode"><pre class="language-text"><code>type A2 = { name: string };
+type B2 = { age: number };
+
+type C2 = A2 | B2;
+
+const c11: C2 = {
+  name: &quot;xxx&quot;,
+  age: 61,
+};
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><p><img src="/front-end-progress-track/assets/img/3.6fd7fc1a.png" alt="联合类型"></p> <h4 id="如何使用联合类型"><a href="#如何使用联合类型" class="header-anchor">#</a> 如何使用联合类型？</h4> <p>假如接受一个联合类型，string | number
+既不能当作 string 直接使用，或者 number 直接使用
+那么怎么直接使用这个变量？</p> <p>答案： 想办法区分出类型</p> <h4 id="类型收窄"><a href="#类型收窄" class="header-anchor">#</a> 类型收窄</h4> <h5 id="方法-1-使用-typeof"><a href="#方法-1-使用-typeof" class="header-anchor">#</a> 方法 1： 使用 typeof</h5> <div class="language- line-numbers-mode"><pre class="language-text"><code>const f1 = (a: number | string) =&gt; {
+  // 注意，这里只有50%几率是number / string
+  // 所以不能直接使用其对应的方法， 只能使用number &amp; string的共同方法
+  // 只能想办法区分开类型
+
+  //方法1：使用typeof
+  // 也叫做类型收窄
+  if (typeof a === &quot;number&quot;) {
+    a.toFixed(2);
+  } else if (typeof a === &quot;string&quot;) {
+    a.toLocaleLowerCase();
+  } else {
+    // 注意这里是never
+    // 不能对a进行任何操作
+    console.log(a);
+  }
+};
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><ul><li><p>可以得到的值包含： string / number / bigint / boolean / symbal / undefined / object / function</p></li> <li><p>局限性：array / normal obj / date / null 都会得到 object</p></li></ul> <h5 id="方法-2-使用-instanceof"><a href="#方法-2-使用-instanceof" class="header-anchor">#</a> 方法 2： 使用 instanceOf</h5> <div class="language- line-numbers-mode"><pre class="language-text"><code>const f2 = (a: Date | Date[]) =&gt; {
+  //方法2：使用instanceOf
+  if (a instanceof Date) {
+    a.getDate();
+  } else if (a instanceof Array) {
+    a.push(new Date());
+  } else {
+    // 注意这里是never
+    // 不能对a进行任何操作
+    console.log(a);
+  }
+};
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><ul><li>局限性：
+<ul><li>不支持 string / number / boolean 等</li> <li>不支持独有的 ts 类型</li> <li><img src="/front-end-progress-track/assets/img/4.534505ec.png" alt="不支持独有的类型"></li></ul></li></ul> <h5 id="方法-3-使用-in"><a href="#方法-3-使用-in" class="header-anchor">#</a> 方法 3： 使用 in</h5> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Person = {
+  name: string;
+};
+
+type Animal = {
+  age: number;
+};
+
+const f3 = (a: Person | Animal) =&gt; {
+  //方法3：使用in
+  if (&quot;name&quot; in a) {
+    a.name.charCodeAt(0);
+  } else if (&quot;age&quot; in a) {
+    a.age.toString();
+  } else {
+    // 注意这里是never
+    // 不能对a进行任何操作
+    console.log(a);
+  }
+};
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br></div></div><ul><li>局限性：适用于部分对象</li></ul> <h5 id="方法-4-使用-js-中的判断类型的函数区分或者逻辑"><a href="#方法-4-使用-js-中的判断类型的函数区分或者逻辑" class="header-anchor">#</a> 方法 4： 使用 js 中的判断类型的函数区分或者逻辑</h5> <ul><li>比如 Array.isArray 等</li></ul> <h4 id="类型谓词-is-区分类型的万全办法"><a href="#类型谓词-is-区分类型的万全办法" class="header-anchor">#</a> 类型谓词 is（区分类型的万全办法）</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Rect = {
+  width: number;
+  height: number;
+};
+
+type Circle = {
+  center: [number, number];
+  radius: number;
+};
+
+
+// 在你的代码中，isRect和isCircle被定义为箭头函数表达式，所以按照正常的规则，它们应该在使用之前进行定义。
+// 然而，在这种情况下，由于它们被用作类型谓词（Type Predicate），TypeScript的类型系统会对其进行特殊处理。
+
+// TypeScript允许在类型谓词的上下文中使用尚未声明的函数。
+// 这是因为类型谓词的类型检查是基于形状和类型的，而不是基于具体的运行时行为。
+// 所以，尽管在代码中它们被定义为箭头函数表达式，在类型检查期间，TypeScript将会将它们视为类型谓词并进行处理。
+
+const f1 = (a: Rect | Circle) =&gt; {
+  if (isRect(a)) {
+    console.log(a);
+  } else {
+    console.log(a);
+  }
+};
+
+const isRect = (x: Rect | Circle): x is Rect =&gt; {
+  return &quot;height&quot; in x &amp;&amp; &quot;width&quot; in x;
+};
+
+const isCircle = (x: Rect | Circle): x is Circle =&gt; {
+  return &quot;center&quot; in x &amp;&amp; &quot;radius&quot; in x;
+};
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br></div></div><ul><li>优点： 支持所有 ts 类型</li> <li>缺点：麻烦</li></ul> <h4 id="可辩别联合-discriminated-unions"><a href="#可辩别联合-discriminated-unions" class="header-anchor">#</a> 可辩别联合 Discriminated Unions</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Rect = {
+  kind: &quot;rect&quot;;
+  width: number;
+  height: number;
+};
+
+type Circle = {
+  kind: &quot;circle&quot;;
+  center: [number, number];
+  radius: number;
+};
+
+type Shape = Circle | Rect; // 这里Shape就是可辨别联合类型
+
+const f2 = (shape: Shape) =&gt; {
+  if (shape.kind === &quot;circle&quot;) {
+    console.log(shape); // Circle
+  } else {
+    console.log(shape); // Rect
+  }
+};
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br></div></div><ul><li><p>优点： 让复杂类型的收窄，变成简单类型的对比</p></li> <li><p>要求：T=A|B|C|D....</p> <ul><li>要求 A|B|C|D 有相同的属性（比如 kind）</li> <li>kind 的类型必须是简单类型</li> <li>各类型中的 kind 可以区分（无交集）</li> <li>这个 T 就可以成为可辩别联合类型</li></ul></li></ul> <h3 id="交叉类型-交集"><a href="#交叉类型-交集" class="header-anchor">#</a> 交叉类型 （交集 &amp;）</h3> <h4 id="举例-2"><a href="#举例-2" class="header-anchor">#</a> 举例</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>type A = string &amp; number; // A 是never
+
+type L = {
+  lefthand: string;
+};
+
+type R = {
+  righthand: string;
+};
+
+type C = L | R;
+type D = L &amp; R;
+
+const d: D = {
+  //  Property righthand   is missing
+  lefthand: &quot;x&quot;,
+};
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><ul><li><p>假如使用 type 有属性冲突，会被推断成 never， 不能赋值</p></li> <li><p>假如使用 interface 有属性冲突，会直接报错</p></li> <li><p>两个函数的交集， 得到一个参数的并集</p></li></ul> <h4 id="结论"><a href="#结论" class="header-anchor">#</a> 结论：</h4> <ul><li>交叉类型常用于有交集的类型 A 、B</li> <li>注意理解<code>type a = {name : string }</code> 是一个 name 为 string 的对象 A 类型，意思是这个可以包含其他任何属性在对象中， 所以并不单单这一个对象会包含在其中</li> <li>但是赋值/第一次声明的时候， ts 会做严格检查， 也就是说第一次声明不能有额外的值在对象中</li></ul> <h2 id="类型兼容与赋值"><a href="#类型兼容与赋值" class="header-anchor">#</a> 类型兼容与赋值</h2> <h3 id="为什么要兼容"><a href="#为什么要兼容" class="header-anchor">#</a> 为什么要兼容</h3> <ul><li>类型往往无法一致</li> <li>你有的 我都有， 则我能代替你</li> <li>y 有的， x 都有， 则 x 兼容 y</li></ul> <h4 id="简单类型"><a href="#简单类型" class="header-anchor">#</a> 简单类型</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>type A = string | number
+let a : A = 'hi'
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h4 id="普通对象兼容"><a href="#普通对象兼容" class="header-anchor">#</a> 普通对象兼容</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Person = {
+  name: string,
+  age:number
+}
+
+let user = {
+  name:&quot;xxx&quot;,
+  age: 18,
+  id:1,
+  email:&quot;xx&quot;
+}
+
+let p: Person;
+p = user
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div><p>这里 user 兼容 Person， 所以直接赋值不报错， 即使作为参数也不会报错</p> <h4 id="复杂函数-函数包含参数和返回值"><a href="#复杂函数-函数包含参数和返回值" class="header-anchor">#</a> 复杂函数（函数包含参数和返回值）</h4> <h5 id="参数个数不同-能兼容吗"><a href="#参数个数不同-能兼容吗" class="header-anchor">#</a> 参数个数不同，能兼容吗？</h5> <p>接收两个参数的函数 = 接受一个参数的函数 （这样是 ok 的， 反之报错）</p> <h5 id="参数类型不同-能兼容吗"><a href="#参数类型不同-能兼容吗" class="header-anchor">#</a> 参数类型不同，能兼容吗？</h5> <p>对参数要求少的可以赋值给对参数要求多的</p> <h5 id="返回值类型不同-能兼容吗"><a href="#返回值类型不同-能兼容吗" class="header-anchor">#</a> 返回值类型不同， 能兼容吗？</h5> <p>返回值属性少集合大 = 返回值属性多集合小</p> <h2 id="对象类型语法"><a href="#对象类型语法" class="header-anchor">#</a> 对象类型语法</h2> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Person = {
+  name: string;
+};
+
+interface PersonInterface{
+  name: string;
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="索引签名"><a href="#索引签名" class="header-anchor">#</a> 索引签名</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Person2 = {
+  name: string;
+  age?: number;
+};
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="映射类型-多用于泛型"><a href="#映射类型-多用于泛型" class="header-anchor">#</a> 映射类型（多用于泛型）</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Hash2 = {
+  [key in string]: unknown;
+};
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h3 id="表示可选"><a href="#表示可选" class="header-anchor">#</a> ？表示可选</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Person2 = {
+  name: string;
+  age?: number;
+};
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="readonly-表示只读-不能写"><a href="#readonly-表示只读-不能写" class="header-anchor">#</a> readonly 表示只读， 不能写</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Person2 = {
+  readonly id:number;
+  name: string;
+  age?: number;
+};
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h2 id="函数类型语法"><a href="#函数类型语法" class="header-anchor">#</a> 函数类型语法</h2> <p>对象的语法全部适用于函数</p> <h3 id="声明函数及其类型"><a href="#声明函数及其类型" class="header-anchor">#</a> 声明函数及其类型</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>//第一种， 先写类型再赋值
+type F1 = (a:number, b:number) =&gt; number
+const f1: F1 = (a,b) =&gt; a + b
+
+//第二种， 先实现箭头函数， 再获取类型
+const f2= (a:number, b:number):number =&gt; a + b
+type F2 = typeof f2
+
+//第三种， 先实现普通函数， 再获取类型
+function f3= (this:unknown, a:number, b:number):number{
+  return a + b
+}
+type F3 = typeof f3
+
+//第四种， 先实现匿名函数， 再获取类型
+const f4= function(this:unknown, a:number, b:number):number{
+  return a + b
+}
+type F4 = typeof f4
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br></div></div><h4 id="类型谓词"><a href="#类型谓词" class="header-anchor">#</a> 类型谓词</h4> <div class="language- line-numbers-mode"><pre class="language-text"><code>funtion isPerson(x: Person | Animal):x is Person{
+  return 'name' in x
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h4 id="可选参数"><a href="#可选参数" class="header-anchor">#</a> 可选参数</h4> <p>addEventListener 第三个参数</p> <h5 id="参数默认值"><a href="#参数默认值" class="header-anchor">#</a> 参数默认值</h5> <h4 id="参数也可以是函数"><a href="#参数也可以是函数" class="header-anchor">#</a> 参数也可以是函数</h4> <h4 id="返回值也是函数"><a href="#返回值也是函数" class="header-anchor">#</a> 返回值也是函数</h4> <p>函数柯里化（redux 的 connect）</p> <h2 id="泛型"><a href="#泛型" class="header-anchor">#</a> 泛型</h2> <ul><li>ts 泛型 -&gt; 理解为 js 的函数</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>type F&lt;A|B&gt; = A|B // 前面为接收参数 后为返回结果
+type Result = F&lt;string, number&gt; // 返回一个类型， 调用F函数
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><ul><li>不确定接受的参数是什么， 在需要用的时候才知道， 传进来的时候才知道</li></ul> <h3 id="extends"><a href="#extends" class="header-anchor">#</a> extends</h3> <ul><li>读作包含于（一个集合小于等于某个集合）</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>type LikeString&lt;T&gt; = T extends string ? true : false;
+type LikeNumber&lt;T&gt; = T extends number ? 1 : 2;
+type LikePerson&lt;T&gt; = T extends Person ? 'yes' : 'no';
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><ul><li>规则 1： 若泛型 T 为 never， 则表达式的值为 never</li> <li>规则 2： 若泛型 T 为联合类型， 则分开计算</li> <li>注意 仅仅对泛型有效</li></ul> <p>泛型中，我们可以使用 extends 关键字来约束传入的泛型参数必须符合要求。关于 extends，A extends B 意味着 A 是 B 的子类型，这里我们暂时只需要了解非常简单的判断逻辑，也就是说 A 比 B 的类型更精确，或者说更复杂。具体来说，可以分为以下几类。</p> <ul><li>更精确，如字面量类型是对应原始类型的子类型，即 'jian' extends string，599 extends number 成立。类似的，联合类型子集均为联合类型的子类型，即 1、 1 | 2 是 1 | 2 | 3 | 4 的子类型。</li> <li>更复杂，如 { name: string } 是 {} 的子类型，因为在 {} 的基础上增加了额外的类型，基类与派生类（父类与子类）同理。</li></ul> <h3 id="keyof"><a href="#keyof" class="header-anchor">#</a> keyof</h3> <ul><li>keyof 操作符接受一个对象类型作为参数，返回该对象属性名组成的字面量联合类型，其作用类似 JavaScript 中的 Object.keys</li> <li>获取到所有 T 泛型的 key</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Person = {
+  name: string;
+  age: number;
+};
+type GetKeys&lt;T&gt; = keyof T;
+
+
+type Result = GetKeys&lt;Person&gt; //name || age
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="extends-keyof"><a href="#extends-keyof" class="header-anchor">#</a> extends keyof</h3> <div class="language- line-numbers-mode"><pre class="language-text"><code>type GetKeyType&lt;T, K extends keyof T&gt; = T[K] // 如果不加会报错， 因为K不一定是T的key
+
+type ResTwo = GetKeyType&lt;Person, 'name'&gt;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h3 id="t-number"><a href="#t-number" class="header-anchor">#</a> T[number]</h3> <p>获取元组 T 中所有元素的联合类型，即取出元组中所有可能的值，我们可以使用 T[number] 的写法。</p> <h3 id="泛型约束与默认值"><a href="#泛型约束与默认值" class="header-anchor">#</a> 泛型约束与默认值</h3> <p>像函数可以声明一个参数的默认值一样，泛型同样有着默认值的设定，比如：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Factory&lt;T = boolean&gt; = T | number | string;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>泛型中，我们可以使用 extends 关键字来约束传入的泛型参数必须符合要求。关于 extends，A extends B 意味着 A 是 B 的子类型，这里我们暂时只需要了解非常简单的判断逻辑，也就是说 A 比 B 的类型更精确，或者说更复杂。具体来说，可以分为以下几类。</p> <ul><li>更精确，如字面量类型是对应原始类型的子类型，即 'jian' extends string，599 extends number 成立。类似的，联合类型子集均为联合类型的子类型，即 1、 1 | 2 是 1 | 2 | 3 | 4 的子类型。</li> <li>更复杂，如 { name: string } 是 {} 的子类型，因为在 {} 的基础上增加了额外的类型，基类与派生类（父类与子类）同理。</li></ul> <p>还可以给默认值</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>type ResStatus&lt;ResCode extends number = 10000&gt; = ResCode extends 10000 | 10001 | 10002
+  ? 'success'
+  : 'failure';
+
+type Res4 = ResStatus; // &quot;success&quot;
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h3 id="对象类型中的泛型"><a href="#对象类型中的泛型" class="header-anchor">#</a> 对象类型中的泛型</h3> <p>由于泛型提供了对类型结构的复用能力，我们也经常在对象类型结构中使用泛型。最常见的一个例子应该还是响应类型结构的泛型处理：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>interface IRes&lt;TData = unknown&gt; {
+  code: number;
+  error?: string;
+  data: TData;
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h3 id="函数中的泛型"><a href="#函数中的泛型" class="header-anchor">#</a> 函数中的泛型</h3> <p>假设我们有这么一个函数，它可以接受多个类型的参数并进行对应处理，比如：</p> <ul><li>对于字符串，返回部分截取；</li> <li>对于数字，返回它的 n 倍；</li> <li>对于对象，修改它的属性并返回。
+这个时候，我们要如何对函数进行类型声明？是 any 大法好？</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>function handle(input: string): string
+function handle(input: number): number
+function handle(input: {}): {}
+function handle(input: string | number | {}): string | number | {} { }
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><p>这个时候，我们就该请出泛型了：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>function handle&lt;T&gt;(input: T): T {}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="类型查询操作符"><a href="#类型查询操作符" class="header-anchor">#</a> 类型查询操作符</h3> <p>TypeScript 还新增了用于类型查询的 typeof ，即 Type Query Operator，这个 typeof 返回的是一个 TypeScript 类型：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>const str = &quot;jian&quot;;
+
+const obj = { name: &quot;jian&quot; };
+
+const nullVar = null;
+const undefinedVar = undefined;
+
+const func = (input: string) =&gt; {
+  return input.length &gt; 10;
+}
+
+type Str = typeof str; // &quot;jian&quot;
+type Obj = typeof obj; // { name: string; }
+type Null = typeof nullVar; // null
+type Undefined = typeof undefined; // undefined
+type Func = typeof func; // (input: string) =&gt; boolean
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><h3 id="基于-in-与-instanceof-的类型保护"><a href="#基于-in-与-instanceof-的类型保护" class="header-anchor">#</a> 基于 in 与 instanceof 的类型保护</h3> <p>in 操作符 并不是 TypeScript 中新增的概念，而是 JavaScript 中已有的部分，它可以通过 key in object 的方式来判断 key 是否存在于 object 或其原型链上（返回 true 说明存在）。
+既然能起到区分作用，那么 TypeScript 中自然也可以用它来保护类型：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>interface Foo {
+  foo: string;
+  fooOnly: boolean;
+  shared: number;
+}
+
+interface Bar {
+  bar: string;
+  barOnly: boolean;
+  shared: number;
+}
+
+function handle(input: Foo | Bar) {
+  if ('foo' in input) {
+    input.fooOnly;
+  } else {
+    input.barOnly;
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br></div></div><p>除此之外，JavaScript 中还存在一个功能类似于 typeof 与 in 的操作符：instanceof，它判断的是原型级别的关系，如 foo instanceof Base 会沿着 foo 的原型链查找 Base.prototype 是否存在其上。当然，在 ES6 已经无处不在的今天，我们也可以简单地认为这是判断 foo 是否是 Base 类的实例。同样的，instanceof 也可以用来进行类型保护：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>class FooBase {}
+
+class BarBase {}
+
+class Foo extends FooBase {
+  fooOnly() {}
+}
+class Bar extends BarBase {
+  barOnly() {}
+}
+
+function handle(input: Foo | Bar) {
+  if (input instanceof FooBase) {
+    input.fooOnly();
+  } else {
+    input.barOnly();
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><h2 id="top-type"><a href="#top-type" class="header-anchor">#</a> Top Type</h2> <p>再往上，我们就到达了类型层级的顶端（是不是很快），这里只有 any 和 unknown 这两兄弟。any 与 unknown 是系统中设定为 Top Type 的两个类型，它们无视一切因果律，是类型世界的规则产物。因此， Object 类型自然会是 any 与 unknown 类型的子类型。</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Result22 = Object extends any ? 1 : 2; // 1
+type Result23 = Object extends unknown ? 1 : 2; // 1
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h2 id="向下探索-直到万物虚无"><a href="#向下探索-直到万物虚无" class="header-anchor">#</a> 向下探索，直到万物虚无</h2> <p>向下地探索其实就简单多了，首先我们能确认一定有个 never 类型，因为它代表了“虚无”的类型，一个根本不存在的类型。对于这样的类型，它会是任何类型的子类型，当然也包括字面量类型：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Result24 = never extends any ? 1 : 2; // 1
+type Result25 = never extends unknown ? 1 : 2; // 1
+type Result26 = never extends string ? 1 : 2; // 1
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h2 id="infer-关键字"><a href="#infer-关键字" class="header-anchor">#</a> infer 关键字</h2> <p>TypeScript 中支持通过 infer 关键字来在条件类型中提取类型的某一部分信息，比如上面我们要提取函数返回值类型的话，可以这么放：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>type FunctionReturnType&lt;T extends Func&gt; = T extends (
+  ...args: any[]
+) =&gt; infer R
+  ? R
+  : never;
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><p>看起来是新朋友，其实还是老伙计。上面的代码其实表达了，当传入的类型参数满足 T extends (...args: any[] ) =&gt; infer R 这样一个结构（不用管 infer R，当它是 any 就行），返回 infer R 位置的值，即 R。否则，返回 never。
+infer，意为推断，如 infer R 中 R 就表示 待推断的类型。 infer 只能在条件类型中使用，因为我们实际上仍然需要类型结构是一致的，比如上例中类型信息需要是一个函数类型结构，我们才能提取出它的返回值类型。如果连函数类型都不是，那我只会给你一个 never 。
+这里的类型结构当然并不局限于函数类型结构，还可以是数组：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>type Swap&lt;T extends any[]&gt; = T extends [infer A, infer B] ? [B, A] : T;
+
+type SwapResult1 = Swap&lt;[1, 2]&gt;; // 符合元组结构，首尾元素替换[2, 1]
+type SwapResult2 = Swap&lt;[1, 2, 3]&gt;; // 不符合结构，没有发生替换，仍是 [1, 2, 3]
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div><p>由于我们声明的结构是一个仅有两个元素的元组，因此三个元素的元组就被认为是不符合类型结构了。但我们可以使用 rest 操作符来处理任意长度的情况：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>// 提取首尾两个
+type ExtractStartAndEnd&lt;T extends any[]&gt; = T extends [
+  infer Start,
+  ...any[],
+  infer End
+]
+  ? [Start, End]
+  : T;
+
+// 调换首尾两个
+type SwapStartAndEnd&lt;T extends any[]&gt; = T extends [
+  infer Start,
+  ...infer Left,
+  infer End
+]
+  ? [End, ...Left, Start]
+  : T;
+
+// 调换开头两个
+type SwapFirstTwo&lt;T extends any[]&gt; = T extends [
+  infer Start1,
+  infer Start2,
+  ...infer Left
+]
+  ? [Start2, Start1, ...Left]
+  : T;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br></div></div><p>是的，infer 甚至可以和 rest 操作符一样同时提取一组不定长的类型，而 ...any[] 的用法是否也让你直呼神奇？上面的输入输出仍然都是数组，而实际上我们完全可以进行结构层面的转换。比如从数组到联合类型：</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>type ArrayItemType&lt;T&gt; = T extends Array&lt;infer ElementType&gt; ? ElementType : never;
+
+type ArrayItemTypeResult1 = ArrayItemType&lt;[]&gt;; // never
+type ArrayItemTypeResult2 = ArrayItemType&lt;string[]&gt;; // string
+type ArrayItemTypeResult3 = ArrayItemType&lt;[string, number]&gt;; // string | number
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><h2 id="逆变与协变"><a href="#逆变与协变" class="header-anchor">#</a> 逆变与协变</h2> <p>// 逆变和协变
+// 函数类型的参数类型使用子类型逆变的方式确定是否成立,
+// 返回值使用子类型协变的方式确定是否成立.</p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">3/16/2025, 6:50:41 AM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/front-end-progress-track/assets/js/app.55fbb09c.js" defer></script><script src="/front-end-progress-track/assets/js/2.3c044b6f.js" defer></script><script src="/front-end-progress-track/assets/js/1.946bbbaf.js" defer></script><script src="/front-end-progress-track/assets/js/20.35b1a1eb.js" defer></script>
+  </body>
+</html>
