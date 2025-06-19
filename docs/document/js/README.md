@@ -607,6 +607,9 @@ console.log(data)
 
 - 如果 cookie 中设置了 HttpOnly 属性，那么通过 js 脚本将无法读取到 cookie 信息，这样能有效的防止 XSS 攻击，窃取 cookie 内容，这样就增加了 cookie 的安全性，即便是这样，也不要将重要信息存入 cookie。
 
+### postMessage 
+potMessage允许不同源（协议、域名、端口不同）的窗口安全通信，是前端常用的跨域数据传递方案之一。常见场景如：主页面与跨域 iframe 通信、OAuth 登录回调等。
+
 ### nodejs npm yarn commonJS
 
 - nodejs 基于 chrome v8 引擎的 JavaScript 运行环境

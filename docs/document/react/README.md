@@ -190,3 +190,44 @@ useCallback：返回缓存的函数。
 ### useImperativeHandle
 - 作用： 自定义转发出去的ref（与ref一起使用的）
 - 应用场景： 不希望开发者直接操作dom， 你用我给你提供的方法就好
+
+## Next.js
+- Next.js 是一个基于 React 的服务端渲染框架，提供了许多开箱即用的功能，如路由、数据获取、静态生成等。
+- 它的核心特性包括：
+  - **文件系统路由**：通过在 pages 目录下创建文件来定义路由。
+  - **静态生成和服务端渲染**：支持在构建时生成静态页面或在请求时动态渲染页面。
+  - **API 路由**：可以在 pages/api 目录下创建 API 路由。
+  - **CSS 和样式支持**：内置对 CSS 和 Sass 的支持。
+  - **自动代码分割**：每个页面只加载所需的 JavaScript 和 CSS。
+
+### Next.js 的数据获取方法
+- **getStaticProps**：在构建时获取数据，适用于静态生成的页面。
+- **getServerSideProps**：在每次请求时获取数据，适用于服务端渲染的页面。
+- **getStaticPaths**：与 getStaticProps 一起使用，用于生成动态路由的静态页面。
+
+### Next.js 的路由系统
+- Next.js 使用文件系统路由，任何在 pages 目录下的文件都会自动成为一个路由。
+
+### app和pages的区别
+- **pages**：传统的 Next.js 路由系统，使用 pages 目录来定义路由。
+- **app**：新的路由系统，提供更灵活的布局和数据获取方式，支持嵌套路由和更细粒度的页面控制。
+
+### Next.js 的部署方式
+- Next.js 应用可以部署到多种平台，如 Vercel、Netlify、AWS 等。它支持静态导出和服务端渲染，可以根据需要选择合适的部署方式。
+
+### Nextjs ssr工作原理
+- Next.js 的服务端渲染（SSR）工作原理是，当用户请求一个页面时，Next.js 会在服务器上执行该页面的代码，包括数据获取和组件渲染，然后将生成的 HTML 返回给客户端。这样可以确保页面在加载时就包含了所需的数据，提高了首屏加载速度和 SEO 性能。
+
+- 用户访问/about
+- Nextjs服务端收到请求， 调用pages/about.js中的组件
+- 如果页面定义了`getServerSideProps`，Next.js 会在服务器上执行该函数获取数据。
+- 拿到props后， nextjs会应用React（server render）来生成HTML字符串
+- 服务端讲HTML与预渲染的props以<script>标签的形式返回给浏览器
+- 浏览器收到HTML后直接展示，同时加载_app.js,React,页面组件等JS进行hydration
+- hydration：浏览器将预渲染的HTML与React组件进行绑定，使得页面变为可交互的状态。
+
+### hydration原理
+- React 在浏览器端用和服务端相同的组件树“重新渲染”一次，但不会操作 DOM，而是把虚拟 DOM 和现有的真实 DOM 进行对比。
+- React 检查服务端生成的 DOM 结构和客户端渲染的虚拟 DOM 是否一致。
+- 然后为这些 DOM 元素“挂载”事件监听、状态等，使页面变得可交互。
+- React 在服务器渲染的 HTML 中添加特殊属性（如 data-reactroot、data-reactid），用于标识节点与 React 组件的映射关系。这些属性在 Hydration 后会被移除。
