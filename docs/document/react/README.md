@@ -191,6 +191,20 @@ useCallback：返回缓存的函数。
 - 作用： 自定义转发出去的ref（与ref一起使用的）
 - 应用场景： 不希望开发者直接操作dom， 你用我给你提供的方法就好
 
+## 避免子组件无意义的重复渲染
+- 使用 React.memo 缓存组件（浅比较 props）。
+- 使用 useMemo 缓存对象 / 数组（避免重新创建）。
+- 使用 useCallback 缓存函数（避免重新定义）。
+- 对嵌套对象 / Context 使用深度缓存（确保内层引用稳定）。
+- 对类组件使用 shouldComponentUpdate 或 PureComponent（手动或自动浅比较）。
+- 谨慎使用深比较（仅在必要时使用 lodash.isEqual）。
+- 利用 React 18 特性（如 startTransition）优化更新优先级。
+
+## 如何让第三方UI库符合UX的设计规范？
+- UI库的主题定制
+- 使用CSS-in-JS库（如 styled-components 或 Emotion）来覆盖默认样式。
+- 利用CSS变量（CSS Custom Properties）来动态调整样式。
+
 ## Next.js
 - Next.js 是一个基于 React 的服务端渲染框架，提供了许多开箱即用的功能，如路由、数据获取、静态生成等。
 - 它的核心特性包括：
@@ -222,7 +236,7 @@ useCallback：返回缓存的函数。
 - Nextjs服务端收到请求， 调用pages/about.js中的组件
 - 如果页面定义了`getServerSideProps`，Next.js 会在服务器上执行该函数获取数据。
 - 拿到props后， nextjs会应用React（server render）来生成HTML字符串
-- 服务端讲HTML与预渲染的props以<script>标签的形式返回给浏览器
+- 服务端讲HTML与预渲染的props以`<script>`标签的形式返回给浏览器
 - 浏览器收到HTML后直接展示，同时加载_app.js,React,页面组件等JS进行hydration
 - hydration：浏览器将预渲染的HTML与React组件进行绑定，使得页面变为可交互的状态。
 
